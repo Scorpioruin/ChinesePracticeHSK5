@@ -1,28 +1,708 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <title>新学中文 | Chinese Learning</title>
 
-    <meta
-      name="description"
-      content="新学中文 - Chinese Vocabulary Learning Website"
-    />
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    <title>新学中文 | Chinese Vocabulary</title>
-  </head>
+<body>
 
-  <body>
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <header class="site-header">
 
-    <noscript>
-      你需要启用 JavaScript 才能使用这个网站。
-    </noscript>
+        <div class="header-inner">
 
-    <div id="root"></div>
+            <div class="logo" data-page="home">
+                <span class="logo-cn">新学中文</span>
+                <span class="logo-en">Chinese Learning</span>
+            </div>
 
-  </body>
+            <nav class="main-nav">
+
+                <button class="nav-btn active" data-page="home">
+                    Home
+                </button>
+
+                <button class="nav-btn" data-page="vocabulary">
+                    Vocabulary
+                </button>
+
+                <button class="nav-btn" data-page="paragraph">
+                    Reading
+                </button>
+
+                <button class="nav-btn" data-page="flashcards">
+                    Flashcards
+                </button>
+
+                <button class="nav-btn" data-page="exam">
+                    Exam
+                </button>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+    <main class="main-container">
+
+
+        <!-- =========================
+             HOME
+        ========================== -->
+        <section id="home" class="page active-page">
+
+            <div class="hero-section">
+
+                <div class="hero-content">
+
+                    <p class="hero-label">
+                        HSK 5 Chinese Learning
+                    </p>
+
+                    <h1>
+                        Learn Chinese<br>
+                        <span>一步一步</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Build your Chinese vocabulary, improve reading,
+                        review with flashcards, and test yourself.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <button
+                            class="primary-btn"
+                            data-page="vocabulary">
+                            Start Learning
+                        </button>
+
+                        <button
+                            class="secondary-btn"
+                            data-page="paragraph">
+                            Read Paragraphs
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Statistics -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <span class="stat-number" id="word-count">
+                        0
+                    </span>
+
+                    <span class="stat-label">
+                        Vocabulary
+                    </span>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span class="stat-number" id="paragraph-count">
+                        0
+                    </span>
+
+                    <span class="stat-label">
+                        Paragraphs
+                    </span>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span class="stat-number">
+                        HSK 5
+                    </span>
+
+                    <span class="stat-label">
+                        Level
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Quick Learning -->
+
+            <div class="home-section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="section-label">
+                            QUICK START
+                        </p>
+
+                        <h2>
+                            Choose how you want to study
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="learning-grid">
+
+                    <button
+                        class="learning-card"
+                        data-page="vocabulary">
+
+                        <span class="learning-icon">
+                            词
+                        </span>
+
+                        <span class="learning-title">
+                            Vocabulary
+                        </span>
+
+                        <span class="learning-description">
+                            Learn useful HSK 5 words and natural example sentences.
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="learning-card"
+                        data-page="paragraph">
+
+                        <span class="learning-icon">
+                            文
+                        </span>
+
+                        <span class="learning-title">
+                            Reading
+                        </span>
+
+                        <span class="learning-description">
+                            Read longer Chinese paragraphs and improve comprehension.
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="learning-card"
+                        data-page="flashcards">
+
+                        <span class="learning-icon">
+                            卡
+                        </span>
+
+                        <span class="learning-title">
+                            Flashcards
+                        </span>
+
+                        <span class="learning-description">
+                            Review vocabulary with simple interactive flashcards.
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="learning-card"
+                        data-page="exam">
+
+                        <span class="learning-icon">
+                            测
+                        </span>
+
+                        <span class="learning-title">
+                            Exam
+                        </span>
+
+                        <span class="learning-description">
+                            Test your vocabulary and reading knowledge.
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             VOCABULARY
+        ========================== -->
+        <section id="vocabulary" class="page">
+
+            <div class="page-header">
+
+                <div>
+
+                    <p class="section-label">
+                        VOCABULARY
+                    </p>
+
+                    <h1>
+                        HSK 5 Vocabulary
+                    </h1>
+
+                    <p>
+                        Search, filter and review useful Chinese vocabulary.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Search -->
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Search Chinese, pinyin or meaning..."
+                    autocomplete="off"
+                >
+
+                <button id="clear-search" class="small-btn">
+                    Clear
+                </button>
+
+            </div>
+
+
+            <!-- Alphabet -->
+
+            <div class="alphabet-wrapper">
+
+                <button
+                    class="alphabet-btn active"
+                    data-letter="all">
+                    ALL
+                </button>
+
+                <div id="alphabet-list"></div>
+
+            </div>
+
+
+            <!-- Result information -->
+
+            <div class="result-info">
+
+                <span id="vocabulary-result-count">
+                    0 words
+                </span>
+
+            </div>
+
+
+            <!-- Vocabulary list -->
+
+            <div
+                id="vocabulary-list"
+                class="vocabulary-grid">
+            </div>
+
+
+            <div
+                id="vocabulary-empty"
+                class="empty-state hidden">
+
+                <h3>
+                    No vocabulary found
+                </h3>
+
+                <p>
+                    Try another word, pinyin or letter.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             FLASHCARDS
+        ========================== -->
+        <section id="flashcards" class="page">
+
+            <div class="page-header">
+
+                <div>
+
+                    <p class="section-label">
+                        REVIEW
+                    </p>
+
+                    <h1>
+                        Flashcards
+                    </h1>
+
+                    <p>
+                        Review vocabulary one card at a time.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="flashcard-controls">
+
+                <button
+                    id="flashcard-toggle-pinyin"
+                    class="secondary-btn">
+                    Hide Pinyin
+                </button>
+
+                <button
+                    id="flashcard-toggle-meaning"
+                    class="secondary-btn">
+                    Hide Meaning
+                </button>
+
+                <button
+                    id="shuffle-cards"
+                    class="secondary-btn">
+                    Shuffle
+                </button>
+
+            </div>
+
+
+            <div class="flashcard-area">
+
+                <div
+                    id="flashcard"
+                    class="flashcard">
+
+                    <div class="flashcard-top">
+
+                        <span>
+                            Vocabulary
+                        </span>
+
+                        <span id="flashcard-counter">
+                            1 / 1
+                        </span>
+
+                    </div>
+
+
+                    <div class="flashcard-content">
+
+                        <div
+                            id="flashcard-chinese"
+                            class="flashcard-chinese">
+                            —
+                        </div>
+
+                        <div
+                            id="flashcard-pinyin"
+                            class="flashcard-pinyin">
+                            —
+                        </div>
+
+                        <div
+                            id="flashcard-meaning"
+                            class="flashcard-meaning">
+                            —
+                        </div>
+
+                        <div
+                            id="flashcard-sentence"
+                            class="flashcard-sentence">
+                            —
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="flashcard-navigation">
+
+                    <button
+                        id="previous-card"
+                        class="secondary-btn">
+                        ← Previous
+                    </button>
+
+                    <button
+                        id="next-card"
+                        class="primary-btn">
+                        Next →
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             PARAGRAPH READING
+        ========================== -->
+        <section id="paragraph" class="page">
+
+            <div class="page-header">
+
+                <div>
+
+                    <p class="section-label">
+                        READING
+                    </p>
+
+                    <h1>
+                        Paragraph Reading
+                    </h1>
+
+                    <p>
+                        Read longer passages and practice understanding context.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="reading-layout">
+
+                <!-- Article list -->
+
+                <aside class="paragraph-sidebar">
+
+                    <div class="sidebar-title">
+                        Articles
+                    </div>
+
+                    <div
+                        id="paragraph-list"
+                        class="paragraph-list">
+                    </div>
+
+                </aside>
+
+
+                <!-- Article -->
+
+                <article class="reading-article">
+
+                    <div class="reading-toolbar">
+
+                        <button
+                            id="paragraph-pinyin-toggle"
+                            class="secondary-btn">
+                            Show Pinyin
+                        </button>
+
+                        <button
+                            id="paragraph-prev"
+                            class="secondary-btn">
+                            ← Previous
+                        </button>
+
+                        <button
+                            id="paragraph-next"
+                            class="primary-btn">
+                            Next →
+                        </button>
+
+                    </div>
+
+
+                    <div class="reading-progress-container">
+
+                        <div class="reading-progress-text">
+
+                            <span>
+                                Reading Progress
+                            </span>
+
+                            <span id="reading-progress-percent">
+                                0%
+                            </span>
+
+                        </div>
+
+                        <div class="reading-progress-bar">
+
+                            <div
+                                id="reading-progress-fill">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="article-content">
+
+                        <p
+                            id="article-number"
+                            class="article-number">
+                        </p>
+
+                        <h2 id="article-title">
+                            Select an article
+                        </h2>
+
+
+                        <div
+                            id="article-chinese"
+                            class="article-chinese">
+                        </div>
+
+
+                        <div
+                            id="article-pinyin"
+                            class="article-pinyin hidden">
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             EXAM
+        ========================== -->
+        <section id="exam" class="page">
+
+            <div class="page-header">
+
+                <div>
+
+                    <p class="section-label">
+                        PRACTICE
+                    </p>
+
+                    <h1>
+                        Chinese Vocabulary Exam
+                    </h1>
+
+                    <p>
+                        Test yourself with vocabulary questions.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="exam-card">
+
+                <div class="exam-top">
+
+                    <span id="exam-progress">
+                        Question 1
+                    </span>
+
+                    <span id="exam-score">
+                        Score: 0
+                    </span>
+
+                </div>
+
+
+                <div
+                    id="exam-container">
+
+                    <div
+                        id="exam-question"
+                        class="exam-question">
+                        Click Start Exam
+                    </div>
+
+                    <div
+                        id="exam-answer"
+                        class="exam-answer">
+                    </div>
+
+                </div>
+
+
+                <div class="exam-actions">
+
+                    <button
+                        id="start-exam"
+                        class="primary-btn">
+                        Start Exam
+                    </button>
+
+                    <button
+                        id="next-exam"
+                        class="secondary-btn hidden">
+                        Next Question
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="exam-result"
+                    class="exam-result hidden">
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="site-footer">
+
+        <div>
+            新学中文 · Chinese Learning
+        </div>
+
+        <div>
+            HSK 5 Study Website
+        </div>
+
+    </footer>
+
+
+    <script src="app.js"></script>
+
+</body>
 </html>
