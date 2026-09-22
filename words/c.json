@@ -1,0 +1,332 @@
+[
+  {
+    "id": 1,
+    "words": "财产",
+    "Pinyin": "cáichǎn",
+    "Meaning": "property; possessions; assets",
+    "Sentences": "我们应该妥善保管自己的财产，避免因为疏忽而造成损失。"
+  },
+  {
+    "id": 2,
+    "words": "踩",
+    "Pinyin": "cǎi",
+    "Meaning": "to step on; to tread on",
+    "Sentences": "下雨以后路面很滑，走路时要小心，别踩到水坑里。"
+  },
+  {
+    "id": 3,
+    "words": "采取",
+    "Pinyin": "cǎiqǔ",
+    "Meaning": "to take; to adopt; to implement",
+    "Sentences": "为了避免类似的问题再次发生，公司决定采取更加严格的管理措施。"
+  },
+  {
+    "id": 4,
+    "words": "残疾",
+    "Pinyin": "cánjí",
+    "Meaning": "disability; disabled",
+    "Sentences": "这座公共建筑专门设置了残疾人通道，方便行动不便的人进出。"
+  },
+  {
+    "id": 5,
+    "words": "参观",
+    "Pinyin": "cānguān",
+    "Meaning": "to visit; to tour",
+    "Sentences": "学校组织学生参观了当地的博物馆，以便让他们进一步了解历史。"
+  },
+  {
+    "id": 6,
+    "words": "惭愧",
+    "Pinyin": "cánkuì",
+    "Meaning": "ashamed; embarrassed",
+    "Sentences": "想到自己答应别人的事情没有做到，他感到十分惭愧。"
+  },
+  {
+    "id": 7,
+    "words": "操场",
+    "Pinyin": "cāochǎng",
+    "Meaning": "playground; sports field",
+    "Sentences": "每天傍晚，很多学生都会到操场上跑步或者进行其他体育活动。"
+  },
+  {
+    "id": 8,
+    "words": "曾经",
+    "Pinyin": "céngjīng",
+    "Meaning": "once; formerly; have ever",
+    "Sentences": "我曾经在国外生活过一段时间，因此对不同文化之间的差异有一些了解。"
+  },
+  {
+    "id": 9,
+    "words": "插",
+    "Pinyin": "chā",
+    "Meaning": "to insert; to plug in; to stick in",
+    "Sentences": "请把充电器插上，然后检查一下手机是否正在充电。"
+  },
+  {
+    "id": 10,
+    "words": "叉子",
+    "Pinyin": "chāzi",
+    "Meaning": "fork",
+    "Sentences": "如果你不习惯用筷子，也可以向服务员要一把叉子。"
+  },
+  {
+    "id": 11,
+    "words": "拆",
+    "Pinyin": "chāi",
+    "Meaning": "to take apart; to dismantle; to unwrap",
+    "Sentences": "收到包裹以后，他迫不及待地把包装拆开，看看里面是什么。"
+  },
+  {
+    "id": 12,
+    "words": "长途",
+    "Pinyin": "chángtú",
+    "Meaning": "long-distance; long journey",
+    "Sentences": "长途旅行之前最好提前做好准备，并保证有足够的休息时间。"
+  },
+  {
+    "id": 13,
+    "words": "常识",
+    "Pinyin": "chángshí",
+    "Meaning": "common sense; general knowledge",
+    "Sentences": "这些都是日常生活中的基本常识，我们应该主动去了解。"
+  },
+  {
+    "id": 14,
+    "words": "抄",
+    "Pinyin": "chāo",
+    "Meaning": "to copy; to transcribe",
+    "Sentences": "考试时不能抄别人的答案，真正重要的是掌握解决问题的方法。"
+  },
+  {
+    "id": 15,
+    "words": "朝",
+    "Pinyin": "cháo",
+    "Meaning": "toward; towards",
+    "Sentences": "他朝门口看了一眼，发现有一个陌生人正在那里等候。"
+  },
+  {
+    "id": 16,
+    "words": "朝代",
+    "Pinyin": "cháodài",
+    "Meaning": "dynasty",
+    "Sentences": "这座古建筑经历了多个朝代，至今仍然保存得比较完整。"
+  },
+  {
+    "id": 17,
+    "words": "车厢",
+    "Pinyin": "chēxiāng",
+    "Meaning": "train carriage; carriage; compartment",
+    "Sentences": "列车即将出发，请乘客尽快回到自己的车厢。"
+  },
+  {
+    "id": 18,
+    "words": "彻底",
+    "Pinyin": "chèdǐ",
+    "Meaning": "thoroughly; completely",
+    "Sentences": "如果想彻底解决这个问题，就必须先找到导致问题发生的根本原因。"
+  },
+  {
+    "id": 19,
+    "words": "趁",
+    "Pinyin": "chèn",
+    "Meaning": "while; take advantage of",
+    "Sentences": "趁天气还不错，我们赶紧把需要晾晒的衣服拿出去。"
+  },
+  {
+    "id": 20,
+    "words": "称赞",
+    "Pinyin": "chēngzàn",
+    "Meaning": "to praise; to commend",
+    "Sentences": "他的工作态度得到了同事们的一致称赞。"
+  },
+  {
+    "id": 21,
+    "words": "承担",
+    "Pinyin": "chéngdān",
+    "Meaning": "to undertake; to bear; to assume",
+    "Sentences": "作为项目负责人，他不仅要承担主要的工作，还要对最终结果负责。"
+  },
+  {
+    "id": 22,
+    "words": "程序",
+    "Pinyin": "chéngxù",
+    "Meaning": "procedure; process; program",
+    "Sentences": "申请这项服务需要经过几个程序，因此最好提前准备相关材料。"
+  },
+  {
+    "id": 23,
+    "words": "成分",
+    "Pinyin": "chéngfèn",
+    "Meaning": "component; ingredient; constituent",
+    "Sentences": "购买食品时，我们应该注意查看包装上的成分和生产日期。"
+  },
+  {
+    "id": 24,
+    "words": "成立",
+    "Pinyin": "chénglì",
+    "Meaning": "to establish; to set up; to be founded",
+    "Sentences": "这家公司成立于十年前，如今已经发展成为当地较有影响力的企业。"
+  },
+  {
+    "id": 25,
+    "words": "诚恳",
+    "Pinyin": "chéngkěn",
+    "Meaning": "sincere; earnest; candid",
+    "Sentences": "他态度诚恳地向大家道歉，并表示以后会认真改正自己的错误。"
+  },
+  {
+    "id": 26,
+    "words": "持续",
+    "Pinyin": "chíxù",
+    "Meaning": "to continue; to last; to sustain",
+    "Sentences": "如果这种情况持续下去，可能会对公司的正常运营产生影响。"
+  },
+  {
+    "id": 27,
+    "words": "翅膀",
+    "Pinyin": "chìbǎng",
+    "Meaning": "wing",
+    "Sentences": "这只鸟的翅膀受了伤，暂时无法飞到空中。"
+  },
+  {
+    "id": 28,
+    "words": "池子",
+    "Pinyin": "chízi",
+    "Meaning": "pool; pond; basin",
+    "Sentences": "孩子们在池子里玩水时，家长应该始终注意他们的安全。"
+  },
+  {
+    "id": 29,
+    "words": "冲",
+    "Pinyin": "chōng",
+    "Meaning": "to rush; to charge; to rinse; toward",
+    "Sentences": "听到有人叫自己的名字，他立刻冲出了房间。"
+  },
+  {
+    "id": 30,
+    "words": "重复",
+    "Pinyin": "chóngfù",
+    "Meaning": "to repeat; to duplicate; repetitive",
+    "Sentences": "为了避免重复劳动，大家在开始工作之前应该先确认各自的任务。"
+  },
+  {
+    "id": 31,
+    "words": "抽屉",
+    "Pinyin": "chōuti",
+    "Meaning": "drawer",
+    "Sentences": "我把重要的文件放在书桌最下面的抽屉里了。"
+  },
+  {
+    "id": 32,
+    "words": "初级",
+    "Pinyin": "chūjí",
+    "Meaning": "elementary; primary; beginner-level",
+    "Sentences": "这本教材主要适合初级学习者，对于已经达到中高级水平的人来说可能比较简单。"
+  },
+  {
+    "id": 33,
+    "words": "除了",
+    "Pinyin": "chúle",
+    "Meaning": "besides; except; apart from",
+    "Sentences": "除了掌握基本词汇以外，学习者还需要熟悉常见的固定搭配。"
+  },
+  {
+    "id": 34,
+    "words": "传递",
+    "Pinyin": "chuándì",
+    "Meaning": "to pass on; to transmit; to convey",
+    "Sentences": "语言不仅能够传递信息，还能够表达一个人的情感和态度。"
+  },
+  {
+    "id": 35,
+    "words": "传染",
+    "Pinyin": "chuánrǎn",
+    "Meaning": "to infect; to transmit a disease",
+    "Sentences": "这种疾病具有较强的传染性，因此发现患者后应该及时采取隔离措施。"
+  },
+  {
+    "id": 36,
+    "words": "传说",
+    "Pinyin": "chuánshuō",
+    "Meaning": "legend; tale; it is said",
+    "Sentences": "传说这座古城已经有上千年的历史，至今还流传着许多有趣的故事。"
+  },
+  {
+    "id": 37,
+    "words": "闯",
+    "Pinyin": "chuǎng",
+    "Meaning": "to rush; to charge; to break into; to venture",
+    "Sentences": "未经允许闯入别人的房间是不礼貌的行为。"
+  },
+  {
+    "id": 38,
+    "words": "磁带",
+    "Pinyin": "cídài",
+    "Meaning": "magnetic tape; cassette tape",
+    "Sentences": "虽然现在很少有人使用磁带，但这种记录声音的方式曾经十分普遍。"
+  },
+  {
+    "id": 39,
+    "words": "此外",
+    "Pinyin": "cǐwài",
+    "Meaning": "besides; in addition; furthermore",
+    "Sentences": "这份工作要求应聘者具备相关经验，此外，还需要有较强的沟通能力。"
+  },
+  {
+    "id": 40,
+    "words": "次要",
+    "Pinyin": "cìyào",
+    "Meaning": "secondary; less important; minor",
+    "Sentences": "在处理这个问题时，我们应该先解决主要矛盾，次要问题可以稍后再考虑。"
+  },
+  {
+    "id": 41,
+    "words": "刺激",
+    "Pinyin": "cìjī",
+    "Meaning": "to stimulate; to irritate; stimulus; excitement",
+    "Sentences": "适当的竞争能够刺激人们不断提高自己的能力。"
+  },
+  {
+    "id": 42,
+    "words": "匆忙",
+    "Pinyin": "cōngmáng",
+    "Meaning": "hurried; hurriedly; in a rush",
+    "Sentences": "由于时间太紧，他匆忙收拾好行李，便赶往机场。"
+  },
+  {
+    "id": 43,
+    "words": "从此",
+    "Pinyin": "cóngcǐ",
+    "Meaning": "from then on; from that time onward",
+    "Sentences": "那次失败让他意识到准备的重要性，从此以后，他做任何事情都会提前做好计划。"
+  },
+  {
+    "id": 44,
+    "words": "从事",
+    "Pinyin": "cóngshì",
+    "Meaning": "to engage in; to work in; to be involved in",
+    "Sentences": "毕业以后，她一直从事数据分析方面的工作，并积累了丰富的实践经验。"
+  },
+  {
+    "id": 45,
+    "words": "促进",
+    "Pinyin": "cùjìn",
+    "Meaning": "to promote; to facilitate; to advance",
+    "Sentences": "加强不同国家之间的交流，有助于促进彼此的理解与合作。"
+  },
+  {
+    "id": 46,
+    "words": "催",
+    "Pinyin": "cuī",
+    "Meaning": "to urge; to hurry; to press",
+    "Sentences": "经理不断催他提交报告，但他还是希望把内容检查清楚以后再交。"
+  },
+  {
+    "id": 47,
+    "words": "措施",
+    "Pinyin": "cuòshī",
+    "Meaning": "measure; step; action taken",
+    "Sentences": "为了提高工作效率，公司采取了一系列有效措施，包括优化工作流程和加强员工培训。"
+  }
+
+]

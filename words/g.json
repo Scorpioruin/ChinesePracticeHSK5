@@ -1,0 +1,338 @@
+[
+  {
+    "id": 1,
+    "words": "改革",
+    "Pinyin": "gǎigé",
+    "Meaning": "to reform; reform",
+    "Sentences": "为了提高工作效率，公司决定进一步改革原有的管理制度。"
+  },
+  {
+    "id": 2,
+    "words": "盖",
+    "Pinyin": "gài",
+    "Meaning": "to cover; to build; to construct",
+    "Sentences": "请把锅盖盖好，以免里面的汤很快变凉。"
+  },
+  {
+    "id": 3,
+    "words": "概括",
+    "Pinyin": "gàikuò",
+    "Meaning": "to summarize; to generalize",
+    "Sentences": "请用几句话概括一下这篇文章的主要内容。"
+  },
+  {
+    "id": 4,
+    "words": "干脆",
+    "Pinyin": "gāncuì",
+    "Meaning": "simply; straightforward; clear-cut",
+    "Sentences": "既然大家都没有意见，那我们干脆今天就把这件事情决定下来。"
+  },
+  {
+    "id": 5,
+    "words": "干燥",
+    "Pinyin": "gānzào",
+    "Meaning": "dry; arid",
+    "Sentences": "这个地区气候比较干燥，平时应该注意补充水分。"
+  },
+  {
+    "id": 6,
+    "words": "感想",
+    "Pinyin": "gǎnxiǎng",
+    "Meaning": "thoughts; impressions; reflections",
+    "Sentences": "活动结束以后，老师让每个人分享一下自己的感想。"
+  },
+  {
+    "id": 7,
+    "words": "干活儿",
+    "Pinyin": "gànhuór",
+    "Meaning": "to work; to do manual work",
+    "Sentences": "虽然天气很热，但是大家还是坚持干活儿，没有提前离开。"
+  },
+  {
+    "id": 8,
+    "words": "刚刚",
+    "Pinyin": "gānggāng",
+    "Meaning": "just now; a moment ago; just",
+    "Sentences": "我刚刚收到他的消息，他说会议时间可能会有所调整。"
+  },
+  {
+    "id": 9,
+    "words": "钢铁",
+    "Pinyin": "gāngtiě",
+    "Meaning": "steel; iron and steel",
+    "Sentences": "这座城市过去主要以钢铁工业为主，近年来开始发展其他产业。"
+  },
+  {
+    "id": 10,
+    "words": "高档",
+    "Pinyin": "gāodàng",
+    "Meaning": "high-grade; high-class; upscale",
+    "Sentences": "这家商场主要销售高档商品，因此价格普遍比较高。"
+  },
+  {
+    "id": 11,
+    "words": "胳膊",
+    "Pinyin": "gēbo",
+    "Meaning": "arm",
+    "Sentences": "他昨天搬东西的时候不小心扭伤了胳膊。"
+  },
+  {
+    "id": 12,
+    "words": "鸽子",
+    "Pinyin": "gēzi",
+    "Meaning": "pigeon; dove",
+    "Sentences": "广场上有很多鸽子，游客经常停下来给它们拍照。"
+  },
+  {
+    "id": 13,
+    "words": "革命",
+    "Pinyin": "gémìng",
+    "Meaning": "revolution; revolutionary",
+    "Sentences": "工业革命对人类社会的发展产生了深远的影响。"
+  },
+  {
+    "id": 14,
+    "words": "格外",
+    "Pinyin": "géwài",
+    "Meaning": "especially; particularly; exceptionally",
+    "Sentences": "经过这次经历以后，他格外重视与别人之间的沟通。"
+  },
+  {
+    "id": 15,
+    "words": "个别",
+    "Pinyin": "gèbié",
+    "Meaning": "individual; particular; a few; exceptional",
+    "Sentences": "调查结果总体比较理想，只有个别问题还需要进一步解决。"
+  },
+  {
+    "id": 16,
+    "words": "个子",
+    "Pinyin": "gèzi",
+    "Meaning": "height; stature",
+    "Sentences": "他个子不算高，但是运动能力很强。"
+  },
+  {
+    "id": 17,
+    "words": "各自",
+    "Pinyin": "gèzì",
+    "Meaning": "each; respective; individually",
+    "Sentences": "会议结束后，大家回到各自的岗位，继续完成剩下的工作。"
+  },
+  {
+    "id": 18,
+    "words": "公布",
+    "Pinyin": "gōngbù",
+    "Meaning": "to announce; to publish; to make public",
+    "Sentences": "考试成绩将在下周公布，学生可以通过学校网站查询。"
+  },
+  {
+    "id": 19,
+    "words": "公开",
+    "Pinyin": "gōngkāi",
+    "Meaning": "public; open; to make public",
+    "Sentences": "公司决定公开这项调查的结果，以便让员工了解具体情况。"
+  },
+  {
+    "id": 20,
+    "words": "公平",
+    "Pinyin": "gōngpíng",
+    "Meaning": "fair; impartial; fairness",
+    "Sentences": "在招聘过程中，公司应该为所有应聘者提供公平的竞争机会。"
+  },
+  {
+    "id": 21,
+    "words": "公主",
+    "Pinyin": "gōngzhǔ",
+    "Meaning": "princess",
+    "Sentences": "这座古老的城堡里流传着一个关于公主的传说。"
+  },
+  {
+    "id": 22,
+    "words": "功夫",
+    "Pinyin": "gōngfu",
+    "Meaning": "kung fu; skill; effort; time spent",
+    "Sentences": "想把一门语言学好，除了方法以外，还需要下不少功夫。"
+  },
+  {
+    "id": 23,
+    "words": "贡献",
+    "Pinyin": "gòngxiàn",
+    "Meaning": "to contribute; contribution",
+    "Sentences": "每个人都可以通过自己的努力，为社会的发展作出贡献。"
+  },
+  {
+    "id": 24,
+    "words": "估计",
+    "Pinyin": "gūjì",
+    "Meaning": "to estimate; to reckon; probably",
+    "Sentences": "根据目前的情况，我估计这个项目还需要两周左右才能完成。"
+  },
+  {
+    "id": 25,
+    "words": "古老",
+    "Pinyin": "gǔlǎo",
+    "Meaning": "ancient; old; age-old",
+    "Sentences": "这座城市拥有悠久的历史，至今仍然保留着许多古老的建筑。"
+  },
+  {
+    "id": 26,
+    "words": "鼓励",
+    "Pinyin": "gǔlì",
+    "Meaning": "to encourage; encouragement",
+    "Sentences": "老师经常鼓励学生主动表达自己的观点，而不是害怕犯错误。"
+  },
+  {
+    "id": 27,
+    "words": "鼓舞",
+    "Pinyin": "gǔwǔ",
+    "Meaning": "to inspire; to encourage; inspiration",
+    "Sentences": "他的成功经历给了许多年轻人很大的鼓舞。"
+  },
+  {
+    "id": 28,
+    "words": "鼓掌",
+    "Pinyin": "gǔzhǎng",
+    "Meaning": "to applaud; to clap",
+    "Sentences": "演讲结束以后，现场响起了热烈的掌声，大家纷纷鼓掌表示支持。"
+  },
+  {
+    "id": 29,
+    "words": "固定",
+    "Pinyin": "gùdìng",
+    "Meaning": "fixed; regular; to fix; to secure",
+    "Sentences": "我每天都有一个固定的学习时间，这样比较容易养成良好的习惯。"
+  },
+  {
+    "id": 30,
+    "words": "固体",
+    "Pinyin": "gùtǐ",
+    "Meaning": "solid; solid state",
+    "Sentences": "水在低温下会变成固体，也就是我们常说的冰。"
+  },
+  {
+    "id": 31,
+    "words": "挂号",
+    "Pinyin": "guàhào",
+    "Meaning": "to register; to make an appointment at a hospital",
+    "Sentences": "如果身体不舒服，最好提前在医院挂号，以免到了以后需要等待很长时间。"
+  },
+  {
+    "id": 32,
+    "words": "拐弯",
+    "Pinyin": "guǎiwān",
+    "Meaning": "to turn; to make a turn; bend",
+    "Sentences": "过了前面的路口以后向右拐弯，再走大约五分钟就到了。"
+  },
+  {
+    "id": 33,
+    "words": "怪不得",
+    "Pinyin": "guàibude",
+    "Meaning": "no wonder; it is no wonder that",
+    "Sentences": "怪不得你今天看起来这么累，原来昨晚一直在准备考试。"
+  },
+  {
+    "id": 34,
+    "words": "关怀",
+    "Pinyin": "guānhuái",
+    "Meaning": "care; concern; to care for",
+    "Sentences": "在成长过程中，家人的关怀和支持对一个人来说非常重要。"
+  },
+  {
+    "id": 35,
+    "words": "观念",
+    "Pinyin": "guānniàn",
+    "Meaning": "idea; concept; viewpoint; notion",
+    "Sentences": "随着社会的发展，人们的消费观念也在不断发生变化。"
+  },
+  {
+    "id": 36,
+    "words": "管子",
+    "Pinyin": "guǎnzi",
+    "Meaning": "pipe; tube",
+    "Sentences": "这根管子好像漏水了，需要尽快检查和维修。"
+  },
+  {
+    "id": 37,
+    "words": "冠军",
+    "Pinyin": "guànjūn",
+    "Meaning": "champion; championship",
+    "Sentences": "经过激烈的比赛，他最终获得了本次比赛的冠军。"
+  },
+  {
+    "id": 38,
+    "words": "罐头",
+    "Pinyin": "guàntou",
+    "Meaning": "canned food; tin; can",
+    "Sentences": "虽然罐头保存时间比较长，但是购买时还是应该注意生产日期。"
+  },
+  {
+    "id": 39,
+    "words": "光滑",
+    "Pinyin": "guānghuá",
+    "Meaning": "smooth; sleek",
+    "Sentences": "这种材料表面非常光滑，摸起来感觉很舒服。"
+  },
+  {
+    "id": 40,
+    "words": "光盘",
+    "Pinyin": "guāngpán",
+    "Meaning": "CD; optical disc",
+    "Sentences": "以前很多软件都是通过光盘安装的，现在则更多地通过网络下载。"
+  },
+  {
+    "id": 41,
+    "words": "光荣",
+    "Pinyin": "guāngróng",
+    "Meaning": "glory; honor; glorious",
+    "Sentences": "能够代表学校参加这次比赛，对他来说是一件非常光荣的事情。"
+  },
+  {
+    "id": 42,
+    "words": "广泛",
+    "Pinyin": "guǎngfàn",
+    "Meaning": "wide; extensive; widespread",
+    "Sentences": "随着互联网的发展，这种学习方式已经得到了越来越广泛的应用。"
+  },
+  {
+    "id": 43,
+    "words": "规矩",
+    "Pinyin": "guīju",
+    "Meaning": "rule; regulation; custom; proper behavior",
+    "Sentences": "无论在哪里生活，我们都应该了解并遵守当地的规矩。"
+  },
+  {
+    "id": 44,
+    "words": "滚",
+    "Pinyin": "gǔn",
+    "Meaning": "to roll; to boil; get lost (rude)",
+    "Sentences": "锅里的水已经滚了，可以把面条放进去了。"
+  },
+  {
+    "id": 45,
+    "words": "国庆节",
+    "Pinyin": "Guóqìngjié",
+    "Meaning": "National Day",
+    "Sentences": "国庆节期间，很多人会利用假期回家探亲或者外出旅游。"
+  },
+  {
+    "id": 46,
+    "words": "果然",
+    "Pinyin": "guǒrán",
+    "Meaning": "sure enough; as expected",
+    "Sentences": "我早就听说这家餐厅很受欢迎，今天一来看，果然有很多人在排队。"
+  },
+  {
+    "id": 47,
+    "words": "果实",
+    "Pinyin": "guǒshí",
+    "Meaning": "fruit; fruits of one's labor; achievement",
+    "Sentences": "经过多年的努力，他终于收获了事业上的果实。"
+  },
+  {
+    "id": 48,
+    "words": "国籍",
+    "Pinyin": "guójí",
+    "Meaning": "nationality; citizenship",
+    "Sentences": "填写申请表时，请确认自己的姓名、出生日期和国籍等信息是否准确。"
+  }
+]

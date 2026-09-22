@@ -1,0 +1,233 @@
+[
+  {
+    "id": 1,
+    "words": "发表",
+    "Pinyin": "fābiǎo",
+    "Meaning": "to publish; to issue; to express (an opinion)",
+    "Sentences": "他在会议上发表了自己的看法，并提出了几个值得讨论的问题。"
+  },
+  {
+    "id": 2,
+    "words": "发愁",
+    "Pinyin": "fāchóu",
+    "Meaning": "to worry; to be troubled",
+    "Sentences": "虽然目前遇到了一些困难，但我们没有必要为还没有发生的事情发愁。"
+  },
+  {
+    "id": 3,
+    "words": "发挥",
+    "Pinyin": "fāhuī",
+    "Meaning": "to bring into play; to give full play to; to exert",
+    "Sentences": "只有充分发挥自己的优势，才能在激烈的竞争中取得更好的成绩。"
+  },
+  {
+    "id": 4,
+    "words": "发明",
+    "Pinyin": "fāmíng",
+    "Meaning": "to invent; invention",
+    "Sentences": "这项发明不仅提高了工作效率，还给人们的生活带来了很大的便利。"
+  },
+  {
+    "id": 5,
+    "words": "发言",
+    "Pinyin": "fāyán",
+    "Meaning": "to speak; to make a speech; statement",
+    "Sentences": "会议开始以后，大家纷纷发言，提出了自己的意见和建议。"
+  },
+  {
+    "id": 6,
+    "words": "罚款",
+    "Pinyin": "fákuǎn",
+    "Meaning": "to fine; fine; penalty",
+    "Sentences": "如果违反交通规则，除了受到批评以外，还有可能被罚款。"
+  },
+  {
+    "id": 7,
+    "words": "繁荣",
+    "Pinyin": "fánróng",
+    "Meaning": "prosperous; flourishing; prosperity",
+    "Sentences": "近年来，随着经济不断发展，这个地区的商业越来越繁荣。"
+  },
+  {
+    "id": 8,
+    "words": "凡是",
+    "Pinyin": "fánshì",
+    "Meaning": "all; every; whoever/whatever that",
+    "Sentences": "凡是参加这次活动的人，都必须提前填写报名表。"
+  },
+  {
+    "id": 9,
+    "words": "反复",
+    "Pinyin": "fǎnfù",
+    "Meaning": "repeatedly; again and again; repeatedly review",
+    "Sentences": "为了避免出现错误，他反复检查了报告中的数据。"
+  },
+  {
+    "id": 10,
+    "words": "反映",
+    "Pinyin": "fǎnyìng",
+    "Meaning": "to reflect; to report; to mirror",
+    "Sentences": "这份调查结果反映了年轻人对网络学习方式的看法。"
+  },
+  {
+    "id": 11,
+    "words": "反正",
+    "Pinyin": "fǎnzhèng",
+    "Meaning": "anyway; in any case",
+    "Sentences": "反正今天已经没有其他安排了，我们不如留下来把这项工作完成。"
+  },
+  {
+    "id": 12,
+    "words": "范围",
+    "Pinyin": "fànwéi",
+    "Meaning": "scope; range; extent",
+    "Sentences": "这次调查的范围比较广，涉及多个年龄段的人群。"
+  },
+  {
+    "id": 13,
+    "words": "方面",
+    "Pinyin": "fāngmiàn",
+    "Meaning": "aspect; area; respect",
+    "Sentences": "这份工作不仅要求专业能力，还需要在沟通和协调方面有一定的经验。"
+  },
+  {
+    "id": 14,
+    "words": "妨碍",
+    "Pinyin": "fáng'ài",
+    "Meaning": "to hinder; to obstruct; to interfere with",
+    "Sentences": "过多的手机通知会妨碍我们的工作效率，因此最好在工作时关闭不必要的提醒。"
+  },
+  {
+    "id": 15,
+    "words": "仿佛",
+    "Pinyin": "fǎngfú",
+    "Meaning": "as if; as though; seemingly",
+    "Sentences": "听到这首熟悉的歌曲，我仿佛又回到了学生时代。"
+  },
+  {
+    "id": 16,
+    "words": "放暑假",
+    "Pinyin": "fàng shǔjià",
+    "Meaning": "to have summer vacation; to begin summer break",
+    "Sentences": "学校放暑假以后，很多学生都会利用这段时间参加实习或者旅行。"
+  },
+  {
+    "id": 17,
+    "words": "肺",
+    "Pinyin": "fèi",
+    "Meaning": "lung",
+    "Sentences": "长期吸烟会对肺造成严重的影响，因此应该尽量避免吸烟。"
+  },
+  {
+    "id": 18,
+    "words": "废话",
+    "Pinyin": "fèihuà",
+    "Meaning": "nonsense; unnecessary talk",
+    "Sentences": "时间有限，我们还是直接讨论重点吧，没必要说太多废话。"
+  },
+  {
+    "id": 19,
+    "words": "分布",
+    "Pinyin": "fēnbù",
+    "Meaning": "to distribute; to be distributed; distribution",
+    "Sentences": "这些旅游景点分布在城市的不同区域，游客可以根据自己的时间安排路线。"
+  },
+  {
+    "id": 20,
+    "words": "分配",
+    "Pinyin": "fēnpèi",
+    "Meaning": "to allocate; to distribute; to assign",
+    "Sentences": "项目开始之前，我们先分配好每个人的任务，以免工作过程中出现重复。"
+  },
+  {
+    "id": 21,
+    "words": "纷纷",
+    "Pinyin": "fēnfēn",
+    "Meaning": "one after another; in succession",
+    "Sentences": "消息公布以后，许多员工纷纷表示支持公司的新计划。"
+  },
+  {
+    "id": 22,
+    "words": "奋斗",
+    "Pinyin": "fèndòu",
+    "Meaning": "to strive; to struggle; to work hard",
+    "Sentences": "只要坚持自己的目标，并为之不断奋斗，就有可能实现自己的理想。"
+  },
+  {
+    "id": 23,
+    "words": "愤怒",
+    "Pinyin": "fènnù",
+    "Meaning": "angry; furious; anger",
+    "Sentences": "面对不公平的待遇，他感到十分愤怒，但还是选择冷静地表达自己的意见。"
+  },
+  {
+    "id": 24,
+    "words": "风格",
+    "Pinyin": "fēnggé",
+    "Meaning": "style; manner; characteristic style",
+    "Sentences": "这位作家的写作风格十分独特，很容易让读者留下深刻的印象。"
+  },
+  {
+    "id": 25,
+    "words": "风俗",
+    "Pinyin": "fēngsú",
+    "Meaning": "custom; tradition; folkways",
+    "Sentences": "到一个新的国家生活之前，最好先了解当地的文化和风俗。"
+  },
+  {
+    "id": 26,
+    "words": "风险",
+    "Pinyin": "fēngxiǎn",
+    "Meaning": "risk; danger; hazard",
+    "Sentences": "在做出决定之前，我们应该充分考虑可能存在的风险。"
+  },
+  {
+    "id": 27,
+    "words": "疯狂",
+    "Pinyin": "fēngkuáng",
+    "Meaning": "crazy; insane; frenzied",
+    "Sentences": "节日期间，商场里的顾客突然增加，出现了疯狂购物的现象。"
+  },
+  {
+    "id": 28,
+    "words": "讽刺",
+    "Pinyin": "fěngcì",
+    "Meaning": "to satirize; to mock; irony; satire",
+    "Sentences": "这部电影通过幽默的方式讽刺了一些社会现象，引起了观众的思考。"
+  },
+  {
+    "id": 29,
+    "words": "否定",
+    "Pinyin": "fǒudìng",
+    "Meaning": "to deny; to negate; to reject",
+    "Sentences": "我们不能因为一次失败就完全否定自己的能力，而应该从中总结经验。"
+  },
+  {
+    "id": 30,
+    "words": "否认",
+    "Pinyin": "fǒurèn",
+    "Meaning": "to deny; to refuse to admit",
+    "Sentences": "他虽然否认自己犯了错误，但相关证据已经说明了问题。"
+  },
+  {
+    "id": 31,
+    "words": "夫",
+    "Pinyin": "fū",
+    "Meaning": "husband; man (formal/literary usage)",
+    "Sentences": "夫妻之间应该彼此尊重，遇到问题时也应该及时沟通。"
+  },
+  {
+    "id": 32,
+    "words": "服从",
+    "Pinyin": "fúcóng",
+    "Meaning": "to obey; to submit to; to comply with",
+    "Sentences": "在团队工作中，我们不仅要表达自己的意见，也要服从合理的安排。"
+  },
+  {
+    "id": 33,
+    "words": "辅导",
+    "Pinyin": "fǔdǎo",
+    "Meaning": "to tutor; to coach; to provide guidance",
+    "Sentences": "老师利用课余时间为学习有困难的学生提供辅导。"
+  }
+]

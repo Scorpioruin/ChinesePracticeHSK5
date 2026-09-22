@@ -1,0 +1,240 @@
+[
+  {
+    "id": 1,
+    "words": "把握",
+    "Pinyin": "bǎwò",
+    "Meaning": "to grasp; to seize; confidence; certainty",
+    "Sentences": "虽然这次竞争很激烈，但只要准备充分，我还是有把握取得好成绩。"
+  },
+  {
+    "id": 2,
+    "words": "摆",
+    "Pinyin": "bǎi",
+    "Meaning": "to put; to place; to arrange",
+    "Sentences": "请把这些文件整齐地摆在桌子上，方便大家查阅。"
+  },
+  {
+    "id": 3,
+    "words": "棒",
+    "Pinyin": "bàng",
+    "Meaning": "excellent; great; stick; rod",
+    "Sentences": "你的想法很棒，如果能够进一步完善细节，效果一定会更好。"
+  },
+  {
+    "id": 4,
+    "words": "包裹",
+    "Pinyin": "bāoguǒ",
+    "Meaning": "package; parcel",
+    "Sentences": "我刚刚收到一个包裹，里面装着我上个月在网上订购的书。"
+  },
+  {
+    "id": 5,
+    "words": "薄",
+    "Pinyin": "báo",
+    "Meaning": "thin",
+    "Sentences": "这件外套看起来比较薄，天气冷的时候恐怕不太保暖。"
+  },
+  {
+    "id": 6,
+    "words": "保留",
+    "Pinyin": "bǎoliú",
+    "Meaning": "to retain; to keep; to preserve",
+    "Sentences": "即使搬到了新的城市，他仍然保留着以前的生活习惯。"
+  },
+  {
+    "id": 7,
+    "words": "保险",
+    "Pinyin": "bǎoxiǎn",
+    "Meaning": "insurance; safe; secure",
+    "Sentences": "为了降低意外带来的经济风险，很多人都会购买保险。"
+  },
+  {
+    "id": 8,
+    "words": "悲观",
+    "Pinyin": "bēiguān",
+    "Meaning": "pessimistic; pessimism",
+    "Sentences": "遇到困难时，我们不应该过于悲观，而应该想办法寻找解决问题的途径。"
+  },
+  {
+    "id": 9,
+    "words": "倍",
+    "Pinyin": "bèi",
+    "Meaning": "times; fold",
+    "Sentences": "今年公司的销售额比去年增加了一倍。"
+  },
+  {
+    "id": 10,
+    "words": "被",
+    "Pinyin": "bèi",
+    "Meaning": "by; passive marker",
+    "Sentences": "由于天气原因，原定的活动被迫推迟到了下周。"
+  },
+  {
+    "id": 11,
+    "words": "本科",
+    "Pinyin": "běnkē",
+    "Meaning": "undergraduate course; bachelor's degree",
+    "Sentences": "他本科期间主修计算机，毕业后决定继续攻读硕士学位。"
+  },
+  {
+    "id": 12,
+    "words": "本领",
+    "Pinyin": "běnlǐng",
+    "Meaning": "skill; ability; capability",
+    "Sentences": "真正的本领不是停留在理论上，而是能够把所学知识运用到实际工作中。"
+  },
+  {
+    "id": 13,
+    "words": "本质",
+    "Pinyin": "běnzhì",
+    "Meaning": "essence; nature; fundamental character",
+    "Sentences": "我们不能只看问题的表面，还应该进一步分析它的本质。"
+  },
+  {
+    "id": 14,
+    "words": "比例",
+    "Pinyin": "bǐlì",
+    "Meaning": "proportion; ratio; percentage",
+    "Sentences": "近年来，年轻人在网络平台上获取信息的比例明显提高了。"
+  },
+  {
+    "id": 15,
+    "words": "彼此",
+    "Pinyin": "bǐcǐ",
+    "Meaning": "each other; one another",
+    "Sentences": "只有彼此尊重、互相理解，双方才能建立长期稳定的合作关系。"
+  },
+  {
+    "id": 16,
+    "words": "毕竟",
+    "Pinyin": "bìjìng",
+    "Meaning": "after all; in the end",
+    "Sentences": "这项工作虽然有一定难度，但我们毕竟已经积累了不少相关经验。"
+  },
+  {
+    "id": 17,
+    "words": "便",
+    "Pinyin": "biàn",
+    "Meaning": "then; thereupon; conveniently; as soon as",
+    "Sentences": "他一到公司便开始处理昨天没有完成的工作。"
+  },
+  {
+    "id": 18,
+    "words": "辩论",
+    "Pinyin": "biànlùn",
+    "Meaning": "to debate; debate",
+    "Sentences": "双方围绕人工智能的发展进行了激烈的辩论。"
+  },
+  {
+    "id": 19,
+    "words": "标点",
+    "Pinyin": "biāodiǎn",
+    "Meaning": "punctuation",
+    "Sentences": "写完文章以后，别忘了检查错别字和标点。"
+  },
+  {
+    "id": 20,
+    "words": "标志",
+    "Pinyin": "biāozhì",
+    "Meaning": "sign; symbol; mark; to mark",
+    "Sentences": "这座建筑已经成为这座城市的重要标志之一。"
+  },
+  {
+    "id": 21,
+    "words": "表格",
+    "Pinyin": "biǎogé",
+    "Meaning": "form; table; spreadsheet",
+    "Sentences": "请按照要求填写表格，并在提交之前仔细检查个人信息。"
+  },
+  {
+    "id": 22,
+    "words": "表面",
+    "Pinyin": "biǎomiàn",
+    "Meaning": "surface; outward appearance",
+    "Sentences": "表面上看，这个问题并不严重，但实际上可能会带来一系列影响。"
+  },
+  {
+    "id": 23,
+    "words": "表扬",
+    "Pinyin": "biǎoyáng",
+    "Meaning": "to praise; praise",
+    "Sentences": "老师在课堂上表扬了他认真负责的学习态度。"
+  },
+  {
+    "id": 24,
+    "words": "宾馆",
+    "Pinyin": "bīnguǎn",
+    "Meaning": "hotel; guesthouse",
+    "Sentences": "我们提前预订了宾馆，以免到了旅游旺季找不到合适的房间。"
+  },
+  {
+    "id": 25,
+    "words": "丙",
+    "Pinyin": "bǐng",
+    "Meaning": "third; third of the three categories",
+    "Sentences": "请在甲、乙、丙三个选项中选择一个最符合题意的答案。"
+  },
+  {
+    "id": 26,
+    "words": "并且",
+    "Pinyin": "bìngqiě",
+    "Meaning": "and; moreover; furthermore",
+    "Sentences": "这项工作不仅需要专业知识，并且需要良好的沟通能力。"
+  },
+  {
+    "id": 27,
+    "words": "不但",
+    "Pinyin": "búdàn",
+    "Meaning": "not only",
+    "Sentences": "他不但完成了自己的任务，还主动帮助其他同事解决问题。"
+  },
+  {
+    "id": 28,
+    "words": "不断",
+    "Pinyin": "búduàn",
+    "Meaning": "continuously; constantly; unceasingly",
+    "Sentences": "随着社会不断发展，人们对生活质量的要求也越来越高。"
+  },
+  {
+    "id": 29,
+    "words": "不见得",
+    "Pinyin": "bújiànde",
+    "Meaning": "not necessarily; may not",
+    "Sentences": "价格越高的产品不见得质量越好，选择时还是应该根据自己的实际需求来判断。"
+  },
+  {
+    "id": 30,
+    "words": "不耐烦",
+    "Pinyin": "bú nàifán",
+    "Meaning": "impatient; irritated",
+    "Sentences": "面对客户反复提出的问题，工作人员也不能表现得不耐烦。"
+  },
+  {
+    "id": 31,
+    "words": "补充",
+    "Pinyin": "bǔchōng",
+    "Meaning": "to supplement; to add; to replenish",
+    "Sentences": "如果你还有其他意见，可以在会议结束前进行补充。"
+  },
+  {
+    "id": 32,
+    "words": "不得不",
+    "Pinyin": "bùdébù",
+    "Meaning": "have to; be forced to",
+    "Sentences": "由于航班突然取消，我们不得不改变原来的旅行计划。"
+  },
+  {
+    "id": 33,
+    "words": "不如",
+    "Pinyin": "bùrú",
+    "Meaning": "not as good as; rather than; it would be better to",
+    "Sentences": "与其一直抱怨，不如冷静下来想想应该怎样解决这个问题。"
+  },
+  {
+    "id": 34,
+    "words": "步骤",
+    "Pinyin": "bùzhòu",
+    "Meaning": "step; procedure; process",
+    "Sentences": "操作这个系统之前，请先仔细阅读说明，并按照规定的步骤进行。"
+  }
+]

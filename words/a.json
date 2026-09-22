@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "words": "爱护",
+    "Pinyin": "àihù",
+    "Meaning": "to take good care of; to cherish and protect",
+    "Sentences": "我们应该爱护公共环境，不随意乱扔垃圾。"
+  },
+  {
+    "id": 2,
+    "words": "爱惜",
+    "Pinyin": "àixī",
+    "Meaning": "to cherish; to value; to use carefully",
+    "Sentences": "我们应该爱惜时间，把有限的时间用在有意义的事情上。"
+  },
+  {
+    "id": 3,
+    "words": "安慰",
+    "Pinyin": "ānwèi",
+    "Meaning": "to comfort; to console",
+    "Sentences": "得知他考试没有通过以后，我主动安慰了他，并鼓励他重新振作起来。"
+  },
+  {
+    "id": 4,
+    "words": "岸",
+    "Pinyin": "àn",
+    "Meaning": "bank; shore; coast",
+    "Sentences": "雨过天晴后，我们沿着河岸散步，欣赏着周围的风景。"
+  }
+]

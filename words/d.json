@@ -1,0 +1,261 @@
+[
+  {
+    "id": 1,
+    "words": "打交道",
+    "Pinyin": "dǎ jiāodao",
+    "Meaning": "to deal with; to have dealings with; to interact with",
+    "Sentences": "如果你经常和外国客户打交道，就需要具备良好的沟通能力。"
+  },
+  {
+    "id": 2,
+    "words": "打喷嚏",
+    "Pinyin": "dǎ pēntì",
+    "Meaning": "to sneeze",
+    "Sentences": "他一进入有灰尘的房间就不停地打喷嚏。"
+  },
+  {
+    "id": 3,
+    "words": "大方",
+    "Pinyin": "dàfang",
+    "Meaning": "generous; natural; poised",
+    "Sentences": "她第一次上台演讲时虽然有些紧张，但表现得非常大方自然。"
+  },
+  {
+    "id": 4,
+    "words": "大型",
+    "Pinyin": "dàxíng",
+    "Meaning": "large-scale; large-sized",
+    "Sentences": "这座城市每年都会举办大型文化活动，吸引大量游客前来参观。"
+  },
+  {
+    "id": 5,
+    "words": "贷款",
+    "Pinyin": "dàikuǎn",
+    "Meaning": "loan; to provide a loan",
+    "Sentences": "由于资金不足，他决定向银行申请贷款来扩大自己的生意。"
+  },
+  {
+    "id": 6,
+    "words": "待遇",
+    "Pinyin": "dàiyù",
+    "Meaning": "treatment;待遇; working conditions and benefits",
+    "Sentences": "除了工资以外，很多求职者也非常重视公司的福利待遇和发展机会。"
+  },
+  {
+    "id": 7,
+    "words": "单纯",
+    "Pinyin": "dānchún",
+    "Meaning": "simple; pure; merely; solely",
+    "Sentences": "这个问题并不是单纯的技术问题，还涉及管理和沟通等多个方面。"
+  },
+  {
+    "id": 8,
+    "words": "单调",
+    "Pinyin": "dāndiào",
+    "Meaning": "monotonous; dull; lacking variety",
+    "Sentences": "如果每天都重复同样的工作，生活难免会显得有些单调。"
+  },
+  {
+    "id": 9,
+    "words": "单位",
+    "Pinyin": "dānwèi",
+    "Meaning": "unit; workplace; organization; work unit",
+    "Sentences": "请在申请表上填写你的姓名、联系方式以及工作单位。"
+  },
+  {
+    "id": 10,
+    "words": "单元",
+    "Pinyin": "dānyuán",
+    "Meaning": "unit; section; module",
+    "Sentences": "这一单元主要介绍与日常生活有关的词汇和表达方式。"
+  },
+  {
+    "id": 11,
+    "words": "担任",
+    "Pinyin": "dānrèn",
+    "Meaning": "to serve as; to hold a position",
+    "Sentences": "毕业后，他进入一家互联网公司工作，两年后开始担任项目负责人。"
+  },
+  {
+    "id": 12,
+    "words": "耽误",
+    "Pinyin": "dānwu",
+    "Meaning": "to delay; to waste time; to hold up",
+    "Sentences": "路上发生交通事故，耽误了我们不少时间。"
+  },
+  {
+    "id": 13,
+    "words": "胆小鬼",
+    "Pinyin": "dǎnxiǎoguǐ",
+    "Meaning": "coward; timid person",
+    "Sentences": "别因为一次失败就认为自己是胆小鬼，真正重要的是敢于面对困难。"
+  },
+  {
+    "id": 14,
+    "words": "淡",
+    "Pinyin": "dàn",
+    "Meaning": "light; pale; weak in flavor; indifferent",
+    "Sentences": "这杯咖啡味道太淡了，如果你喜欢浓一点的，可以再加一些咖啡。"
+  },
+  {
+    "id": 15,
+    "words": "当代",
+    "Pinyin": "dāngdài",
+    "Meaning": "contemporary; modern-day",
+    "Sentences": "随着科技的发展，人工智能已经成为当代社会关注的重要话题之一。"
+  },
+  {
+    "id": 16,
+    "words": "挡",
+    "Pinyin": "dǎng",
+    "Meaning": "to block; to obstruct; to stop",
+    "Sentences": "这棵大树挡住了窗外的阳光，使房间显得比较暗。"
+  },
+  {
+    "id": 17,
+    "words": "导致",
+    "Pinyin": "dǎozhì",
+    "Meaning": "to cause; to lead to; to result in",
+    "Sentences": "缺乏有效沟通很容易导致双方产生误解，甚至影响彼此之间的合作。"
+  },
+  {
+    "id": 18,
+    "words": "到处",
+    "Pinyin": "dàochù",
+    "Meaning": "everywhere; all over",
+    "Sentences": "旅游旺季的时候，到处都是前来参观的游客。"
+  },
+  {
+    "id": 19,
+    "words": "道德",
+    "Pinyin": "dàodé",
+    "Meaning": "morality; ethics; moral",
+    "Sentences": "一个人的价值不仅体现在能力上，也体现在他的道德观念和责任感上。"
+  },
+  {
+    "id": 20,
+    "words": "滴",
+    "Pinyin": "dī",
+    "Meaning": "drop; a drop; to drip",
+    "Sentences": "桌面上还有几滴水，请拿纸巾擦干净。"
+  },
+  {
+    "id": 21,
+    "words": "的确",
+    "Pinyin": "díquè",
+    "Meaning": "indeed; really; certainly",
+    "Sentences": "这个方案的确存在一些问题，不过经过进一步修改以后，还是可以实施的。"
+  },
+  {
+    "id": 22,
+    "words": "敌人",
+    "Pinyin": "dírén",
+    "Meaning": "enemy; opponent",
+    "Sentences": "面对困难时，失败并不是敌人，而是帮助我们发现问题的一种机会。"
+  },
+  {
+    "id": 23,
+    "words": "地位",
+    "Pinyin": "dìwèi",
+    "Meaning": "status; position; standing",
+    "Sentences": "随着经济的发展，科技在现代社会中的地位越来越重要。"
+  },
+  {
+    "id": 24,
+    "words": "点头",
+    "Pinyin": "diǎntóu",
+    "Meaning": "to nod",
+    "Sentences": "听完对方的解释以后，他点了点头，表示自己已经理解了。"
+  },
+  {
+    "id": 25,
+    "words": "丁",
+    "Pinyin": "dīng",
+    "Meaning": "fourth; a surname; a person",
+    "Sentences": "这份名单按照甲、乙、丙、丁四个等级进行了分类。"
+  },
+  {
+    "id": 26,
+    "words": "顶",
+    "Pinyin": "dǐng",
+    "Meaning": "top; to support; to withstand; extremely",
+    "Sentences": "外面的雨下得很大，他顶着大雨赶到了公司。"
+  },
+  {
+    "id": 27,
+    "words": "洞",
+    "Pinyin": "dòng",
+    "Meaning": "hole; cave",
+    "Sentences": "墙上有一个小洞，需要尽快修补，否则可能会影响房间的安全。"
+  },
+  {
+    "id": 28,
+    "words": "逗",
+    "Pinyin": "dòu",
+    "Meaning": "to tease; to amuse; to make someone laugh",
+    "Sentences": "他很会逗孩子开心，所以孩子们都特别喜欢和他一起玩。"
+  },
+  {
+    "id": 29,
+    "words": "度过",
+    "Pinyin": "dùguò",
+    "Meaning": "to spend (time); to pass",
+    "Sentences": "虽然一个人在国外生活并不容易，但他还是慢慢适应了这里的生活，并度过了一段难忘的时光。"
+  },
+  {
+    "id": 30,
+    "words": "段",
+    "Pinyin": "duàn",
+    "Meaning": "section; paragraph; period; segment",
+    "Sentences": "这段经历让我意识到，遇到困难时保持冷静非常重要。"
+  },
+  {
+    "id": 31,
+    "words": "堆",
+    "Pinyin": "duī",
+    "Meaning": "pile; heap; to pile up",
+    "Sentences": "桌上堆着一大堆文件，如果不及时整理，很容易找不到需要的资料。"
+  },
+  {
+    "id": 32,
+    "words": "对比",
+    "Pinyin": "duìbǐ",
+    "Meaning": "to compare; contrast; comparison",
+    "Sentences": "通过对比不同方案的优缺点，我们最终选择了成本较低的方案。"
+  },
+  {
+    "id": 33,
+    "words": "对待",
+    "Pinyin": "duìdài",
+    "Meaning": "to treat; to deal with; to approach",
+    "Sentences": "我们应该以认真负责的态度对待每一项工作。"
+  },
+  {
+    "id": 34,
+    "words": "对于",
+    "Pinyin": "duìyú",
+    "Meaning": "regarding; concerning; as for",
+    "Sentences": "对于刚开始学习中文的人来说，掌握声调和基本语法非常重要。"
+  },
+  {
+    "id": 35,
+    "words": "蹲",
+    "Pinyin": "dūn",
+    "Meaning": "to squat; to crouch",
+    "Sentences": "他蹲下来仔细观察地上的脚印，试图找出事情发生的线索。"
+  },
+  {
+    "id": 36,
+    "words": "多余",
+    "Pinyin": "duōyú",
+    "Meaning": "superfluous; unnecessary; extra",
+    "Sentences": "如果已经确定了计划，就没有必要再做一些多余的工作。"
+  },
+  {
+    "id": 37,
+    "words": "躲藏",
+    "Pinyin": "duǒcáng",
+    "Meaning": "to hide; to conceal oneself",
+    "Sentences": "遇到问题时一味地躲藏并不能解决问题，只有主动面对才能找到出路。"
+  }
+]
