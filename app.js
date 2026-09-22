@@ -1,172 +1,173 @@
-// ============================================================
-// Chinese Learning Website
-// app.js
-// ============================================================
-
-// ------------------------------------------------------------
-// 1. JSON 文件列表
-// ------------------------------------------------------------
-
-const wordFiles = [
-    "a.json",
-    "b.json",
-    "c.json",
-    "d.json",
-    "e.json",
-    "f.json",
-    "g.json",
-    "h.json",
-    "i.json",
-    "j.json",
-    "k.json",
-    "l.json",
-    "m.json",
-    "n.json",
-    "o.json",
-    "p.json",
-    "q.json",
-    "r.json",
-    "s.json",
-    "t.json",
-    "u.json",
-    "v.json",
-    "w.json",
-    "x.json",
-    "y.json",
-    "z.json"
-];
-
-const paragraphFiles = [
-    "paragraph_a.json",
-    "paragraph_b.json",
-    "paragraph_c.json",
-    "paragraph_d.json",
-    "paragraph_e.json",
-    "paragraph_f.json",
-    "paragraph_g.json",
-    "paragraph_h.json",
-    "paragraph_i.json",
-    "paragraph_j.json",
-    "paragraph_k.json",
-    "paragraph_l.json",
-    "paragraph_m.json",
-    "paragraph_n.json",
-    "paragraph_o.json",
-    "paragraph_p.json",
-    "paragraph_q.json",
-    "paragraph_r.json",
-    "paragraph_s.json",
-    "paragraph_t.json",
-    "paragraph_u.json",
-    "paragraph_v.json",
-    "paragraph_w.json",
-    "paragraph_x.json",
-    "paragraph_y.json",
-    "paragraph_z.json"
-];
+/* =========================================================
+   新学中文
+   Chinese Learning Website
+   Plain HTML + CSS + JavaScript + JSON
+========================================================= */
 
 
-// ------------------------------------------------------------
-// 2. 网站数据
-// ------------------------------------------------------------
+/* =========================================================
+   DATA FILES
+========================================================= */
+
+const letters = "abcdefghijklmnopqrstuvwxyz".split("");
+
+const wordFiles = letters.map(letter => `words/${letter}.json`);
+
+const paragraphFiles = letters.map(
+    letter => `paragraph/paragraph_${letter}.json`
+);
+
+
+/* =========================================================
+   GLOBAL DATA
+========================================================= */
 
 let allWords = [];
 let allParagraphs = [];
 
+let currentLetter = "all";
+let currentSearch = "";
+
+let flashcardWords = [];
 let currentFlashcardIndex = 0;
-let currentFlashcardList = [];
+
+let showFlashcardPinyin = true;
+let showFlashcardMeaning = true;
+
+let currentParagraphIndex = 0;
+let showParagraphPinyin = false;
+
+let examQuestions = [];
+let currentExamIndex = 0;
+let examScore = 0;
+let examAnswered = false;
+
+let selectedExamCount = 10;
 
 
-// ------------------------------------------------------------
-// 3. 页面初始化
-// ------------------------------------------------------------
+/* =========================================================
+   DOM READY
+========================================================= */
 
-document.addEventListener("DOMContentLoaded", async () => {
-
-    console.log("Chinese Learning Website Starting...");
-
-    await loadAllData();
+document.addEventListener("DOMContentLoaded", () => {
 
     setupNavigation();
-    setupFlashcards();
-    setupSearch();
 
-    showPage("home");
+    setupAlphabet();
+
+    setupVocabularySearch();
+
+    setupFlashcards();
+
+    setupParagraphControls();
+
+    setupExam();
+
+    loadAllData();
 
 });
 
 
-// ------------------------------------------------------------
-// 4. 读取所有 JSON
-// ------------------------------------------------------------
+/* =========================================================
+   LOAD ALL DATA
+========================================================= */
 
 async function loadAllData() {
 
     try {
 
-        // Load vocabulary
         const wordResults = await Promise.all(
-            wordFiles.map(file =>
-                fetch(`words/${file}`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Cannot load words/${file}`);
-                        }
-
-                        return response.json();
-                    })
-                    .catch(error => {
-                        console.warn(error.message);
-                        return [];
-                    })
-            )
+            wordFiles.map(file => loadJSON(file))
         );
 
-        allWords = wordResults.flat();
-
-        // Load paragraphs
         const paragraphResults = await Promise.all(
-            paragraphFiles.map(file =>
-                fetch(`paragraph/${file}`)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Cannot load paragraph/${file}`);
-                        }
-
-                        return response.json();
-                    })
-                    .catch(error => {
-                        console.warn(error.message);
-                        return [];
-                    })
-            )
+            paragraphFiles.map(file => loadJSON(file))
         );
 
-        allParagraphs = paragraphResults.flat();
 
-        console.log("Words loaded:", allWords.length);
-        console.log("Paragraphs loaded:", allParagraphs.length);
+        allWords = wordResults
+            .filter(data => Array.isArray(data))
+            .flat();
+
+
+        allParagraphs = paragraphResults
+            .filter(data => Array.isArray(data))
+            .flat();
+
 
         updateStatistics();
+
+        renderVocabulary();
+
+        setupFlashcardData();
+
+        renderParagraphList();
+
+        if (allParagraphs.length > 0) {
+            showParagraph(0);
+        }
 
     } catch (error) {
 
         console.error("Data loading error:", error);
+
+        showDataError();
 
     }
 
 }
 
 
-// ------------------------------------------------------------
-// 5. Navigation
-// ------------------------------------------------------------
+/* =========================================================
+   LOAD JSON
+========================================================= */
+
+async function loadJSON(file) {
+
+    const response = await fetch(file);
+
+    if (!response.ok) {
+        return [];
+    }
+
+    return await response.json();
+
+}
+
+
+/* =========================================================
+   DATA ERROR
+========================================================= */
+
+function showDataError() {
+
+    const vocabularyList =
+        document.getElementById("vocabulary-list");
+
+    if (vocabularyList) {
+
+        vocabularyList.innerHTML = `
+            <div class="empty-state">
+                <h3>Unable to load vocabulary</h3>
+                <p>
+                    Please make sure you are running the website
+                    with Live Server or another local server.
+                </p>
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 function setupNavigation() {
 
-    const navButtons = document.querySelectorAll("[data-page]");
-
-    navButtons.forEach(button => {
+    document.querySelectorAll("[data-page]").forEach(button => {
 
         button.addEventListener("click", () => {
 
@@ -181,125 +182,358 @@ function setupNavigation() {
 }
 
 
-// ------------------------------------------------------------
-// 6. 显示页面
-// ------------------------------------------------------------
-
 function showPage(pageName) {
 
-    const pages = document.querySelectorAll(".page");
+    document.querySelectorAll(".page").forEach(page => {
 
-    pages.forEach(page => {
-        page.style.display = "none";
+        page.classList.remove("active-page");
+
     });
 
 
-    const selectedPage = document.getElementById(pageName);
+    const targetPage =
+        document.getElementById(pageName);
 
-    if (selectedPage) {
-        selectedPage.style.display = "block";
+    if (targetPage) {
+
+        targetPage.classList.add("active-page");
+
     }
 
 
-    // 根据页面加载内容
-    switch (pageName) {
+    document.querySelectorAll(".nav-btn").forEach(button => {
 
-        case "home":
-            updateStatistics();
-            break;
+        button.classList.remove("active");
 
-        case "vocabulary":
-            renderVocabulary();
-            break;
+        if (button.dataset.page === pageName) {
 
-        case "flashcards":
-            startFlashcards();
-            break;
+            button.classList.add("active");
 
-        case "paragraph":
-            renderParagraphs();
-            break;
+        }
 
-        case "exam":
-            startExam();
-            break;
+    });
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+
+    if (pageName === "flashcards") {
+
+        renderFlashcard();
 
     }
 
 }
 
 
-// ------------------------------------------------------------
-// 7. 首页统计
-// ------------------------------------------------------------
+/* =========================================================
+   STATISTICS
+========================================================= */
 
 function updateStatistics() {
 
-    const wordCount = document.getElementById("word-count");
-    const paragraphCount = document.getElementById("paragraph-count");
+    const wordCount =
+        document.getElementById("word-count");
+
+    const paragraphCount =
+        document.getElementById("paragraph-count");
+
 
     if (wordCount) {
-        wordCount.textContent = allWords.length;
+
+        wordCount.textContent =
+            allWords.length;
+
     }
 
+
     if (paragraphCount) {
-        paragraphCount.textContent = allParagraphs.length;
+
+        paragraphCount.textContent =
+            allParagraphs.length;
+
     }
 
 }
 
 
-// ------------------------------------------------------------
-// 8. Vocabulary
-// ------------------------------------------------------------
+/* =========================================================
+   ALPHABET
+========================================================= */
 
-function renderVocabulary(words = allWords) {
+function setupAlphabet() {
 
-    const container = document.getElementById("vocabulary-list");
+    const container =
+        document.getElementById("alphabet-list");
 
     if (!container) return;
+
+
+    letters.forEach(letter => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "alphabet-btn";
+
+        button.dataset.letter = letter;
+
+        button.textContent =
+            letter.toUpperCase();
+
+
+        button.addEventListener("click", () => {
+
+            currentLetter = letter;
+
+            updateAlphabetActive();
+
+            renderVocabulary();
+
+        });
+
+
+        container.appendChild(button);
+
+    });
+
+}
+
+
+function updateAlphabetActive() {
+
+    document
+        .querySelectorAll(".alphabet-btn")
+        .forEach(button => {
+
+            button.classList.remove("active");
+
+            if (button.dataset.letter === currentLetter) {
+
+                button.classList.add("active");
+
+            }
+
+        });
+
+}
+
+
+/* ALL button */
+
+document.addEventListener("click", event => {
+
+    if (
+        event.target.classList.contains("alphabet-btn") &&
+        event.target.dataset.letter === "all"
+    ) {
+
+        currentLetter = "all";
+
+        updateAlphabetActive();
+
+        renderVocabulary();
+
+    }
+
+});
+
+
+/* =========================================================
+   VOCABULARY SEARCH
+========================================================= */
+
+function setupVocabularySearch() {
+
+    const searchInput =
+        document.getElementById("search-input");
+
+    const clearButton =
+        document.getElementById("clear-search");
+
+
+    if (searchInput) {
+
+        searchInput.addEventListener("input", event => {
+
+            currentSearch =
+                event.target.value
+                    .trim()
+                    .toLowerCase();
+
+            renderVocabulary();
+
+        });
+
+    }
+
+
+    if (clearButton) {
+
+        clearButton.addEventListener("click", () => {
+
+            currentSearch = "";
+
+            if (searchInput) {
+
+                searchInput.value = "";
+
+            }
+
+            renderVocabulary();
+
+        });
+
+    }
+
+}
+
+
+/* =========================================================
+   FILTER VOCABULARY
+========================================================= */
+
+function getFilteredWords() {
+
+    return allWords.filter(word => {
+
+        const chinese =
+            String(word.words || "")
+                .toLowerCase();
+
+        const pinyin =
+            String(word.Pinyin || "")
+                .toLowerCase();
+
+        const meaning =
+            String(word.Meaning || "")
+                .toLowerCase();
+
+
+        const matchesSearch =
+            !currentSearch ||
+            chinese.includes(currentSearch) ||
+            pinyin.includes(currentSearch) ||
+            meaning.includes(currentSearch);
+
+
+        const firstLetter =
+            getPinyinFirstLetter(word.Pinyin);
+
+
+        const matchesLetter =
+            currentLetter === "all" ||
+            firstLetter === currentLetter;
+
+
+        return matchesSearch && matchesLetter;
+
+    });
+
+}
+
+
+/* =========================================================
+   GET PINYIN FIRST LETTER
+========================================================= */
+
+function getPinyinFirstLetter(pinyin) {
+
+    if (!pinyin) return "";
+
+    return pinyin
+        .trim()
+        .charAt(0)
+        .toLowerCase();
+
+}
+
+
+/* =========================================================
+   RENDER VOCABULARY
+========================================================= */
+
+function renderVocabulary() {
+
+    const container =
+        document.getElementById("vocabulary-list");
+
+    const emptyState =
+        document.getElementById("vocabulary-empty");
+
+    const resultCount =
+        document.getElementById("vocabulary-result-count");
+
+
+    if (!container) return;
+
+
+    const filteredWords =
+        getFilteredWords();
+
 
     container.innerHTML = "";
 
 
-    if (words.length === 0) {
+    if (resultCount) {
 
-        container.innerHTML = `
-            <p class="empty-message">
-                No vocabulary found.
-            </p>
-        `;
+        resultCount.textContent =
+            `${filteredWords.length} word${filteredWords.length === 1 ? "" : "s"}`;
 
-        return;
     }
 
 
-    words.forEach(word => {
+    if (filteredWords.length === 0) {
 
-        const card = document.createElement("div");
+        if (emptyState) {
 
-        card.className = "word-card";
+            emptyState.classList.remove("hidden");
+
+        }
+
+        return;
+
+    }
+
+
+    if (emptyState) {
+
+        emptyState.classList.add("hidden");
+
+    }
+
+
+    filteredWords.forEach((word, index) => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "vocabulary-card";
 
 
         card.innerHTML = `
             <div class="word-number">
-                #${word.id ?? ""}
+                #${index + 1}
             </div>
 
             <div class="word-chinese">
-                ${escapeHTML(word.words ?? "")}
+                ${escapeHTML(word.words)}
             </div>
 
             <div class="word-pinyin">
-                ${escapeHTML(word.Pinyin ?? "")}
+                ${escapeHTML(word.Pinyin)}
             </div>
 
             <div class="word-meaning">
-                ${escapeHTML(word.Meaning ?? "")}
+                ${escapeHTML(word.Meaning)}
             </div>
 
             <div class="word-sentence">
-                ${escapeHTML(word.Sentences ?? "")}
+                ${escapeHTML(word.Sentences)}
             </div>
         `;
 
@@ -311,76 +545,857 @@ function renderVocabulary(words = allWords) {
 }
 
 
-// ------------------------------------------------------------
-// 9. Search Vocabulary
-// ------------------------------------------------------------
+/* =========================================================
+   FLASHCARDS
+========================================================= */
 
-function setupSearch() {
+function setupFlashcardData() {
 
-    const searchInput = document.getElementById("search-input");
+    flashcardWords =
+        [...allWords];
 
-    if (!searchInput) return;
+    currentFlashcardIndex = 0;
 
+    renderFlashcard();
 
-    searchInput.addEventListener("input", () => {
-
-        const keyword = searchInput.value
-            .trim()
-            .toLowerCase();
+}
 
 
-        if (!keyword) {
+function setupFlashcards() {
 
-            renderVocabulary(allWords);
+    const nextButton =
+        document.getElementById("next-card");
 
-            return;
-        }
+    const previousButton =
+        document.getElementById("previous-card");
+
+    const togglePinyin =
+        document.getElementById("flashcard-toggle-pinyin");
+
+    const toggleMeaning =
+        document.getElementById("flashcard-toggle-meaning");
+
+    const shuffleButton =
+        document.getElementById("shuffle-cards");
 
 
-        const filteredWords = allWords.filter(word => {
+    if (nextButton) {
 
-            return (
-                String(word.words ?? "")
-                    .toLowerCase()
-                    .includes(keyword)
-                ||
+        nextButton.addEventListener("click", nextFlashcard);
 
-                String(word.Pinyin ?? "")
-                    .toLowerCase()
-                    .includes(keyword)
-                ||
+    }
 
-                String(word.Meaning ?? "")
-                    .toLowerCase()
-                    .includes(keyword)
-            );
+
+    if (previousButton) {
+
+        previousButton.addEventListener(
+            "click",
+            previousFlashcard
+        );
+
+    }
+
+
+    if (togglePinyin) {
+
+        togglePinyin.addEventListener("click", () => {
+
+            showFlashcardPinyin =
+                !showFlashcardPinyin;
+
+            togglePinyin.textContent =
+                showFlashcardPinyin
+                    ? "Hide Pinyin"
+                    : "Show Pinyin";
+
+            renderFlashcard();
+
+        });
+
+    }
+
+
+    if (toggleMeaning) {
+
+        toggleMeaning.addEventListener("click", () => {
+
+            showFlashcardMeaning =
+                !showFlashcardMeaning;
+
+            toggleMeaning.textContent =
+                showFlashcardMeaning
+                    ? "Hide Meaning"
+                    : "Show Meaning";
+
+            renderFlashcard();
+
+        });
+
+    }
+
+
+    if (shuffleButton) {
+
+        shuffleButton.addEventListener("click", () => {
+
+            flashcardWords =
+                shuffleArray([...allWords]);
+
+            currentFlashcardIndex = 0;
+
+            renderFlashcard();
+
+        });
+
+    }
+
+}
+
+
+function renderFlashcard() {
+
+    if (!flashcardWords.length) return;
+
+
+    const word =
+        flashcardWords[currentFlashcardIndex];
+
+
+    const chinese =
+        document.getElementById("flashcard-chinese");
+
+    const pinyin =
+        document.getElementById("flashcard-pinyin");
+
+    const meaning =
+        document.getElementById("flashcard-meaning");
+
+    const sentence =
+        document.getElementById("flashcard-sentence");
+
+    const counter =
+        document.getElementById("flashcard-counter");
+
+
+    if (chinese) {
+
+        chinese.textContent =
+            word.words || "—";
+
+    }
+
+
+    if (pinyin) {
+
+        pinyin.textContent =
+            showFlashcardPinyin
+                ? word.Pinyin || "—"
+                : "••••••";
+
+    }
+
+
+    if (meaning) {
+
+        meaning.textContent =
+            showFlashcardMeaning
+                ? word.Meaning || "—"
+                : "••••••";
+
+    }
+
+
+    if (sentence) {
+
+        sentence.textContent =
+            word.Sentences || "—";
+
+    }
+
+
+    if (counter) {
+
+        counter.textContent =
+            `${currentFlashcardIndex + 1} / ${flashcardWords.length}`;
+
+    }
+
+}
+
+
+function nextFlashcard() {
+
+    if (!flashcardWords.length) return;
+
+
+    currentFlashcardIndex++;
+
+    if (
+        currentFlashcardIndex >=
+        flashcardWords.length
+    ) {
+
+        currentFlashcardIndex = 0;
+
+    }
+
+
+    renderFlashcard();
+
+}
+
+
+function previousFlashcard() {
+
+    if (!flashcardWords.length) return;
+
+
+    currentFlashcardIndex--;
+
+    if (currentFlashcardIndex < 0) {
+
+        currentFlashcardIndex =
+            flashcardWords.length - 1;
+
+    }
+
+
+    renderFlashcard();
+
+}
+
+
+/* =========================================================
+   PARAGRAPH LIST
+========================================================= */
+
+function renderParagraphList() {
+
+    const container =
+        document.getElementById("paragraph-list");
+
+
+    if (!container) return;
+
+
+    container.innerHTML = "";
+
+
+    allParagraphs.forEach((paragraph, index) => {
+
+        const button =
+            document.createElement("button");
+
+        button.className =
+            "paragraph-item";
+
+
+        button.dataset.index =
+            index;
+
+
+        button.innerHTML = `
+            <span class="paragraph-item-number">
+                Article ${index + 1}
+            </span>
+
+            <span class="paragraph-item-title">
+                ${escapeHTML(paragraph.title)}
+            </span>
+        `;
+
+
+        button.addEventListener("click", () => {
+
+            showParagraph(index);
 
         });
 
 
-        renderVocabulary(filteredWords);
+        container.appendChild(button);
 
     });
 
 }
 
 
-// ------------------------------------------------------------
-// 10. Flashcards
-// ------------------------------------------------------------
+/* =========================================================
+   PARAGRAPH DISPLAY
+========================================================= */
 
-function setupFlashcards() {
+function showParagraph(index) {
 
-    const nextButton = document.getElementById("next-card");
-    const previousButton = document.getElementById("previous-card");
-    const flashcard = document.getElementById("flashcard");
+    if (!allParagraphs.length) return;
 
 
-    if (flashcard) {
+    if (index < 0) {
 
-        flashcard.addEventListener("click", () => {
+        index =
+            allParagraphs.length - 1;
 
-            flashcard.classList.toggle("flipped");
+    }
+
+
+    if (index >= allParagraphs.length) {
+
+        index = 0;
+
+    }
+
+
+    currentParagraphIndex =
+        index;
+
+
+    const paragraph =
+        allParagraphs[index];
+
+
+    const articleNumber =
+        document.getElementById("article-number");
+
+    const title =
+        document.getElementById("article-title");
+
+    const chinese =
+        document.getElementById("article-chinese");
+
+    const pinyin =
+        document.getElementById("article-pinyin");
+
+
+    if (articleNumber) {
+
+        articleNumber.textContent =
+            `ARTICLE ${index + 1} / ${allParagraphs.length}`;
+
+    }
+
+
+    if (title) {
+
+        title.textContent =
+            paragraph.title || "";
+
+    }
+
+
+    if (chinese) {
+
+        chinese.textContent =
+            paragraph.paragraph || "";
+
+    }
+
+
+    if (pinyin) {
+
+        pinyin.textContent =
+            paragraph.Pinyin || "";
+
+        pinyin.classList.toggle(
+            "hidden",
+            !showParagraphPinyin
+        );
+
+    }
+
+
+    updateParagraphListActive();
+
+    resetReadingProgress();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================================================
+   PARAGRAPH CONTROLS
+========================================================= */
+
+function setupParagraphControls() {
+
+    const toggle =
+        document.getElementById(
+            "paragraph-pinyin-toggle"
+        );
+
+    const previous =
+        document.getElementById(
+            "paragraph-prev"
+        );
+
+    const next =
+        document.getElementById(
+            "paragraph-next"
+        );
+
+
+    if (toggle) {
+
+        toggle.addEventListener("click", () => {
+
+            showParagraphPinyin =
+                !showParagraphPinyin;
+
+
+            toggle.textContent =
+                showParagraphPinyin
+                    ? "Hide Pinyin"
+                    : "Show Pinyin";
+
+
+            const pinyin =
+                document.getElementById(
+                    "article-pinyin"
+                );
+
+
+            if (pinyin) {
+
+                pinyin.classList.toggle(
+                    "hidden",
+                    !showParagraphPinyin
+                );
+
+            }
+
+        });
+
+    }
+
+
+    if (previous) {
+
+        previous.addEventListener("click", () => {
+
+            showParagraph(
+                currentParagraphIndex - 1
+            );
+
+        });
+
+    }
+
+
+    if (next) {
+
+        next.addEventListener("click", () => {
+
+            showParagraph(
+                currentParagraphIndex + 1
+            );
+
+        });
+
+    }
+
+
+    const article =
+        document.querySelector(".reading-article");
+
+
+    if (article) {
+
+        article.addEventListener(
+            "scroll",
+            updateReadingProgress
+        );
+
+    }
+
+
+    window.addEventListener(
+        "scroll",
+        updateReadingProgress
+    );
+
+}
+
+
+/* =========================================================
+   ACTIVE PARAGRAPH
+========================================================= */
+
+function updateParagraphListActive() {
+
+    document
+        .querySelectorAll(".paragraph-item")
+        .forEach(button => {
+
+            button.classList.remove("active");
+
+            if (
+                Number(button.dataset.index) ===
+                currentParagraphIndex
+            ) {
+
+                button.classList.add("active");
+
+            }
+
+        });
+
+}
+
+
+/* =========================================================
+   READING PROGRESS
+========================================================= */
+
+function updateReadingProgress() {
+
+    const article =
+        document.querySelector(".reading-article");
+
+    if (!article) return;
+
+
+    const articleTop =
+        article.getBoundingClientRect().top +
+        window.scrollY;
+
+
+    const articleHeight =
+        article.scrollHeight;
+
+
+    const viewport =
+        window.innerHeight;
+
+
+    const scrollPosition =
+        window.scrollY -
+        articleTop;
+
+
+    const maxScroll =
+        Math.max(
+            articleHeight - viewport,
+            1
+        );
+
+
+    let percentage =
+        (scrollPosition / maxScroll) * 100;
+
+
+    percentage =
+        Math.max(
+            0,
+            Math.min(100, percentage)
+        );
+
+
+    const fill =
+        document.getElementById(
+            "reading-progress-fill"
+        );
+
+    const text =
+        document.getElementById(
+            "reading-progress-percent"
+        );
+
+
+    if (fill) {
+
+        fill.style.width =
+            `${percentage}%`;
+
+    }
+
+
+    if (text) {
+
+        text.textContent =
+            `${Math.round(percentage)}%`;
+
+    }
+
+}
+
+
+function resetReadingProgress() {
+
+    const fill =
+        document.getElementById(
+            "reading-progress-fill"
+        );
+
+    const text =
+        document.getElementById(
+            "reading-progress-percent"
+        );
+
+
+    if (fill) {
+
+        fill.style.width = "0%";
+
+    }
+
+
+    if (text) {
+
+        text.textContent = "0%";
+
+    }
+
+}
+
+
+/* =========================================================
+   EXAM
+========================================================= */
+
+function setupExam() {
+
+    const startButton =
+        document.getElementById("start-exam");
+
+    const nextButton =
+        document.getElementById("next-exam");
+
+
+    if (startButton) {
+
+        startButton.addEventListener(
+            "click",
+            startExam
+        );
+
+    }
+
+
+    if (nextButton) {
+
+        nextButton.addEventListener(
+            "click",
+            nextExamQuestion
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   START EXAM
+========================================================= */
+
+function startExam() {
+
+    if (allWords.length < 4) {
+
+        alert("You need at least 4 vocabulary words.");
+
+        return;
+
+    }
+
+
+    examScore = 0;
+
+    currentExamIndex = 0;
+
+    examAnswered = false;
+
+
+    examQuestions =
+        createExamQuestions(
+            Math.min(
+                selectedExamCount,
+                allWords.length
+            )
+        );
+
+
+    const result =
+        document.getElementById("exam-result");
+
+    if (result) {
+
+        result.classList.add("hidden");
+
+    }
+
+
+    const startButton =
+        document.getElementById("start-exam");
+
+    if (startButton) {
+
+        startButton.textContent =
+            "Restart Exam";
+
+    }
+
+
+    const nextButton =
+        document.getElementById("next-exam");
+
+    if (nextButton) {
+
+        nextButton.classList.add("hidden");
+
+    }
+
+
+    showExamQuestion();
+
+}
+
+
+/* =========================================================
+   CREATE EXAM QUESTIONS
+========================================================= */
+
+function createExamQuestions(count) {
+
+    const selectedWords =
+        shuffleArray(
+            [...allWords]
+        ).slice(0, count);
+
+
+    return selectedWords.map(word => {
+
+        const wrongAnswers =
+            shuffleArray(
+                allWords.filter(
+                    item =>
+                        item.words !== word.words
+                )
+            ).slice(0, 3);
+
+
+        const options =
+            shuffleArray([
+                word,
+                ...wrongAnswers
+            ]);
+
+
+        return {
+            word,
+            options
+        };
+
+    });
+
+}
+
+
+/* =========================================================
+   SHOW EXAM QUESTION
+========================================================= */
+
+function showExamQuestion() {
+
+    if (
+        !examQuestions.length ||
+        currentExamIndex >= examQuestions.length
+    ) {
+
+        finishExam();
+
+        return;
+
+    }
+
+
+    const question =
+        examQuestions[currentExamIndex];
+
+
+    const questionElement =
+        document.getElementById(
+            "exam-question"
+        );
+
+    const answerElement =
+        document.getElementById(
+            "exam-answer"
+        );
+
+    const progress =
+        document.getElementById(
+            "exam-progress"
+        );
+
+    const score =
+        document.getElementById(
+            "exam-score"
+        );
+
+    const nextButton =
+        document.getElementById(
+            "next-exam"
+        );
+
+
+    examAnswered = false;
+
+
+    if (progress) {
+
+        progress.textContent =
+            `Question ${currentExamIndex + 1} / ${examQuestions.length}`;
+
+    }
+
+
+    if (score) {
+
+        score.textContent =
+            `Score: ${examScore}`;
+
+    }
+
+
+    if (questionElement) {
+
+        questionElement.innerHTML = `
+            What is the meaning of
+            <strong>${escapeHTML(question.word.words)}</strong>?
+        `;
+
+    }
+
+
+    if (answerElement) {
+
+        answerElement.innerHTML = "";
+
+
+        question.options.forEach(option => {
+
+            const button =
+                document.createElement("button");
+
+            button.className =
+                "exam-option";
+
+
+            button.textContent =
+                option.Meaning;
+
+
+            button.addEventListener(
+                "click",
+                () => checkExamAnswer(
+                    option,
+                    button
+                )
+            );
+
+
+            answerElement.appendChild(button);
 
         });
 
@@ -389,306 +1404,102 @@ function setupFlashcards() {
 
     if (nextButton) {
 
-        nextButton.addEventListener("click", () => {
-
-            nextFlashcard();
-
-        });
-
-    }
-
-
-    if (previousButton) {
-
-        previousButton.addEventListener("click", () => {
-
-            previousFlashcard();
-
-        });
+        nextButton.classList.add("hidden");
 
     }
 
 }
 
 
-// ------------------------------------------------------------
-// 11. 开始 Flashcard
-// ------------------------------------------------------------
+/* =========================================================
+   CHECK EXAM ANSWER
+========================================================= */
 
-function startFlashcards() {
+function checkExamAnswer(
+    selectedOption,
+    clickedButton
+) {
 
-    if (allWords.length === 0) return;
+    if (examAnswered) return;
 
 
-    currentFlashcardList = [...allWords];
+    examAnswered = true;
 
-    shuffleArray(currentFlashcardList);
 
-    currentFlashcardIndex = 0;
+    const question =
+        examQuestions[currentExamIndex];
 
-    showFlashcard();
 
-}
+    const optionButtons =
+        document.querySelectorAll(
+            ".exam-option"
+        );
 
 
-// ------------------------------------------------------------
-// 12. 显示 Flashcard
-// ------------------------------------------------------------
+    optionButtons.forEach(button => {
 
-function showFlashcard() {
+        const isCorrect =
+            button.textContent ===
+            question.word.Meaning;
 
-    const word = currentFlashcardList[currentFlashcardIndex];
 
-    if (!word) return;
+        if (isCorrect) {
 
+            button.classList.add("correct");
 
-    const chinese = document.getElementById("flashcard-chinese");
-    const pinyin = document.getElementById("flashcard-pinyin");
-    const meaning = document.getElementById("flashcard-meaning");
-    const sentence = document.getElementById("flashcard-sentence");
-    const counter = document.getElementById("flashcard-counter");
-    const flashcard = document.getElementById("flashcard");
-
-
-    if (chinese) {
-        chinese.textContent = word.words ?? "";
-    }
-
-    if (pinyin) {
-        pinyin.textContent = word.Pinyin ?? "";
-    }
-
-    if (meaning) {
-        meaning.textContent = word.Meaning ?? "";
-    }
-
-    if (sentence) {
-        sentence.textContent = word.Sentences ?? "";
-    }
-
-    if (counter) {
-        counter.textContent =
-            `${currentFlashcardIndex + 1} / ${currentFlashcardList.length}`;
-    }
-
-
-    if (flashcard) {
-        flashcard.classList.remove("flipped");
-    }
-
-}
-
-
-// ------------------------------------------------------------
-// 13. Next Flashcard
-// ------------------------------------------------------------
-
-function nextFlashcard() {
-
-    if (currentFlashcardList.length === 0) return;
-
-
-    currentFlashcardIndex++;
-
-
-    if (currentFlashcardIndex >= currentFlashcardList.length) {
-        currentFlashcardIndex = 0;
-    }
-
-
-    showFlashcard();
-
-}
-
-
-// ------------------------------------------------------------
-// 14. Previous Flashcard
-// ------------------------------------------------------------
-
-function previousFlashcard() {
-
-    if (currentFlashcardList.length === 0) return;
-
-
-    currentFlashcardIndex--;
-
-
-    if (currentFlashcardIndex < 0) {
-        currentFlashcardIndex =
-            currentFlashcardList.length - 1;
-    }
-
-
-    showFlashcard();
-
-}
-
-
-// ------------------------------------------------------------
-// 15. Paragraph
-// ------------------------------------------------------------
-
-function renderParagraphs(paragraphs = allParagraphs) {
-
-    const container = document.getElementById("paragraph-list");
-
-    if (!container) return;
-
-
-    container.innerHTML = "";
-
-
-    if (paragraphs.length === 0) {
-
-        container.innerHTML = `
-            <p class="empty-message">
-                No paragraphs found.
-            </p>
-        `;
-
-        return;
-    }
-
-
-    paragraphs.forEach(paragraph => {
-
-        const card = document.createElement("article");
-
-        card.className = "paragraph-card";
-
-
-        card.innerHTML = `
-            <h3>
-                ${escapeHTML(paragraph.title ?? "")}
-            </h3>
-
-            <div class="paragraph-chinese">
-                ${escapeHTML(paragraph.paragraph ?? "")}
-            </div>
-
-            <div class="paragraph-pinyin">
-                ${escapeHTML(paragraph.Pinyin ?? "")}
-            </div>
-        `;
-
-
-        container.appendChild(card);
+        }
 
     });
 
-}
-
-
-// ------------------------------------------------------------
-// 16. 简单 Exam 系统
-// ------------------------------------------------------------
-
-let examQuestions = [];
-let currentExamIndex = 0;
-let examScore = 0;
-
-
-function startExam() {
-
-    if (allWords.length < 1) return;
-
-
-    examQuestions = [...allWords];
-
-    shuffleArray(examQuestions);
-
-    // 第一次先做 10 题
-    examQuestions = examQuestions.slice(0, 10);
-
-    currentExamIndex = 0;
-    examScore = 0;
-
-    showExamQuestion();
-
-}
-
-
-// ------------------------------------------------------------
-// 17. 显示 Exam Question
-// ------------------------------------------------------------
-
-function showExamQuestion() {
-
-    const question = examQuestions[currentExamIndex];
-
-    if (!question) {
-
-        finishExam();
-
-        return;
-    }
-
-
-    const questionElement =
-        document.getElementById("exam-question");
-
-    const answerInput =
-        document.getElementById("exam-answer");
-
-    const progress =
-        document.getElementById("exam-progress");
-
-
-    if (questionElement) {
-
-        questionElement.textContent =
-            question.Meaning ?? "";
-
-    }
-
-
-    if (answerInput) {
-
-        answerInput.value = "";
-
-        answerInput.focus();
-
-    }
-
-
-    if (progress) {
-
-        progress.textContent =
-            `${currentExamIndex + 1} / ${examQuestions.length}`;
-
-    }
-
-}
-
-
-// ------------------------------------------------------------
-// 18. 检查答案
-// ------------------------------------------------------------
-
-function checkExamAnswer() {
-
-    const answerInput =
-        document.getElementById("exam-answer");
-
-    if (!answerInput) return;
-
-
-    const userAnswer =
-        answerInput.value.trim();
-
-
-    const correctAnswer =
-        examQuestions[currentExamIndex].words;
-
 
     if (
-        userAnswer === correctAnswer
+        selectedOption.words ===
+        question.word.words
     ) {
 
         examScore++;
 
+    } else {
+
+        clickedButton.classList.add("wrong");
+
     }
 
+
+    const score =
+        document.getElementById(
+            "exam-score"
+        );
+
+
+    if (score) {
+
+        score.textContent =
+            `Score: ${examScore}`;
+
+    }
+
+
+    const nextButton =
+        document.getElementById(
+            "next-exam"
+        );
+
+
+    if (nextButton) {
+
+        nextButton.classList.remove("hidden");
+
+    }
+
+}
+
+
+/* =========================================================
+   NEXT EXAM QUESTION
+========================================================= */
+
+function nextExamQuestion() {
 
     currentExamIndex++;
 
@@ -697,75 +1508,117 @@ function checkExamAnswer() {
 }
 
 
-// ------------------------------------------------------------
-// 19. Exam 完成
-// ------------------------------------------------------------
+/* =========================================================
+   FINISH EXAM
+========================================================= */
 
 function finishExam() {
 
-    const container =
-        document.getElementById("exam-container");
+    const question =
+        document.getElementById(
+            "exam-question"
+        );
 
-    if (!container) return;
+    const answer =
+        document.getElementById(
+            "exam-answer"
+        );
 
+    const result =
+        document.getElementById(
+            "exam-result"
+        );
 
-    container.innerHTML = `
-        <div class="exam-result">
-
-            <h2>Exam Finished</h2>
-
-            <p>
-                Score:
-                <strong>
-                    ${examScore} / ${examQuestions.length}
-                </strong>
-            </p>
-
-            <button onclick="startExam()">
-                Try Again
-            </button>
-
-        </div>
-    `;
-
-}
+    const nextButton =
+        document.getElementById(
+            "next-exam"
+        );
 
 
-// ------------------------------------------------------------
-// 20. Shuffle
-// ------------------------------------------------------------
+    if (question) {
 
-function shuffleArray(array) {
+        question.textContent =
+            "Exam Complete";
 
-    for (
-        let i = array.length - 1;
-        i > 0;
-        i--
-    ) {
-
-        const j =
-            Math.floor(Math.random() * (i + 1));
+    }
 
 
-        [
-            array[i],
-            array[j]
-        ] =
-        [
-            array[j],
-            array[i]
-        ];
+    if (answer) {
+
+        answer.innerHTML = "";
+
+    }
+
+
+    if (nextButton) {
+
+        nextButton.classList.add("hidden");
+
+    }
+
+
+    if (result) {
+
+        result.classList.remove("hidden");
+
+        result.textContent =
+            `You scored ${examScore} / ${examQuestions.length}`;
 
     }
 
 }
 
 
-// ------------------------------------------------------------
-// 21. HTML 安全处理
-// ------------------------------------------------------------
+/* =========================================================
+   SHUFFLE
+========================================================= */
+
+function shuffleArray(array) {
+
+    const result =
+        [...array];
+
+
+    for (
+        let i = result.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+
+        [
+            result[i],
+            result[j]
+        ] = [
+            result[j],
+            result[i]
+        ];
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
 function escapeHTML(value) {
+
+    if (value === null || value === undefined) {
+
+        return "";
+
+    }
+
 
     return String(value)
         .replace(/&/g, "&amp;")
@@ -777,9 +1630,9 @@ function escapeHTML(value) {
 }
 
 
-// ------------------------------------------------------------
-// 22. 给 HTML button 使用
-// ------------------------------------------------------------
+/* =========================================================
+   GLOBAL FUNCTIONS
+========================================================= */
 
 window.showPage = showPage;
 window.startExam = startExam;
