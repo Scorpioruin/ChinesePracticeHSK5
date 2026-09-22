@@ -1,3 +1,4 @@
+```css
 /* =========================
    GLOBAL
 ========================= */
@@ -12,16 +13,16 @@ html {
 
 body {
   margin: 0;
+
   font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
     Arial,
+    "Microsoft YaHei",
     "Noto Sans SC",
     sans-serif;
 
   background: #f7f7f5;
   color: #181818;
+
   line-height: 1.6;
 }
 
@@ -49,6 +50,7 @@ button {
   z-index: 1000;
 
   background: rgba(247, 247, 245, 0.94);
+
   backdrop-filter: blur(15px);
 
   border-bottom: 1px solid #e4e4e0;
@@ -56,10 +58,13 @@ button {
 
 .header-inner {
   max-width: 1180px;
+
   margin: auto;
+
   padding: 18px 25px;
 
   display: flex;
+
   justify-content: space-between;
   align-items: center;
 
@@ -73,32 +78,42 @@ button {
 
 .logo-chinese {
   font-size: 22px;
+
   font-weight: 700;
+
   letter-spacing: 1px;
 }
 
 .logo-subtitle {
   font-size: 11px;
+
   color: #777;
+
   letter-spacing: 1.5px;
+
   text-transform: uppercase;
 }
 
 
-/* NAV */
+/* =========================
+   NAVIGATION
+========================= */
 
 .main-nav {
   display: flex;
+
   gap: 6px;
 }
 
 .nav-btn {
   border: none;
+
   background: transparent;
 
   padding: 9px 14px;
 
   color: #777;
+
   border-radius: 8px;
 
   transition: 0.2s;
@@ -106,11 +121,13 @@ button {
 
 .nav-btn:hover {
   background: #ecece8;
+
   color: #111;
 }
 
 .nav-btn.active {
   background: #181818;
+
   color: white;
 }
 
@@ -121,6 +138,7 @@ button {
 
 .page-section {
   display: none;
+
   padding: 55px 25px 80px;
 }
 
@@ -130,6 +148,7 @@ button {
 
 .section-header {
   max-width: 900px;
+
   margin: 0 auto 35px;
 }
 
@@ -137,24 +156,30 @@ button {
   margin: 5px 0 10px;
 
   font-size: clamp(36px, 5vw, 58px);
+
   line-height: 1.1;
 }
 
 .section-header p:not(.section-label) {
   color: #777;
+
   max-width: 650px;
 }
 
 
-/* LABEL */
+/* =========================
+   SECTION LABEL
+========================= */
 
 .section-label {
   margin: 0;
 
   font-size: 11px;
+
   font-weight: 700;
 
   letter-spacing: 2px;
+
   text-transform: uppercase;
 
   color: #777;
@@ -167,11 +192,13 @@ button {
 
 .hero {
   max-width: 1180px;
+
   margin: 0 auto;
 
   min-height: 500px;
 
   display: flex;
+
   align-items: center;
 }
 
@@ -183,6 +210,7 @@ button {
   margin: 12px 0 25px;
 
   font-size: clamp(50px, 8vw, 100px);
+
   line-height: 0.98;
 
   letter-spacing: -4px;
@@ -196,6 +224,7 @@ button {
   max-width: 620px;
 
   font-size: 18px;
+
   color: #666;
 
   margin-bottom: 30px;
@@ -209,6 +238,7 @@ button {
 .primary-btn,
 .secondary-btn {
   border-radius: 10px;
+
   padding: 12px 19px;
 
   border: 1px solid transparent;
@@ -220,17 +250,21 @@ button {
 
 .primary-btn {
   background: #181818;
+
   color: white;
 }
 
 .primary-btn:hover {
   background: #333;
+
   transform: translateY(-1px);
 }
 
 .secondary-btn {
   background: white;
+
   border-color: #deded9;
+
   color: #222;
 }
 
@@ -245,6 +279,7 @@ button {
 
 .countdown-section {
   max-width: 1180px;
+
   margin: 0 auto 40px;
 }
 
@@ -252,31 +287,40 @@ button {
   background: white;
 
   border: 1px solid #e4e4e0;
+
   border-radius: 22px;
 
   padding: 35px;
 
   text-align: center;
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
 .countdown-label {
   font-size: 11px;
+
   font-weight: 700;
+
   letter-spacing: 2px;
+
   color: #777;
 }
 
 .countdown-card h2 {
   margin: 8px 0 25px;
+
   font-size: 25px;
 }
 
 #countdown {
   display: flex;
+
   justify-content: center;
+
   gap: 15px;
+
   flex-wrap: wrap;
 }
 
@@ -294,6 +338,7 @@ button {
   display: block;
 
   font-size: 38px;
+
   font-weight: 700;
 
   line-height: 1;
@@ -305,28 +350,34 @@ button {
   margin-top: 8px;
 
   color: #777;
+
   font-size: 11px;
 
   text-transform: uppercase;
+
   letter-spacing: 1px;
 }
 
 #countdown-message {
   margin: 25px 0 0;
+
   color: #777;
 }
 
 
 /* =========================
-   STATS
+   STATISTICS
 ========================= */
 
 .stats-grid {
   max-width: 1180px;
+
   margin: 0 auto 40px;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+
+  grid-template-columns:
+    repeat(3, 1fr);
 
   gap: 15px;
 }
@@ -335,6 +386,7 @@ button {
   background: white;
 
   border: 1px solid #e4e4e0;
+
   border-radius: 18px;
 
   padding: 28px;
@@ -342,11 +394,13 @@ button {
 
 .stat-number {
   font-size: 34px;
+
   font-weight: 700;
 }
 
 .stat-label {
   margin-top: 3px;
+
   color: #777;
 }
 
@@ -357,10 +411,13 @@ button {
 
 .feature-grid {
   max-width: 1180px;
+
   margin: 0 auto;
 
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+
+  grid-template-columns:
+    repeat(4, 1fr);
 
   gap: 15px;
 }
@@ -369,6 +426,7 @@ button {
   background: white;
 
   border: 1px solid #e4e4e0;
+
   border-radius: 18px;
 
   padding: 28px;
@@ -382,21 +440,26 @@ button {
 
 .feature-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.06);
+
+  box-shadow:
+    0 15px 30px rgba(0, 0, 0, 0.06);
 }
 
 .feature-number {
   font-size: 12px;
+
   color: #999;
 }
 
 .feature-card h3 {
   font-size: 25px;
+
   margin: 35px 0 10px;
 }
 
 .feature-card p {
   color: #777;
+
   font-size: 14px;
 }
 
@@ -415,6 +478,7 @@ button {
 
 .search-container {
   max-width: 900px;
+
   margin: 0 auto 25px;
 }
 
@@ -424,6 +488,7 @@ button {
   padding: 17px 20px;
 
   border: 1px solid #ddd;
+
   border-radius: 12px;
 
   background: white;
@@ -444,9 +509,11 @@ button {
 
 .alphabet-wrapper {
   max-width: 900px;
+
   margin: 0 auto 30px;
 
   display: flex;
+
   gap: 6px;
 
   flex-wrap: wrap;
@@ -460,6 +527,7 @@ button {
   border-radius: 7px;
 
   min-width: 38px;
+
   height: 36px;
 
   color: #555;
@@ -473,12 +541,15 @@ button {
 
 .alphabet-btn.active {
   background: #181818;
+
   border-color: #181818;
+
   color: white;
 }
 
 .alphabet-btn.disabled {
   opacity: 0.3;
+
   cursor: not-allowed;
 }
 
@@ -489,10 +560,13 @@ button {
 
 .word-list {
   max-width: 900px;
+
   margin: 0 auto;
 
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+
+  grid-template-columns:
+    repeat(2, 1fr);
 
   gap: 12px;
 }
@@ -501,12 +575,15 @@ button {
   background: white;
 
   border: 1px solid #e3e3de;
+
   border-radius: 15px;
 
   padding: 22px;
 
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
 
   cursor: pointer;
@@ -516,7 +593,9 @@ button {
 
 .word-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 .word-card-main {
@@ -533,6 +612,7 @@ button {
   margin: 2px 0;
 
   color: #777;
+
   font-size: 14px;
 }
 
@@ -540,11 +620,13 @@ button {
   margin: 7px 0 0;
 
   color: #555;
+
   font-size: 13px;
 }
 
 .word-card-arrow {
   font-size: 20px;
+
   color: #aaa;
 }
 
@@ -571,6 +653,7 @@ button {
 
 .word-detail {
   position: fixed;
+
   inset: 0;
 
   z-index: 1500;
@@ -578,7 +661,9 @@ button {
   background: rgba(0, 0, 0, 0.45);
 
   display: flex;
+
   justify-content: center;
+
   align-items: center;
 
   padding: 25px;
@@ -590,6 +675,7 @@ button {
   width: min(700px, 100%);
 
   max-height: 90vh;
+
   overflow-y: auto;
 
   background: white;
@@ -598,18 +684,23 @@ button {
 
   padding: 40px;
 
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.2);
 }
 
 .close-btn {
   position: absolute;
+
   top: 18px;
+
   right: 20px;
 
   width: 38px;
+
   height: 38px;
 
   border: none;
+
   border-radius: 50%;
 
   background: #f0f0ed;
@@ -621,11 +712,13 @@ button {
 
 .word-detail-inner h2 {
   font-size: 50px;
+
   margin: 10px 0 0;
 }
 
 .detail-pinyin {
   color: #777;
+
   font-size: 18px;
 }
 
@@ -635,20 +728,27 @@ button {
 
 .detail-divider {
   height: 1px;
+
   background: #e4e4e0;
+
   margin: 25px 0;
 }
 
 .detail-label {
   font-size: 11px;
+
   text-transform: uppercase;
+
   letter-spacing: 1.5px;
+
   color: #888;
+
   font-weight: 700;
 }
 
 .detail-sentence {
   font-size: 20px;
+
   line-height: 1.9;
 }
 
@@ -659,11 +759,13 @@ button {
 
 .reading-progress-container {
   position: sticky;
+
   top: 73px;
 
   z-index: 100;
 
   max-width: 850px;
+
   height: 3px;
 
   margin: 0 auto;
@@ -673,6 +775,7 @@ button {
 
 .reading-progress {
   height: 100%;
+
   width: 0%;
 
   background: #181818;
@@ -682,11 +785,13 @@ button {
 
 .reading-article {
   max-width: 850px;
+
   margin: 35px auto 0;
 
   background: white;
 
   border: 1px solid #e4e4e0;
+
   border-radius: 20px;
 
   padding: 45px;
@@ -694,18 +799,23 @@ button {
 
 .article-top {
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
 }
 
 .paragraph-counter {
   font-size: 13px;
+
   color: #999;
 }
 
 .reading-article h2 {
   font-size: 38px;
+
   line-height: 1.2;
+
   margin: 25px 0;
 }
 
@@ -717,18 +827,28 @@ button {
   margin: 0;
 }
 
+
+/* =========================
+   READING CHINESE FONT
+========================= */
+
 #paragraph-text {
   font-family:
-    "Noto Sans SC",
     "Microsoft YaHei",
     Arial,
     sans-serif;
 
   font-size: 23px;
+
   line-height: 2.05;
 
   user-select: text;
 }
+
+
+/* =========================
+   READING PINYIN
+========================= */
 
 .paragraph-pinyin {
   margin-top: 28px !important;
@@ -740,8 +860,14 @@ button {
   color: #777;
 
   font-size: 16px;
+
   line-height: 2;
 }
+
+
+/* =========================
+   READING NAVIGATION
+========================= */
 
 .article-navigation {
   display: flex;
@@ -759,12 +885,17 @@ button {
 
 
 /* =========================
-   HIGHLIGHT
+   HIGHLIGHT SYSTEM
 ========================= */
 
 .highlightable {
   user-select: text;
 }
+
+
+/*
+  Selected saved text
+*/
 
 .highlight-mark {
   background: #fff19a;
@@ -774,17 +905,27 @@ button {
   padding: 1px 2px;
 
   box-decoration-break: clone;
+
   -webkit-box-decoration-break: clone;
 
-  transition: background 0.2s;
+  transition:
+    background 0.2s;
 }
+
+
+/*
+  Slightly darker when
+  mouse is over highlight
+*/
 
 .highlight-mark:hover {
   background: #ffe96b;
 }
 
 
-/* FLOATING TOOLBAR */
+/* =========================
+   HIGHLIGHT TOOLBAR
+========================= */
 
 .highlight-toolbar {
   position: fixed;
@@ -801,9 +942,11 @@ button {
 
   border-radius: 9px;
 
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.2);
 
-  transform: translate(-50%, -100%);
+  transform:
+    translate(-50%, -100%);
 
   margin-top: -10px;
 }
@@ -838,11 +981,12 @@ button {
 
 
 /* =========================
-   FLASHCARD
+   FLASHCARDS
 ========================= */
 
 .flashcard-wrapper {
   max-width: 700px;
+
   margin: 40px auto;
 }
 
@@ -858,12 +1002,15 @@ button {
 
 .flashcard-face {
   position: absolute;
+
   inset: 0;
 
   display: flex;
+
   flex-direction: column;
 
   justify-content: center;
+
   align-items: center;
 
   text-align: center;
@@ -878,45 +1025,56 @@ button {
 
   backface-visibility: hidden;
 
-  transition: transform 0.6s;
+  transition:
+    transform 0.6s;
 
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.04);
 }
 
 .flashcard-front {
-  transform: rotateY(0deg);
+  transform:
+    rotateY(0deg);
 }
 
 .flashcard-back {
-  transform: rotateY(180deg);
+  transform:
+    rotateY(180deg);
 }
 
 .flashcard.flipped .flashcard-front {
-  transform: rotateY(-180deg);
+  transform:
+    rotateY(-180deg);
 }
 
 .flashcard.flipped .flashcard-back {
-  transform: rotateY(0deg);
+  transform:
+    rotateY(0deg);
 }
 
 .flashcard-small {
   font-size: 10px;
+
   letter-spacing: 2px;
+
   color: #999;
 }
 
 .flashcard-word {
   font-size: 65px;
+
   margin: 15px 0 5px;
 }
 
 .flashcard-pinyin {
   color: #777;
+
   font-size: 20px;
 }
 
 .flashcard-meaning {
   font-size: 25px;
+
   font-weight: 600;
 }
 
@@ -957,6 +1115,7 @@ button {
 
 .exam-container {
   max-width: 850px;
+
   margin: 40px auto;
 }
 
@@ -966,6 +1125,7 @@ button {
   background: white;
 
   border: 1px solid #e2e2dd;
+
   border-radius: 20px;
 
   padding: 45px;
@@ -975,12 +1135,15 @@ button {
 
 .exam-start-icon {
   width: 70px;
+
   height: 70px;
 
   margin: 0 auto 20px;
 
   display: flex;
+
   justify-content: center;
+
   align-items: center;
 
   border-radius: 18px;
@@ -988,21 +1151,25 @@ button {
   background: #f0f0ed;
 
   font-size: 35px;
+
   font-weight: 700;
 }
 
 .exam-start h3 {
   font-size: 28px;
+
   margin: 10px 0;
 }
 
 .exam-start p {
   color: #777;
+
   margin-bottom: 25px;
 }
 
 .exam-word {
   font-size: 65px;
+
   font-weight: 700;
 
   margin: 15px 0 5px;
@@ -1010,13 +1177,15 @@ button {
 
 .exam-pinyin {
   color: #777;
+
   margin-bottom: 30px;
 }
 
 .exam-options {
   display: grid;
 
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns:
+    repeat(2, 1fr);
 
   gap: 12px;
 }
@@ -1041,16 +1210,19 @@ button {
 
 .exam-option.correct {
   background: #dff3df;
+
   border-color: #6eb66e;
 }
 
 .exam-option.wrong {
   background: #f8dddd;
+
   border-color: #d77;
 }
 
 .exam-score {
   font-size: 65px;
+
   font-weight: 700;
 
   margin: 20px 0;
@@ -1082,8 +1254,10 @@ button {
 
   .header-inner {
     flex-direction: column;
+
     align-items: flex-start;
   }
+
 
   .main-nav {
     width: 100%;
@@ -1093,17 +1267,22 @@ button {
     padding-bottom: 3px;
   }
 
+
   .nav-btn {
     white-space: nowrap;
   }
+
 
   .hero {
     min-height: 420px;
   }
 
+
   .feature-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns:
+      repeat(2, 1fr);
   }
+
 
   .word-list {
     grid-template-columns: 1fr;
@@ -1115,99 +1294,129 @@ button {
 @media (max-width: 600px) {
 
   .page-section {
-    padding: 40px 15px 60px;
+    padding:
+      40px 15px 60px;
   }
+
 
   .header-inner {
     padding: 15px;
   }
 
+
   .hero h1 {
     letter-spacing: -2px;
   }
+
 
   .hero-description {
     font-size: 16px;
   }
 
+
   .stats-grid {
     grid-template-columns: 1fr;
   }
+
 
   .feature-grid {
     grid-template-columns: 1fr;
   }
 
+
   .countdown-card {
     padding: 25px 15px;
   }
 
+
   .countdown-item {
     min-width: 75px;
+
     padding: 14px 8px;
   }
+
 
   .countdown-item span {
     font-size: 28px;
   }
 
+
   .reading-article {
-    padding: 25px 20px;
+    padding:
+      25px 20px;
   }
+
 
   .reading-article h2 {
     font-size: 30px;
   }
 
+
   #paragraph-text {
     font-size: 20px;
+
     line-height: 2;
   }
+
 
   .article-navigation {
     flex-direction: column;
   }
 
+
   .article-navigation button {
     width: 100%;
   }
 
+
   .word-detail-inner {
-    padding: 30px 22px;
+    padding:
+      30px 22px;
   }
+
 
   .word-detail-inner h2 {
     font-size: 40px;
   }
 
+
   .detail-sentence {
     font-size: 18px;
   }
+
 
   .flashcard {
     height: 350px;
   }
 
+
   .flashcard-word {
     font-size: 50px;
   }
+
 
   .exam-options {
     grid-template-columns: 1fr;
   }
 
+
   .exam-start,
   .exam-question,
   .exam-result {
-    padding: 30px 20px;
+    padding:
+      30px 20px;
   }
+
 
   .exam-word {
     font-size: 50px;
   }
 
+
   .highlight-toolbar {
-    max-width: calc(100vw - 20px);
+    max-width:
+      calc(100vw - 20px);
   }
 
 }
+```
