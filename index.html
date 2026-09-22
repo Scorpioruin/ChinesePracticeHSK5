@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chinese Learning Website for HSK 5">
+  <title>中文学习 · HSK 5</title>
+
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+
+    <div class="logo">
+      <span class="logo-chinese">中文学习</span>
+      <span class="logo-subtitle">HSK 5 Learning</span>
+    </div>
+
+    <nav class="main-nav">
+      <button class="nav-btn active" data-section="home">
+        Home
+      </button>
+
+      <button class="nav-btn" data-section="vocabulary">
+        Vocabulary
+      </button>
+
+      <button class="nav-btn" data-section="reading">
+        Reading
+      </button>
+
+      <button class="nav-btn" data-section="flashcards">
+        Flashcards
+      </button>
+
+      <button class="nav-btn" data-section="exam">
+        Exam
+      </button>
+    </nav>
+
+  </div>
+</header>
+
+
+<main>
+
+  <!-- =========================
+       HOME
+  ========================== -->
+
+  <section id="home" class="page-section active-section">
+
+    <div class="hero">
+
+      <div class="hero-content">
+
+        <p class="section-label">
+          CHINESE LEARNING
+        </p>
+
+        <h1>
+          Learn Chinese.<br>
+          <span>一步一步</span>
+        </h1>
+
+        <p class="hero-description">
+          Build your HSK 5 vocabulary, improve your reading,
+          and practice naturally through useful Chinese content.
+        </p>
+
+        <button
+          class="primary-btn"
+          data-section="vocabulary"
+        >
+          Start Learning →
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- COUNTDOWN -->
+
+    <section class="countdown-section">
+
+      <div class="countdown-card">
+
+        <div class="countdown-label">
+          HSK 5 EXAM COUNTDOWN
+        </div>
+
+        <h2>
+          11 October 2026 · 9:00 AM
+        </h2>
+
+        <div id="countdown">
+
+          <div class="countdown-item">
+            <span id="countdown-days">0</span>
+            <small>Days</small>
+          </div>
+
+          <div class="countdown-item">
+            <span id="countdown-hours">00</span>
+            <small>Hours</small>
+          </div>
+
+          <div class="countdown-item">
+            <span id="countdown-minutes">00</span>
+            <small>Minutes</small>
+          </div>
+
+          <div class="countdown-item">
+            <span id="countdown-seconds">00</span>
+            <small>Seconds</small>
+          </div>
+
+        </div>
+
+        <p id="countdown-message">
+          Keep studying. 加油！
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- STATS -->
+
+    <section class="stats-grid">
+
+      <div class="stat-card">
+        <div id="total-words" class="stat-number">
+          0
+        </div>
+
+        <div class="stat-label">
+          Vocabulary
+        </div>
+      </div>
+
+
+      <div class="stat-card">
+        <div id="total-paragraphs" class="stat-number">
+          0
+        </div>
+
+        <div class="stat-label">
+          Reading Articles
+        </div>
+      </div>
+
+
+      <div class="stat-card">
+        <div class="stat-number">
+          HSK 5
+        </div>
+
+        <div class="stat-label">
+          Current Level
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="feature-grid">
+
+      <div
+        class="feature-card"
+        data-section="vocabulary"
+      >
+        <div class="feature-number">
+          01
+        </div>
+
+        <h3>
+          Vocabulary
+        </h3>
+
+        <p>
+          Study useful HSK 5 vocabulary with
+          Pinyin, meanings and example sentences.
+        </p>
+
+        <span>
+          Explore →
+        </span>
+      </div>
+
+
+      <div
+        class="feature-card"
+        data-section="reading"
+      >
+        <div class="feature-number">
+          02
+        </div>
+
+        <h3>
+          Reading
+        </h3>
+
+        <p>
+          Read longer Chinese passages and
+          practice understanding natural Chinese.
+        </p>
+
+        <span>
+          Read →
+        </span>
+      </div>
+
+
+      <div
+        class="feature-card"
+        data-section="flashcards"
+      >
+        <div class="feature-number">
+          03
+        </div>
+
+        <h3>
+          Flashcards
+        </h3>
+
+        <p>
+          Review vocabulary using interactive
+          flashcards.
+        </p>
+
+        <span>
+          Review →
+        </span>
+      </div>
+
+
+      <div
+        class="feature-card"
+        data-section="exam"
+      >
+        <div class="feature-number">
+          04
+        </div>
+
+        <h3>
+          Practice Exam
+        </h3>
+
+        <p>
+          Test your vocabulary knowledge with
+          randomized questions.
+        </p>
+
+        <span>
+          Practice →
+        </span>
+      </div>
+
+    </section>
+
+  </section>
+
+
+  <!-- =========================
+       VOCABULARY
+  ========================== -->
+
+  <section id="vocabulary" class="page-section">
+
+    <div class="section-header">
+
+      <p class="section-label">
+        HSK 5
+      </p>
+
+      <h2>
+        Vocabulary
+      </h2>
+
+      <p>
+        Search Chinese words, Pinyin or English meanings.
+      </p>
+
+    </div>
+
+
+    <div class="search-container">
+
+      <input
+        id="search-input"
+        type="text"
+        placeholder="Search Chinese, Pinyin or English..."
+        autocomplete="off"
+      >
+
+    </div>
+
+
+    <div class="alphabet-wrapper">
+
+      <button
+        class="alphabet-btn active"
+        data-letter="all"
+      >
+        ALL
+      </button>
+
+      <div id="alphabet-list"></div>
+
+    </div>
+
+
+    <div
+      id="word-list"
+      class="word-list"
+    >
+
+      <div class="loading">
+        Loading vocabulary...
+      </div>
+
+    </div>
+
+
+    <!-- WORD DETAIL -->
+
+    <div
+      id="word-detail"
+      class="word-detail hidden"
+    >
+
+      <div class="word-detail-inner">
+
+        <button
+          id="close-word-detail"
+          class="close-btn"
+        >
+          ×
+        </button>
+
+        <p class="section-label">
+          VOCABULARY
+        </p>
+
+        <h2 id="word-title">
+          -
+        </h2>
+
+        <p
+          id="word-pinyin"
+          class="detail-pinyin"
+        >
+          -
+        </p>
+
+        <p
+          id="word-meaning"
+          class="detail-meaning"
+        >
+          -
+        </p>
+
+        <div class="detail-divider"></div>
+
+        <p class="detail-label">
+          Example Sentence
+        </p>
+
+        <p
+          id="word-sentence"
+          class="detail-sentence highlightable"
+          data-highlight-field="sentence"
+        >
+          -
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       READING
+  ========================== -->
+
+  <section id="reading" class="page-section">
+
+    <div class="section-header">
+
+      <p class="section-label">
+        HSK 5 READING
+      </p>
+
+      <h2>
+        Reading Practice
+      </h2>
+
+      <p>
+        Read the article and highlight words or sentences
+        that you want to remember.
+      </p>
+
+    </div>
+
+
+    <div class="reading-progress-container">
+      <div
+        id="reading-progress"
+        class="reading-progress"
+      ></div>
+    </div>
+
+
+    <article class="reading-article">
+
+      <div class="article-top">
+
+        <p class="section-label">
+          HSK 5 READING
+        </p>
+
+        <div
+          id="paragraph-counter"
+          class="paragraph-counter"
+        >
+          0 / 0
+        </div>
+
+      </div>
+
+
+      <h2 id="paragraph-title">
+        Loading...
+      </h2>
+
+
+      <div class="article-controls">
+
+        <button
+          id="toggle-pinyin"
+          class="secondary-btn"
+        >
+          Show Pinyin
+        </button>
+
+      </div>
+
+
+      <div class="article-text">
+
+        <p
+          id="paragraph-text"
+          class="highlightable"
+          data-highlight-field="paragraph"
+        >
+          Loading paragraph...
+        </p>
+
+
+        <p
+          id="paragraph-pinyin"
+          class="paragraph-pinyin hidden highlightable"
+          data-highlight-field="pinyin"
+        >
+          Loading Pinyin...
+        </p>
+
+      </div>
+
+
+      <div class="article-navigation">
+
+        <button
+          id="previous-paragraph"
+          class="secondary-btn"
+        >
+          ← Previous
+        </button>
+
+        <button
+          id="next-paragraph"
+          class="primary-btn"
+        >
+          Next →
+        </button>
+
+      </div>
+
+    </article>
+
+  </section>
+
+
+  <!-- =========================
+       FLASHCARDS
+  ========================== -->
+
+  <section id="flashcards" class="page-section">
+
+    <div class="section-header">
+
+      <p class="section-label">
+        REVIEW
+      </p>
+
+      <h2>
+        Flashcards
+      </h2>
+
+      <p>
+        Click the card to reveal the meaning and sentence.
+      </p>
+
+    </div>
+
+
+    <div class="flashcard-wrapper">
+
+      <div
+        id="flashcard"
+        class="flashcard"
+      >
+
+        <div class="flashcard-face flashcard-front">
+
+          <div class="flashcard-small">
+            CHINESE
+          </div>
+
+          <div
+            id="flashcard-word"
+            class="flashcard-word"
+          >
+            -
+          </div>
+
+          <div
+            id="flashcard-pinyin"
+            class="flashcard-pinyin"
+          >
+            -
+          </div>
+
+          <div class="flashcard-hint">
+            Click to flip
+          </div>
+
+        </div>
+
+
+        <div class="flashcard-face flashcard-back">
+
+          <div class="flashcard-small">
+            MEANING
+          </div>
+
+          <div
+            id="flashcard-meaning"
+            class="flashcard-meaning"
+          >
+            -
+          </div>
+
+          <div
+            id="flashcard-sentence"
+            class="flashcard-sentence"
+          >
+            -
+          </div>
+
+          <div class="flashcard-hint">
+            Click to flip
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="flashcard-navigation">
+
+        <button
+          id="previous-word"
+          class="secondary-btn"
+        >
+          ← Previous
+        </button>
+
+        <button
+          id="next-word"
+          class="primary-btn"
+        >
+          Next →
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       EXAM
+  ========================== -->
+
+  <section id="exam" class="page-section">
+
+    <div class="section-header">
+
+      <p class="section-label">
+        PRACTICE
+      </p>
+
+      <h2>
+        Vocabulary Practice
+      </h2>
+
+      <p>
+        Test yourself with randomly selected vocabulary.
+      </p>
+
+    </div>
+
+
+    <div
+      id="exam-container"
+      class="exam-container"
+    >
+
+      <div class="exam-start">
+
+        <div class="exam-start-icon">
+          中
+        </div>
+
+        <h3>
+          Ready to practice?
+        </h3>
+
+        <p>
+          You will receive up to 10 random vocabulary questions.
+        </p>
+
+        <button
+          id="start-exam"
+          class="primary-btn"
+        >
+          Start Practice
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- =========================
+     HIGHLIGHT TOOLBAR
+========================== -->
+
+<div
+  id="highlight-toolbar"
+  class="highlight-toolbar hidden"
+>
+
+  <button
+    id="highlight-selection"
+    type="button"
+  >
+    <span>🖍</span>
+    Highlight
+  </button>
+
+  <button
+    id="remove-highlight"
+    type="button"
+  >
+    Remove
+  </button>
+
+</div>
+
+
+<footer class="site-footer">
+
+  <p>
+    中文学习 · HSK 5
+  </p>
+
+  <p>
+    Keep learning. 加油！
+  </p>
+
+</footer>
+
+
+<script src="./app.js"></script>
+
+</body>
+</html>
