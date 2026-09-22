@@ -866,5 +866,113 @@ async function initializeApp() {
         "Chinese Learning website ready."
     );
 }
+// ===============================
+// HSK 5 EXAM COUNTDOWN
+// ===============================
 
+function updateCountdown() {
+
+    // Thailand time (UTC+7)
+    const examDate =
+        new Date("2026-10-11T09:00:00+07:00");
+
+    const now =
+        new Date();
+
+    const difference =
+        examDate.getTime() - now.getTime();
+
+    const days =
+        document.getElementById(
+            "countdown-days"
+        );
+
+    const hours =
+        document.getElementById(
+            "countdown-hours"
+        );
+
+    const minutes =
+        document.getElementById(
+            "countdown-minutes"
+        );
+
+    const seconds =
+        document.getElementById(
+            "countdown-seconds"
+        );
+
+    const message =
+        document.getElementById(
+            "countdown-message"
+        );
+
+    if (
+        !days ||
+        !hours ||
+        !minutes ||
+        !seconds
+    ) {
+        return;
+    }
+
+    // Exam time has arrived
+    if (difference <= 0) {
+
+        days.textContent = "0";
+        hours.textContent = "0";
+        minutes.textContent = "0";
+        seconds.textContent = "0";
+
+        if (message) {
+            message.textContent =
+                "Your HSK 5 exam time has arrived. 加油！";
+        }
+
+        return;
+    }
+
+    const totalSeconds =
+        Math.floor(
+            difference / 1000
+        );
+
+    const d =
+        Math.floor(
+            totalSeconds / 86400
+        );
+
+    const h =
+        Math.floor(
+            (totalSeconds % 86400) / 3600
+        );
+
+    const m =
+        Math.floor(
+            (totalSeconds % 3600) / 60
+        );
+
+    const s =
+        totalSeconds % 60;
+
+    days.textContent = d;
+    hours.textContent = h;
+    minutes.textContent = m;
+    seconds.textContent = s;
+
+    if (message) {
+        message.textContent =
+            "Keep studying. 加油！";
+    }
+}
+
+
+// Start immediately
+updateCountdown();
+
+// Update every second
+setInterval(
+    updateCountdown,
+    1000
+);
 initializeApp();
