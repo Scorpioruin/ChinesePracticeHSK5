@@ -1,21 +1,29 @@
 /* =========================================================
    新学中文
    Chinese Learning Website
-   Plain HTML + CSS + JavaScript + JSON
+   HTML + CSS + JavaScript + JSON
+   GitHub Pages Version
 ========================================================= */
 
 
 /* =========================================================
-   DATA FILES
+   FILE LIST
 ========================================================= */
 
-const letters = "abcdefghijklmnopqrstuvwxyz".split("");
+const letters =
+    "abcdefghijklmnopqrstuvwxyz".split("");
 
-const wordFiles = letters.map(letter => `words/${letter}.json`);
 
-const paragraphFiles = letters.map(
-    letter => `paragraph/paragraph_${letter}.json`
-);
+const wordFiles =
+    letters.map(
+        letter => `./words/${letter}.json`
+    );
+
+
+const paragraphFiles =
+    letters.map(
+        letter => `./paragraph/paragraph_${letter}.json`
+    );
 
 
 /* =========================================================
@@ -23,49 +31,67 @@ const paragraphFiles = letters.map(
 ========================================================= */
 
 let allWords = [];
+
 let allParagraphs = [];
 
 let currentLetter = "all";
+
 let currentSearch = "";
 
+
+/* Flashcards */
+
 let flashcardWords = [];
+
 let currentFlashcardIndex = 0;
 
 let showFlashcardPinyin = true;
+
 let showFlashcardMeaning = true;
 
+
+/* Paragraph */
+
 let currentParagraphIndex = 0;
+
 let showParagraphPinyin = false;
 
-let examQuestions = [];
-let currentExamIndex = 0;
-let examScore = 0;
-let examAnswered = false;
 
-let selectedExamCount = 10;
+/* Exam */
+
+let examQuestions = [];
+
+let currentExamIndex = 0;
+
+let examScore = 0;
+
+let examAnswered = false;
 
 
 /* =========================================================
-   DOM READY
+   START
 ========================================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-    setupNavigation();
+        setupNavigation();
 
-    setupAlphabet();
+        setupAlphabet();
 
-    setupVocabularySearch();
+        setupVocabularySearch();
 
-    setupFlashcards();
+        setupFlashcards();
 
-    setupParagraphControls();
+        setupParagraphControls();
 
-    setupExam();
+        setupExam();
 
-    loadAllData();
+        loadAllData();
 
-});
+    }
+);
 
 
 /* =========================================================
@@ -74,42 +100,99 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function loadAllData() {
 
-    try {
+    console.log("Starting JSON loading...");
 
-        const wordResults = await Promise.all(
-            wordFiles.map(file => loadJSON(file))
+
+    /*
+     * Load all vocabulary files.
+     * Missing files are ignored.
+     */
+
+    const wordResults =
+        await Promise.all(
+            wordFiles.map(
+                file => loadJSON(file)
+            )
         );
 
-        const paragraphResults = await Promise.all(
-            paragraphFiles.map(file => loadJSON(file))
+
+    /*
+     * Load all paragraph files.
+     * Missing files are ignored.
+     */
+
+    const paragraphResults =
+        await Promise.all(
+            paragraphFiles.map(
+                file => loadJSON(file)
+            )
         );
 
 
-        allWords = wordResults
-            .filter(data => Array.isArray(data))
+    /*
+     * Combine vocabulary.
+     */
+
+    allWords =
+        wordResults
+            .filter(
+                data => Array.isArray(data)
+            )
             .flat();
 
 
-        allParagraphs = paragraphResults
-            .filter(data => Array.isArray(data))
+    /*
+     * Combine paragraphs.
+     */
+
+    allParagraphs =
+        paragraphResults
+            .filter(
+                data => Array.isArray(data)
+            )
             .flat();
 
 
-        updateStatistics();
+    console.log(
+        "Vocabulary loaded:",
+        allWords.length
+    );
 
-        renderVocabulary();
 
-        setupFlashcardData();
+    console.log(
+        "Paragraphs loaded:",
+        allParagraphs.length
+    );
 
-        renderParagraphList();
 
-        if (allParagraphs.length > 0) {
-            showParagraph(0);
-        }
+    /*
+     * Update website.
+     */
 
-    } catch (error) {
+    updateStatistics();
 
-        console.error("Data loading error:", error);
+    renderVocabulary();
+
+    setupFlashcardData();
+
+    renderParagraphList();
+
+
+    if (allParagraphs.length > 0) {
+
+        showParagraph(0);
+
+    }
+
+
+    /*
+     * If nothing loaded, show an error.
+     */
+
+    if (
+        allWords.length === 0 &&
+        allParagraphs.length === 0
+    ) {
 
         showDataError();
 
@@ -119,41 +202,125 @@ async function loadAllData() {
 
 
 /* =========================================================
-   LOAD JSON
+   LOAD ONE JSON FILE
 ========================================================= */
 
 async function loadJSON(file) {
 
-    const response = await fetch(file);
+    try {
 
-    if (!response.ok) {
-        return [];
+        const response =
+            await fetch(file, {
+                cache: "no-cache"
+            });
+
+
+        /*
+         * File doesn't exist.
+         * This is normal for H-Z right now.
+         */
+
+        if (!response.ok) {
+
+            console.warn(
+                `Skipping: ${file}`
+            );
+
+            return [];
+
+        }
+
+
+        /*
+         * Make sure we actually received JSON.
+         */
+
+        const contentType =
+            response.headers.get(
+                "content-type"
+            );
+
+
+        if (
+            contentType &&
+            !contentType.includes("json") &&
+            !contentType.includes("javascript")
+        ) {
+
+            console.warn(
+                `Unexpected response for ${file}`
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        /*
+         * Make sure JSON is an array.
+         */
+
+        if (!Array.isArray(data)) {
+
+            console.warn(
+                `Invalid JSON structure: ${file}`
+            );
+
+            return [];
+
+        }
+
+
+        return data;
+
     }
 
-    return await response.json();
+    catch (error) {
+
+        console.warn(
+            `Could not load ${file}`,
+            error
+        );
+
+        return [];
+
+    }
 
 }
 
 
 /* =========================================================
-   DATA ERROR
+   ERROR MESSAGE
 ========================================================= */
 
 function showDataError() {
 
     const vocabularyList =
-        document.getElementById("vocabulary-list");
+        document.getElementById(
+            "vocabulary-list"
+        );
+
 
     if (vocabularyList) {
 
         vocabularyList.innerHTML = `
+
             <div class="empty-state">
-                <h3>Unable to load vocabulary</h3>
+
+                <h3>
+                    JSON data could not be loaded
+                </h3>
+
                 <p>
-                    Please make sure you are running the website
-                    with Live Server or another local server.
+                    Please check your GitHub folder structure
+                    and make sure the JSON files are inside
+                    the words and paragraph folders.
                 </p>
+
             </div>
+
         `;
 
     }
@@ -167,51 +334,76 @@ function showDataError() {
 
 function setupNavigation() {
 
-    document.querySelectorAll("[data-page]").forEach(button => {
+    document
+        .querySelectorAll("[data-page]")
+        .forEach(button => {
 
-        button.addEventListener("click", () => {
+            button.addEventListener(
+                "click",
+                () => {
 
-            const page = button.dataset.page;
+                    const page =
+                        button.dataset.page;
 
-            showPage(page);
+                    showPage(page);
+
+                }
+            );
 
         });
-
-    });
 
 }
 
 
 function showPage(pageName) {
 
-    document.querySelectorAll(".page").forEach(page => {
+    document
+        .querySelectorAll(".page")
+        .forEach(page => {
 
-        page.classList.remove("active-page");
+            page.classList.remove(
+                "active-page"
+            );
 
-    });
+        });
 
 
     const targetPage =
-        document.getElementById(pageName);
+        document.getElementById(
+            pageName
+        );
+
 
     if (targetPage) {
 
-        targetPage.classList.add("active-page");
+        targetPage.classList.add(
+            "active-page"
+        );
 
     }
 
 
-    document.querySelectorAll(".nav-btn").forEach(button => {
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(button => {
 
-        button.classList.remove("active");
+            button.classList.remove(
+                "active"
+            );
 
-        if (button.dataset.page === pageName) {
 
-            button.classList.add("active");
+            if (
+                button.dataset.page ===
+                pageName
+            ) {
 
-        }
+                button.classList.add(
+                    "active"
+                );
 
-    });
+            }
+
+        });
 
 
     window.scrollTo({
@@ -220,7 +412,9 @@ function showPage(pageName) {
     });
 
 
-    if (pageName === "flashcards") {
+    if (
+        pageName === "flashcards"
+    ) {
 
         renderFlashcard();
 
@@ -236,10 +430,15 @@ function showPage(pageName) {
 function updateStatistics() {
 
     const wordCount =
-        document.getElementById("word-count");
+        document.getElementById(
+            "word-count"
+        );
+
 
     const paragraphCount =
-        document.getElementById("paragraph-count");
+        document.getElementById(
+            "paragraph-count"
+        );
 
 
     if (wordCount) {
@@ -267,7 +466,10 @@ function updateStatistics() {
 function setupAlphabet() {
 
     const container =
-        document.getElementById("alphabet-list");
+        document.getElementById(
+            "alphabet-list"
+        );
+
 
     if (!container) return;
 
@@ -275,28 +477,41 @@ function setupAlphabet() {
     letters.forEach(letter => {
 
         const button =
-            document.createElement("button");
+            document.createElement(
+                "button"
+            );
 
-        button.className = "alphabet-btn";
 
-        button.dataset.letter = letter;
+        button.className =
+            "alphabet-btn";
+
+
+        button.dataset.letter =
+            letter;
+
 
         button.textContent =
             letter.toUpperCase();
 
 
-        button.addEventListener("click", () => {
+        button.addEventListener(
+            "click",
+            () => {
 
-            currentLetter = letter;
+                currentLetter =
+                    letter;
 
-            updateAlphabetActive();
+                updateAlphabetActive();
 
-            renderVocabulary();
+                renderVocabulary();
 
-        });
+            }
+        );
 
 
-        container.appendChild(button);
+        container.appendChild(
+            button
+        );
 
     });
 
@@ -309,11 +524,19 @@ function updateAlphabetActive() {
         .querySelectorAll(".alphabet-btn")
         .forEach(button => {
 
-            button.classList.remove("active");
+            button.classList.remove(
+                "active"
+            );
 
-            if (button.dataset.letter === currentLetter) {
 
-                button.classList.add("active");
+            if (
+                button.dataset.letter ===
+                currentLetter
+            ) {
+
+                button.classList.add(
+                    "active"
+                );
 
             }
 
@@ -322,70 +545,93 @@ function updateAlphabetActive() {
 }
 
 
-/* ALL button */
+/* =========================================================
+   ALL ALPHABET BUTTON
+========================================================= */
 
-document.addEventListener("click", event => {
+document.addEventListener(
+    "click",
+    event => {
 
-    if (
-        event.target.classList.contains("alphabet-btn") &&
-        event.target.dataset.letter === "all"
-    ) {
+        if (
+            event.target.classList.contains(
+                "alphabet-btn"
+            ) &&
+            event.target.dataset.letter ===
+                "all"
+        ) {
 
-        currentLetter = "all";
+            currentLetter =
+                "all";
 
-        updateAlphabetActive();
+            updateAlphabetActive();
 
-        renderVocabulary();
+            renderVocabulary();
+
+        }
 
     }
-
-});
+);
 
 
 /* =========================================================
-   VOCABULARY SEARCH
+   SEARCH
 ========================================================= */
 
 function setupVocabularySearch() {
 
     const searchInput =
-        document.getElementById("search-input");
+        document.getElementById(
+            "search-input"
+        );
+
 
     const clearButton =
-        document.getElementById("clear-search");
+        document.getElementById(
+            "clear-search"
+        );
 
 
     if (searchInput) {
 
-        searchInput.addEventListener("input", event => {
+        searchInput.addEventListener(
+            "input",
+            event => {
 
-            currentSearch =
-                event.target.value
-                    .trim()
-                    .toLowerCase();
+                currentSearch =
+                    event.target.value
+                        .trim()
+                        .toLowerCase();
 
-            renderVocabulary();
 
-        });
+                renderVocabulary();
+
+            }
+        );
 
     }
 
 
     if (clearButton) {
 
-        clearButton.addEventListener("click", () => {
+        clearButton.addEventListener(
+            "click",
+            () => {
 
-            currentSearch = "";
+                currentSearch = "";
 
-            if (searchInput) {
 
-                searchInput.value = "";
+                if (searchInput) {
+
+                    searchInput.value = "";
+
+                }
+
+
+                renderVocabulary();
 
             }
-
-            renderVocabulary();
-
-        });
+        );
 
     }
 
@@ -393,56 +639,90 @@ function setupVocabularySearch() {
 
 
 /* =========================================================
-   FILTER VOCABULARY
+   FILTER WORDS
 ========================================================= */
 
 function getFilteredWords() {
 
-    return allWords.filter(word => {
+    return allWords.filter(
+        word => {
 
-        const chinese =
-            String(word.words || "")
-                .toLowerCase();
-
-        const pinyin =
-            String(word.Pinyin || "")
-                .toLowerCase();
-
-        const meaning =
-            String(word.Meaning || "")
-                .toLowerCase();
+            const chinese =
+                String(
+                    word.words || ""
+                ).toLowerCase();
 
 
-        const matchesSearch =
-            !currentSearch ||
-            chinese.includes(currentSearch) ||
-            pinyin.includes(currentSearch) ||
-            meaning.includes(currentSearch);
+            const pinyin =
+                String(
+                    word.Pinyin || ""
+                ).toLowerCase();
 
 
-        const firstLetter =
-            getPinyinFirstLetter(word.Pinyin);
+            const meaning =
+                String(
+                    word.Meaning || ""
+                ).toLowerCase();
 
 
-        const matchesLetter =
-            currentLetter === "all" ||
-            firstLetter === currentLetter;
+            const sentence =
+                String(
+                    word.Sentences || ""
+                ).toLowerCase();
 
 
-        return matchesSearch && matchesLetter;
+            const matchesSearch =
+                !currentSearch ||
+                chinese.includes(
+                    currentSearch
+                ) ||
+                pinyin.includes(
+                    currentSearch
+                ) ||
+                meaning.includes(
+                    currentSearch
+                ) ||
+                sentence.includes(
+                    currentSearch
+                );
 
-    });
+
+            const firstLetter =
+                getPinyinFirstLetter(
+                    word.Pinyin
+                );
+
+
+            const matchesLetter =
+                currentLetter === "all" ||
+                firstLetter === currentLetter;
+
+
+            return (
+                matchesSearch &&
+                matchesLetter
+            );
+
+        }
+    );
 
 }
 
 
 /* =========================================================
-   GET PINYIN FIRST LETTER
+   PINYIN FIRST LETTER
 ========================================================= */
 
-function getPinyinFirstLetter(pinyin) {
+function getPinyinFirstLetter(
+    pinyin
+) {
 
-    if (!pinyin) return "";
+    if (!pinyin) {
+
+        return "";
+
+    }
+
 
     return pinyin
         .trim()
@@ -459,13 +739,21 @@ function getPinyinFirstLetter(pinyin) {
 function renderVocabulary() {
 
     const container =
-        document.getElementById("vocabulary-list");
+        document.getElementById(
+            "vocabulary-list"
+        );
+
 
     const emptyState =
-        document.getElementById("vocabulary-empty");
+        document.getElementById(
+            "vocabulary-empty"
+        );
+
 
     const resultCount =
-        document.getElementById("vocabulary-result-count");
+        document.getElementById(
+            "vocabulary-result-count"
+        );
 
 
     if (!container) return;
@@ -481,16 +769,24 @@ function renderVocabulary() {
     if (resultCount) {
 
         resultCount.textContent =
-            `${filteredWords.length} word${filteredWords.length === 1 ? "" : "s"}`;
+            `${filteredWords.length} word${
+                filteredWords.length === 1
+                    ? ""
+                    : "s"
+            }`;
 
     }
 
 
-    if (filteredWords.length === 0) {
+    if (
+        filteredWords.length === 0
+    ) {
 
         if (emptyState) {
 
-            emptyState.classList.remove("hidden");
+            emptyState.classList.remove(
+                "hidden"
+            );
 
         }
 
@@ -501,46 +797,65 @@ function renderVocabulary() {
 
     if (emptyState) {
 
-        emptyState.classList.add("hidden");
+        emptyState.classList.add(
+            "hidden"
+        );
 
     }
 
 
-    filteredWords.forEach((word, index) => {
+    filteredWords.forEach(
+        (word, index) => {
 
-        const card =
-            document.createElement("div");
-
-        card.className =
-            "vocabulary-card";
-
-
-        card.innerHTML = `
-            <div class="word-number">
-                #${index + 1}
-            </div>
-
-            <div class="word-chinese">
-                ${escapeHTML(word.words)}
-            </div>
-
-            <div class="word-pinyin">
-                ${escapeHTML(word.Pinyin)}
-            </div>
-
-            <div class="word-meaning">
-                ${escapeHTML(word.Meaning)}
-            </div>
-
-            <div class="word-sentence">
-                ${escapeHTML(word.Sentences)}
-            </div>
-        `;
+            const card =
+                document.createElement(
+                    "div"
+                );
 
 
-        container.appendChild(card);
+            card.className =
+                "vocabulary-card";
 
-    });
+
+            card.innerHTML = `
+
+                <div class="word-number">
+                    #${index + 1}
+                </div>
+
+                <div class="word-chinese">
+                    ${escapeHTML(
+                        word.words
+                    )}
+                </div>
+
+                <div class="word-pinyin">
+                    ${escapeHTML(
+                        word.Pinyin
+                    )}
+                </div>
+
+                <div class="word-meaning">
+                    ${escapeHTML(
+                        word.Meaning
+                    )}
+                </div>
+
+                <div class="word-sentence">
+                    ${escapeHTML(
+                        word.Sentences
+                    )}
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                card
+            );
+
+        }
+    );
 
 }
 
@@ -554,7 +869,9 @@ function setupFlashcardData() {
     flashcardWords =
         [...allWords];
 
+
     currentFlashcardIndex = 0;
+
 
     renderFlashcard();
 
@@ -564,24 +881,41 @@ function setupFlashcardData() {
 function setupFlashcards() {
 
     const nextButton =
-        document.getElementById("next-card");
+        document.getElementById(
+            "next-card"
+        );
+
 
     const previousButton =
-        document.getElementById("previous-card");
+        document.getElementById(
+            "previous-card"
+        );
+
 
     const togglePinyin =
-        document.getElementById("flashcard-toggle-pinyin");
+        document.getElementById(
+            "flashcard-toggle-pinyin"
+        );
+
 
     const toggleMeaning =
-        document.getElementById("flashcard-toggle-meaning");
+        document.getElementById(
+            "flashcard-toggle-meaning"
+        );
+
 
     const shuffleButton =
-        document.getElementById("shuffle-cards");
+        document.getElementById(
+            "shuffle-cards"
+        );
 
 
     if (nextButton) {
 
-        nextButton.addEventListener("click", nextFlashcard);
+        nextButton.addEventListener(
+            "click",
+            nextFlashcard
+        );
 
     }
 
@@ -598,54 +932,72 @@ function setupFlashcards() {
 
     if (togglePinyin) {
 
-        togglePinyin.addEventListener("click", () => {
+        togglePinyin.addEventListener(
+            "click",
+            () => {
 
-            showFlashcardPinyin =
-                !showFlashcardPinyin;
+                showFlashcardPinyin =
+                    !showFlashcardPinyin;
 
-            togglePinyin.textContent =
-                showFlashcardPinyin
-                    ? "Hide Pinyin"
-                    : "Show Pinyin";
 
-            renderFlashcard();
+                togglePinyin.textContent =
+                    showFlashcardPinyin
+                        ? "Hide Pinyin"
+                        : "Show Pinyin";
 
-        });
+
+                renderFlashcard();
+
+            }
+        );
 
     }
 
 
     if (toggleMeaning) {
 
-        toggleMeaning.addEventListener("click", () => {
+        toggleMeaning.addEventListener(
+            "click",
+            () => {
 
-            showFlashcardMeaning =
-                !showFlashcardMeaning;
+                showFlashcardMeaning =
+                    !showFlashcardMeaning;
 
-            toggleMeaning.textContent =
-                showFlashcardMeaning
-                    ? "Hide Meaning"
-                    : "Show Meaning";
 
-            renderFlashcard();
+                toggleMeaning.textContent =
+                    showFlashcardMeaning
+                        ? "Hide Meaning"
+                        : "Show Meaning";
 
-        });
+
+                renderFlashcard();
+
+            }
+        );
 
     }
 
 
     if (shuffleButton) {
 
-        shuffleButton.addEventListener("click", () => {
+        shuffleButton.addEventListener(
+            "click",
+            () => {
 
-            flashcardWords =
-                shuffleArray([...allWords]);
+                flashcardWords =
+                    shuffleArray(
+                        [...allWords]
+                    );
 
-            currentFlashcardIndex = 0;
 
-            renderFlashcard();
+                currentFlashcardIndex =
+                    0;
 
-        });
+
+                renderFlashcard();
+
+            }
+        );
 
     }
 
@@ -654,27 +1006,49 @@ function setupFlashcards() {
 
 function renderFlashcard() {
 
-    if (!flashcardWords.length) return;
+    if (
+        !flashcardWords.length
+    ) {
+
+        return;
+
+    }
 
 
     const word =
-        flashcardWords[currentFlashcardIndex];
+        flashcardWords[
+            currentFlashcardIndex
+        ];
 
 
     const chinese =
-        document.getElementById("flashcard-chinese");
+        document.getElementById(
+            "flashcard-chinese"
+        );
+
 
     const pinyin =
-        document.getElementById("flashcard-pinyin");
+        document.getElementById(
+            "flashcard-pinyin"
+        );
+
 
     const meaning =
-        document.getElementById("flashcard-meaning");
+        document.getElementById(
+            "flashcard-meaning"
+        );
+
 
     const sentence =
-        document.getElementById("flashcard-sentence");
+        document.getElementById(
+            "flashcard-sentence"
+        );
+
 
     const counter =
-        document.getElementById("flashcard-counter");
+        document.getElementById(
+            "flashcard-counter"
+        );
 
 
     if (chinese) {
@@ -725,10 +1099,17 @@ function renderFlashcard() {
 
 function nextFlashcard() {
 
-    if (!flashcardWords.length) return;
+    if (
+        !flashcardWords.length
+    ) {
+
+        return;
+
+    }
 
 
     currentFlashcardIndex++;
+
 
     if (
         currentFlashcardIndex >=
@@ -747,12 +1128,21 @@ function nextFlashcard() {
 
 function previousFlashcard() {
 
-    if (!flashcardWords.length) return;
+    if (
+        !flashcardWords.length
+    ) {
+
+        return;
+
+    }
 
 
     currentFlashcardIndex--;
 
-    if (currentFlashcardIndex < 0) {
+
+    if (
+        currentFlashcardIndex < 0
+    ) {
 
         currentFlashcardIndex =
             flashcardWords.length - 1;
@@ -772,7 +1162,9 @@ function previousFlashcard() {
 function renderParagraphList() {
 
     const container =
-        document.getElementById("paragraph-list");
+        document.getElementById(
+            "paragraph-list"
+        );
 
 
     if (!container) return;
@@ -781,51 +1173,73 @@ function renderParagraphList() {
     container.innerHTML = "";
 
 
-    allParagraphs.forEach((paragraph, index) => {
+    allParagraphs.forEach(
+        (paragraph, index) => {
 
-        const button =
-            document.createElement("button");
-
-        button.className =
-            "paragraph-item";
-
-
-        button.dataset.index =
-            index;
+            const button =
+                document.createElement(
+                    "button"
+                );
 
 
-        button.innerHTML = `
-            <span class="paragraph-item-number">
-                Article ${index + 1}
-            </span>
-
-            <span class="paragraph-item-title">
-                ${escapeHTML(paragraph.title)}
-            </span>
-        `;
+            button.className =
+                "paragraph-item";
 
 
-        button.addEventListener("click", () => {
-
-            showParagraph(index);
-
-        });
+            button.dataset.index =
+                index;
 
 
-        container.appendChild(button);
+            button.innerHTML = `
 
-    });
+                <span class="paragraph-item-number">
+                    Article ${index + 1}
+                </span>
+
+                <span class="paragraph-item-title">
+                    ${escapeHTML(
+                        paragraph.title
+                    )}
+                </span>
+
+            `;
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    showParagraph(
+                        index
+                    );
+
+                }
+            );
+
+
+            container.appendChild(
+                button
+            );
+
+        }
+    );
 
 }
 
 
 /* =========================================================
-   PARAGRAPH DISPLAY
+   SHOW PARAGRAPH
 ========================================================= */
 
 function showParagraph(index) {
 
-    if (!allParagraphs.length) return;
+    if (
+        !allParagraphs.length
+    ) {
+
+        return;
+
+    }
 
 
     if (index < 0) {
@@ -836,7 +1250,10 @@ function showParagraph(index) {
     }
 
 
-    if (index >= allParagraphs.length) {
+    if (
+        index >=
+        allParagraphs.length
+    ) {
 
         index = 0;
 
@@ -852,22 +1269,37 @@ function showParagraph(index) {
 
 
     const articleNumber =
-        document.getElementById("article-number");
+        document.getElementById(
+            "article-number"
+        );
+
 
     const title =
-        document.getElementById("article-title");
+        document.getElementById(
+            "article-title"
+        );
+
 
     const chinese =
-        document.getElementById("article-chinese");
+        document.getElementById(
+            "article-chinese"
+        );
+
 
     const pinyin =
-        document.getElementById("article-pinyin");
+        document.getElementById(
+            "article-pinyin"
+        );
 
 
     if (articleNumber) {
 
         articleNumber.textContent =
-            `ARTICLE ${index + 1} / ${allParagraphs.length}`;
+            `ARTICLE ${
+                index + 1
+            } / ${
+                allParagraphs.length
+            }`;
 
     }
 
@@ -893,6 +1325,7 @@ function showParagraph(index) {
         pinyin.textContent =
             paragraph.Pinyin || "";
 
+
         pinyin.classList.toggle(
             "hidden",
             !showParagraphPinyin
@@ -904,6 +1337,7 @@ function showParagraph(index) {
     updateParagraphListActive();
 
     resetReadingProgress();
+
 
     window.scrollTo({
         top: 0,
@@ -924,10 +1358,12 @@ function setupParagraphControls() {
             "paragraph-pinyin-toggle"
         );
 
+
     const previous =
         document.getElementById(
             "paragraph-prev"
         );
+
 
     const next =
         document.getElementById(
@@ -937,73 +1373,68 @@ function setupParagraphControls() {
 
     if (toggle) {
 
-        toggle.addEventListener("click", () => {
+        toggle.addEventListener(
+            "click",
+            () => {
 
-            showParagraphPinyin =
-                !showParagraphPinyin;
-
-
-            toggle.textContent =
-                showParagraphPinyin
-                    ? "Hide Pinyin"
-                    : "Show Pinyin";
+                showParagraphPinyin =
+                    !showParagraphPinyin;
 
 
-            const pinyin =
-                document.getElementById(
-                    "article-pinyin"
-                );
+                toggle.textContent =
+                    showParagraphPinyin
+                        ? "Hide Pinyin"
+                        : "Show Pinyin";
 
 
-            if (pinyin) {
+                const pinyin =
+                    document.getElementById(
+                        "article-pinyin"
+                    );
 
-                pinyin.classList.toggle(
-                    "hidden",
-                    !showParagraphPinyin
-                );
+
+                if (pinyin) {
+
+                    pinyin.classList.toggle(
+                        "hidden",
+                        !showParagraphPinyin
+                    );
+
+                }
 
             }
-
-        });
+        );
 
     }
 
 
     if (previous) {
 
-        previous.addEventListener("click", () => {
+        previous.addEventListener(
+            "click",
+            () => {
 
-            showParagraph(
-                currentParagraphIndex - 1
-            );
+                showParagraph(
+                    currentParagraphIndex - 1
+                );
 
-        });
+            }
+        );
 
     }
 
 
     if (next) {
 
-        next.addEventListener("click", () => {
+        next.addEventListener(
+            "click",
+            () => {
 
-            showParagraph(
-                currentParagraphIndex + 1
-            );
+                showParagraph(
+                    currentParagraphIndex + 1
+                );
 
-        });
-
-    }
-
-
-    const article =
-        document.querySelector(".reading-article");
-
-
-    if (article) {
-
-        article.addEventListener(
-            "scroll",
-            updateReadingProgress
+            }
         );
 
     }
@@ -1024,17 +1455,26 @@ function setupParagraphControls() {
 function updateParagraphListActive() {
 
     document
-        .querySelectorAll(".paragraph-item")
+        .querySelectorAll(
+            ".paragraph-item"
+        )
         .forEach(button => {
 
-            button.classList.remove("active");
+            button.classList.remove(
+                "active"
+            );
+
 
             if (
-                Number(button.dataset.index) ===
+                Number(
+                    button.dataset.index
+                ) ===
                 currentParagraphIndex
             ) {
 
-                button.classList.add("active");
+                button.classList.add(
+                    "active"
+                );
 
             }
 
@@ -1050,7 +1490,10 @@ function updateParagraphListActive() {
 function updateReadingProgress() {
 
     const article =
-        document.querySelector(".reading-article");
+        document.querySelector(
+            ".reading-article"
+        );
+
 
     if (!article) return;
 
@@ -1064,7 +1507,7 @@ function updateReadingProgress() {
         article.scrollHeight;
 
 
-    const viewport =
+    const viewportHeight =
         window.innerHeight;
 
 
@@ -1075,19 +1518,26 @@ function updateReadingProgress() {
 
     const maxScroll =
         Math.max(
-            articleHeight - viewport,
+            articleHeight -
+            viewportHeight,
             1
         );
 
 
     let percentage =
-        (scrollPosition / maxScroll) * 100;
+        (
+            scrollPosition /
+            maxScroll
+        ) * 100;
 
 
     percentage =
         Math.max(
             0,
-            Math.min(100, percentage)
+            Math.min(
+                100,
+                percentage
+            )
         );
 
 
@@ -1095,6 +1545,7 @@ function updateReadingProgress() {
         document.getElementById(
             "reading-progress-fill"
         );
+
 
     const text =
         document.getElementById(
@@ -1113,7 +1564,9 @@ function updateReadingProgress() {
     if (text) {
 
         text.textContent =
-            `${Math.round(percentage)}%`;
+            `${Math.round(
+                percentage
+            )}%`;
 
     }
 
@@ -1127,6 +1580,7 @@ function resetReadingProgress() {
             "reading-progress-fill"
         );
 
+
     const text =
         document.getElementById(
             "reading-progress-percent"
@@ -1135,14 +1589,16 @@ function resetReadingProgress() {
 
     if (fill) {
 
-        fill.style.width = "0%";
+        fill.style.width =
+            "0%";
 
     }
 
 
     if (text) {
 
-        text.textContent = "0%";
+        text.textContent =
+            "0%";
 
     }
 
@@ -1150,16 +1606,21 @@ function resetReadingProgress() {
 
 
 /* =========================================================
-   EXAM
+   EXAM SETUP
 ========================================================= */
 
 function setupExam() {
 
     const startButton =
-        document.getElementById("start-exam");
+        document.getElementById(
+            "start-exam"
+        );
+
 
     const nextButton =
-        document.getElementById("next-exam");
+        document.getElementById(
+            "next-exam"
+        );
 
 
     if (startButton) {
@@ -1190,9 +1651,13 @@ function setupExam() {
 
 function startExam() {
 
-    if (allWords.length < 4) {
+    if (
+        allWords.length < 4
+    ) {
 
-        alert("You need at least 4 vocabulary words.");
+        alert(
+            "You need at least 4 vocabulary words."
+        );
 
         return;
 
@@ -1206,42 +1671,44 @@ function startExam() {
     examAnswered = false;
 
 
+    const questionCount =
+        Math.min(
+            10,
+            allWords.length
+        );
+
+
     examQuestions =
         createExamQuestions(
-            Math.min(
-                selectedExamCount,
-                allWords.length
-            )
+            questionCount
         );
 
 
     const result =
-        document.getElementById("exam-result");
+        document.getElementById(
+            "exam-result"
+        );
+
 
     if (result) {
 
-        result.classList.add("hidden");
+        result.classList.add(
+            "hidden"
+        );
 
     }
 
 
     const startButton =
-        document.getElementById("start-exam");
+        document.getElementById(
+            "start-exam"
+        );
+
 
     if (startButton) {
 
         startButton.textContent =
             "Restart Exam";
-
-    }
-
-
-    const nextButton =
-        document.getElementById("next-exam");
-
-    if (nextButton) {
-
-        nextButton.classList.add("hidden");
 
     }
 
@@ -1255,38 +1722,49 @@ function startExam() {
    CREATE EXAM QUESTIONS
 ========================================================= */
 
-function createExamQuestions(count) {
+function createExamQuestions(
+    count
+) {
 
     const selectedWords =
         shuffleArray(
             [...allWords]
-        ).slice(0, count);
+        ).slice(
+            0,
+            count
+        );
 
 
-    return selectedWords.map(word => {
+    return selectedWords.map(
+        word => {
 
-        const wrongAnswers =
-            shuffleArray(
-                allWords.filter(
-                    item =>
-                        item.words !== word.words
-                )
-            ).slice(0, 3);
+            const wrongAnswers =
+                shuffleArray(
+                    allWords.filter(
+                        item =>
+                            item.words !==
+                            word.words
+                    )
+                ).slice(
+                    0,
+                    3
+                );
 
 
-        const options =
-            shuffleArray([
+            const options =
+                shuffleArray([
+                    word,
+                    ...wrongAnswers
+                ]);
+
+
+            return {
                 word,
-                ...wrongAnswers
-            ]);
+                options
+            };
 
-
-        return {
-            word,
-            options
-        };
-
-    });
+        }
+    );
 
 }
 
@@ -1298,8 +1776,17 @@ function createExamQuestions(count) {
 function showExamQuestion() {
 
     if (
-        !examQuestions.length ||
-        currentExamIndex >= examQuestions.length
+        !examQuestions.length
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        currentExamIndex >=
+        examQuestions.length
     ) {
 
         finishExam();
@@ -1310,7 +1797,9 @@ function showExamQuestion() {
 
 
     const question =
-        examQuestions[currentExamIndex];
+        examQuestions[
+            currentExamIndex
+        ];
 
 
     const questionElement =
@@ -1318,20 +1807,24 @@ function showExamQuestion() {
             "exam-question"
         );
 
+
     const answerElement =
         document.getElementById(
             "exam-answer"
         );
+
 
     const progress =
         document.getElementById(
             "exam-progress"
         );
 
+
     const score =
         document.getElementById(
             "exam-score"
         );
+
 
     const nextButton =
         document.getElementById(
@@ -1345,7 +1838,11 @@ function showExamQuestion() {
     if (progress) {
 
         progress.textContent =
-            `Question ${currentExamIndex + 1} / ${examQuestions.length}`;
+            `Question ${
+                currentExamIndex + 1
+            } / ${
+                examQuestions.length
+            }`;
 
     }
 
@@ -1362,7 +1859,11 @@ function showExamQuestion() {
 
         questionElement.innerHTML = `
             What is the meaning of
-            <strong>${escapeHTML(question.word.words)}</strong>?
+            <strong>
+                ${escapeHTML(
+                    question.word.words
+                )}
+            </strong>?
         `;
 
     }
@@ -1373,38 +1874,51 @@ function showExamQuestion() {
         answerElement.innerHTML = "";
 
 
-        question.options.forEach(option => {
+        question.options.forEach(
+            option => {
 
-            const button =
-                document.createElement("button");
-
-            button.className =
-                "exam-option";
-
-
-            button.textContent =
-                option.Meaning;
+                const button =
+                    document.createElement(
+                        "button"
+                    );
 
 
-            button.addEventListener(
-                "click",
-                () => checkExamAnswer(
-                    option,
+                button.className =
+                    "exam-option";
+
+
+                button.textContent =
+                    option.Meaning;
+
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        checkExamAnswer(
+                            option,
+                            button
+                        );
+
+                    }
+                );
+
+
+                answerElement.appendChild(
                     button
-                )
-            );
+                );
 
-
-            answerElement.appendChild(button);
-
-        });
+            }
+        );
 
     }
 
 
     if (nextButton) {
 
-        nextButton.classList.add("hidden");
+        nextButton.classList.add(
+            "hidden"
+        );
 
     }
 
@@ -1420,14 +1934,20 @@ function checkExamAnswer(
     clickedButton
 ) {
 
-    if (examAnswered) return;
+    if (examAnswered) {
+
+        return;
+
+    }
 
 
     examAnswered = true;
 
 
     const question =
-        examQuestions[currentExamIndex];
+        examQuestions[
+            currentExamIndex
+        ];
 
 
     const optionButtons =
@@ -1436,20 +1956,22 @@ function checkExamAnswer(
         );
 
 
-    optionButtons.forEach(button => {
+    optionButtons.forEach(
+        button => {
 
-        const isCorrect =
-            button.textContent ===
-            question.word.Meaning;
+            if (
+                button.textContent ===
+                question.word.Meaning
+            ) {
 
+                button.classList.add(
+                    "correct"
+                );
 
-        if (isCorrect) {
-
-            button.classList.add("correct");
+            }
 
         }
-
-    });
+    );
 
 
     if (
@@ -1459,9 +1981,13 @@ function checkExamAnswer(
 
         examScore++;
 
-    } else {
+    }
 
-        clickedButton.classList.add("wrong");
+    else {
+
+        clickedButton.classList.add(
+            "wrong"
+        );
 
     }
 
@@ -1488,7 +2014,9 @@ function checkExamAnswer(
 
     if (nextButton) {
 
-        nextButton.classList.remove("hidden");
+        nextButton.classList.remove(
+            "hidden"
+        );
 
     }
 
@@ -1519,19 +2047,28 @@ function finishExam() {
             "exam-question"
         );
 
+
     const answer =
         document.getElementById(
             "exam-answer"
         );
+
 
     const result =
         document.getElementById(
             "exam-result"
         );
 
+
     const nextButton =
         document.getElementById(
             "next-exam"
+        );
+
+
+    const progress =
+        document.getElementById(
+            "exam-progress"
         );
 
 
@@ -1550,19 +2087,36 @@ function finishExam() {
     }
 
 
+    if (progress) {
+
+        progress.textContent =
+            "Exam Complete";
+
+    }
+
+
     if (nextButton) {
 
-        nextButton.classList.add("hidden");
+        nextButton.classList.add(
+            "hidden"
+        );
 
     }
 
 
     if (result) {
 
-        result.classList.remove("hidden");
+        result.classList.remove(
+            "hidden"
+        );
+
 
         result.textContent =
-            `You scored ${examScore} / ${examQuestions.length}`;
+            `You scored ${
+                examScore
+            } / ${
+                examQuestions.length
+            }`;
 
     }
 
@@ -1587,7 +2141,8 @@ function shuffleArray(array) {
 
         const j =
             Math.floor(
-                Math.random() * (i + 1)
+                Math.random() *
+                (i + 1)
             );
 
 
@@ -1613,7 +2168,10 @@ function shuffleArray(array) {
 
 function escapeHTML(value) {
 
-    if (value === null || value === undefined) {
+    if (
+        value === null ||
+        value === undefined
+    ) {
 
         return "";
 
@@ -1621,19 +2179,39 @@ function escapeHTML(value) {
 
 
     return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
 /* =========================================================
-   GLOBAL FUNCTIONS
+   GLOBAL
 ========================================================= */
 
-window.showPage = showPage;
-window.startExam = startExam;
-window.checkExamAnswer = checkExamAnswer;
+window.showPage =
+    showPage;
+
+window.startExam =
+    startExam;
+
+window.checkExamAnswer =
+    checkExamAnswer;
