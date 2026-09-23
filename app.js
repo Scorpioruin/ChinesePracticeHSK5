@@ -1,13 +1,3 @@
-/* =========================================================
-   CHINESE LEARNING WEBSITE
-   HSK 5
-========================================================= */
-
-
-/* =========================================================
-   JSON FILES
-========================================================= */
-
 const vocabularyLetters = [
   "a",
   "b",
@@ -66,11 +56,6 @@ const paragraphLetters = [
   "z"
 ];
 
-
-/* =========================================================
-   GLOBAL VARIABLES
-========================================================= */
-
 let vocabulary = [];
 let paragraphs = [];
 
@@ -85,21 +70,15 @@ let examQuestions = [];
 let examIndex = 0;
 let examScore = 0;
 
-
-/* =========================================================
-   HIGHLIGHT SYSTEM
-========================================================= */
-
 const HIGHLIGHT_STORAGE_KEY =
   "chineseHSK5Highlights";
 
 let highlights = [];
-
 let pendingSelection = null;
 
 
 /* =========================================================
-   LOAD HIGHLIGHTS FROM LOCAL STORAGE
+   HIGHLIGHT SYSTEM
 ========================================================= */
 
 function loadHighlights() {
@@ -116,6 +95,7 @@ function loadHighlights() {
       highlights = [];
 
       return;
+
     }
 
     const parsed =
@@ -145,10 +125,6 @@ function loadHighlights() {
 }
 
 
-/* =========================================================
-   SAVE HIGHLIGHTS
-========================================================= */
-
 function saveHighlights() {
 
   try {
@@ -170,10 +146,6 @@ function saveHighlights() {
 }
 
 
-/* =========================================================
-   CREATE UNIQUE HIGHLIGHT ID
-========================================================= */
-
 function createHighlightId() {
 
   return (
@@ -185,10 +157,6 @@ function createHighlightId() {
 
 }
 
-
-/* =========================================================
-   GET TEXT OFFSET INSIDE ELEMENT
-========================================================= */
 
 function getTextOffset(
   root,
@@ -229,7 +197,10 @@ function getTextOffset(
 
 
 /* =========================================================
-   GET HIGHLIGHTABLE PARENT
+   GET HIGHLIGHTABLE ELEMENT
+
+   IMPORTANT:
+   Drag & Drop section is excluded completely.
 ========================================================= */
 
 function getHighlightableElement(
@@ -253,6 +224,16 @@ function getHighlightableElement(
 
   }
 
+  if (
+    element.closest(
+      "#hsk5-drag-drop-section"
+    )
+  ) {
+
+    return null;
+
+  }
+
   return element.closest(
     ".highlightable"
   );
@@ -261,7 +242,7 @@ function getHighlightableElement(
 
 
 /* =========================================================
-   SHOW HIGHLIGHT TOOLBAR
+   HIGHLIGHT TOOLBAR
 ========================================================= */
 
 function showHighlightToolbar(
@@ -334,10 +315,6 @@ function showHighlightToolbar(
 }
 
 
-/* =========================================================
-   HIDE HIGHLIGHT TOOLBAR
-========================================================= */
-
 function hideHighlightToolbar() {
 
   const toolbar =
@@ -359,10 +336,6 @@ function hideHighlightToolbar() {
 
 }
 
-
-/* =========================================================
-   CHECK WHETHER RANGE IS VALID
-========================================================= */
 
 function isValidSelection(
   range
@@ -395,7 +368,7 @@ function isValidSelection(
 
 
 /* =========================================================
-   HANDLE TEXT SELECTION
+   TEXT SELECTION
 ========================================================= */
 
 document.addEventListener(
@@ -516,7 +489,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   PREVENT TOOLBAR FROM DISAPPEARING TOO EARLY
+   TOOLBAR MOUSE HANDLING
 ========================================================= */
 
 document.addEventListener(
@@ -542,7 +515,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   CREATE HIGHLIGHT TARGET KEY
+   HIGHLIGHT TARGET
 ========================================================= */
 
 function getHighlightTarget(
@@ -574,6 +547,18 @@ function addHighlight() {
 
   const element =
     selection.element;
+
+  if (
+    element.closest(
+      "#hsk5-drag-drop-section"
+    )
+  ) {
+
+    hideHighlightToolbar();
+
+    return;
+
+  }
 
   const target =
     getHighlightTarget(element);
@@ -665,6 +650,18 @@ function removeHighlight() {
   const element =
     selection.element;
 
+  if (
+    element.closest(
+      "#hsk5-drag-drop-section"
+    )
+  ) {
+
+    hideHighlightToolbar();
+
+    return;
+
+  }
+
   const target =
     getHighlightTarget(element);
 
@@ -735,6 +732,16 @@ function rerenderHighlightableElement(
 
   }
 
+  if (
+    element.closest(
+      "#hsk5-drag-drop-section"
+    )
+  ) {
+
+    return;
+
+  }
+
   const text =
     element.textContent;
 
@@ -760,6 +767,16 @@ function renderHighlightsForElement(
 ) {
 
   if (!element) {
+
+    return;
+
+  }
+
+  if (
+    element.closest(
+      "#hsk5-drag-drop-section"
+    )
+  ) {
 
     return;
 
@@ -883,7 +900,7 @@ function renderHighlightsForElement(
 
 
 /* =========================================================
-   INITIAL RENDER OF ALL HIGHLIGHTS
+   RENDER ALL HIGHLIGHTS
 ========================================================= */
 
 function renderAllHighlights() {
@@ -893,10 +910,23 @@ function renderAllHighlights() {
       ".highlightable"
     )
     .forEach(
-      element =>
+      element => {
+
+        if (
+          element.closest(
+            "#hsk5-drag-drop-section"
+          )
+        ) {
+
+          return;
+
+        }
+
         renderHighlightsForElement(
           element
-        )
+        );
+
+      }
     );
 
 }
@@ -955,7 +985,7 @@ if (removeHighlightButton) {
 
 
 /* =========================================================
-   CLOSE TOOLBAR WHEN CLICKING ELSEWHERE
+   CLOSE TOOLBAR
 ========================================================= */
 
 document.addEventListener(
@@ -1062,10 +1092,6 @@ function showSection(
 }
 
 
-/* =========================================================
-   NAVIGATION CLICK
-========================================================= */
-
 document.addEventListener(
   "click",
   function (event) {
@@ -1159,11 +1185,6 @@ async function loadVocabulary() {
       const data =
         await loadJSON(file);
 
-      /*
-        Vocabulary files should contain
-        an array.
-      */
-
       if (!Array.isArray(data)) {
 
         throw new Error(
@@ -1188,11 +1209,6 @@ async function loadVocabulary() {
       );
 
     } catch (error) {
-
-      /*
-        Missing files are allowed.
-        The website continues loading.
-      */
 
       console.warn(
         `Could not load ${file}:`,
@@ -1249,19 +1265,6 @@ async function loadParagraphs() {
       const data =
         await loadJSON(file);
 
-      /*
-        Paragraph files normally contain
-        one object:
-
-        {
-          "title": "...",
-          "paragraph": "...",
-          "Pinyin": "..."
-        }
-
-        This loader also supports an array.
-      */
-
       if (Array.isArray(data)) {
 
         data.forEach(
@@ -1311,10 +1314,6 @@ async function loadParagraphs() {
 
     } catch (error) {
 
-      /*
-        Missing paragraph files are allowed.
-      */
-
       console.warn(
         `Could not load ${file}:`,
         error.message
@@ -1342,7 +1341,7 @@ async function loadParagraphs() {
 
 
 /* =========================================================
-   ALPHABET BUTTONS
+   ALPHABET
 ========================================================= */
 
 function setupAlphabet() {
@@ -1407,10 +1406,6 @@ function setupAlphabet() {
 
 }
 
-
-/* =========================================================
-   ALPHABET CLICK
-========================================================= */
 
 document.addEventListener(
   "click",
@@ -1477,7 +1472,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   DISPLAY VOCABULARY
+   VOCABULARY DISPLAY
 ========================================================= */
 
 function displayWords(
@@ -1569,7 +1564,7 @@ function displayWords(
 
 
 /* =========================================================
-   SHOW WORD DETAIL
+   SHOW WORD
 ========================================================= */
 
 function showWord(
@@ -1760,29 +1755,21 @@ if (searchInput) {
       const results =
         wordsToSearch.filter(
           word =>
-
             String(word.words)
               .toLowerCase()
               .includes(query)
-
             ||
-
             String(word.Pinyin)
               .toLowerCase()
               .includes(query)
-
             ||
-
             String(word.Meaning)
               .toLowerCase()
               .includes(query)
-
             ||
-
             String(word.Sentences)
               .toLowerCase()
               .includes(query)
-
         );
 
       displayWords(
@@ -1796,7 +1783,7 @@ if (searchInput) {
 
 
 /* =========================================================
-   FLASHCARD
+   FLASHCARDS
 ========================================================= */
 
 function showFlashcard(
@@ -1889,10 +1876,6 @@ function showFlashcard(
 }
 
 
-/* =========================================================
-   FLASHCARD CLICK
-========================================================= */
-
 const flashcard =
   document.getElementById(
     "flashcard"
@@ -1913,10 +1896,6 @@ if (flashcard) {
 
 }
 
-
-/* =========================================================
-   NEXT WORD
-========================================================= */
 
 const nextWord =
   document.getElementById(
@@ -1957,10 +1936,6 @@ if (nextWord) {
 
 }
 
-
-/* =========================================================
-   PREVIOUS WORD
-========================================================= */
 
 const previousWord =
   document.getElementById(
@@ -2111,10 +2086,6 @@ function showParagraph(
 }
 
 
-/* =========================================================
-   PARAGRAPH COUNTER
-========================================================= */
-
 function updateParagraphCounter() {
 
   const counter =
@@ -2131,10 +2102,6 @@ function updateParagraphCounter() {
 
 }
 
-
-/* =========================================================
-   NEXT PARAGRAPH
-========================================================= */
 
 const nextParagraph =
   document.getElementById(
@@ -2175,10 +2142,6 @@ if (nextParagraph) {
 
 }
 
-
-/* =========================================================
-   PREVIOUS PARAGRAPH
-========================================================= */
 
 const previousParagraph =
   document.getElementById(
@@ -2221,7 +2184,7 @@ if (previousParagraph) {
 
 
 /* =========================================================
-   PINYIN TOGGLE
+   PINYIN
 ========================================================= */
 
 const togglePinyin =
@@ -2363,15 +2326,6 @@ function updateStatistics() {
 
 function updateCountdown() {
 
-  /*
-    Thailand time:
-    UTC +07:00
-
-    Exam:
-    11 October 2026
-    9:00 AM
-  */
-
   const examDate =
     new Date(
       "2026-10-11T09:00:00+07:00"
@@ -2497,6 +2451,7 @@ function updateCountdown() {
 
 }
 
+
 updateCountdown();
 
 setInterval(
@@ -2506,7 +2461,7 @@ setInterval(
 
 
 /* =========================================================
-   EXAM
+   VOCABULARY EXAM
 ========================================================= */
 
 const startExam =
@@ -2523,10 +2478,6 @@ if (startExam) {
 
 }
 
-
-/* =========================================================
-   START EXAM
-========================================================= */
 
 function startVocabularyExam() {
 
@@ -2561,10 +2512,6 @@ function startVocabularyExam() {
 
 }
 
-
-/* =========================================================
-   SHOW EXAM QUESTION
-========================================================= */
 
 function showExamQuestion() {
 
@@ -2747,10 +2694,6 @@ function showExamQuestion() {
 }
 
 
-/* =========================================================
-   EXAM RESULT
-========================================================= */
-
 function showExamResult() {
 
   const container =
@@ -2777,8 +2720,10 @@ function showExamResult() {
         </h3>
 
         <div class="exam-score">
+
           ${examScore} /
           ${examQuestions.length}
+
         </div>
 
         <p>
@@ -2902,15 +2847,7 @@ async function initializeApp() {
     "Starting Chinese Learning website..."
   );
 
-  /*
-    Load saved highlights FIRST.
-  */
-
   loadHighlights();
-
-  /*
-    Load vocabulary and paragraphs.
-  */
 
   await Promise.all(
     [
@@ -2918,10 +2855,6 @@ async function initializeApp() {
       loadParagraphs()
     ]
   );
-
-  /*
-    Render saved highlights.
-  */
 
   renderAllHighlights();
 
@@ -2932,33 +2865,30 @@ async function initializeApp() {
 }
 
 
-/* =========================================================
-   START WEBSITE
-========================================================= */
-
 initializeApp();
 
 
 /* =========================================================
-   HSK 5 VOCABULARY DRAG & DROP READING PRACTICE
-   Added without changing existing website functions.
-   Requires:
-   ./HSK5_Vocabulary_DragDrop_25_Passages.json
-   ========================================================= */
+   HSK 5 VOCABULARY DRAG & DROP
+========================================================= */
 
 let dragDropPassages = [];
+
 let dragDropPassageIndex = 0;
+
 let dragDropAnswers = {};
+
 let dragDropScore = 0;
+
 let dragDropStarted = false;
 
 const DRAG_DROP_JSON_FILE =
   "./HSK5_Vocabulary_DragDrop_25_Passages.json";
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    LOAD DRAG & DROP JSON
---------------------------------------------------------- */
+========================================================= */
 
 async function loadDragDropPractice() {
 
@@ -3015,10 +2945,9 @@ async function loadDragDropPractice() {
 }
 
 
-/* ---------------------------------------------------------
-   CREATE INTERFACE DYNAMICALLY
-   This means no existing HTML needs to be changed.
---------------------------------------------------------- */
+/* =========================================================
+   CREATE DRAG & DROP INTERFACE
+========================================================= */
 
 function createDragDropInterface() {
 
@@ -3033,7 +2962,9 @@ function createDragDropInterface() {
   }
 
   const section =
-    document.createElement("section");
+    document.createElement(
+      "section"
+    );
 
   section.id =
     "hsk5-drag-drop-section";
@@ -3041,86 +2972,85 @@ function createDragDropInterface() {
   section.className =
     "page-section";
 
-  section.innerHTML = `
-    <div class="section-inner hsk5-drag-drop-wrapper">
+  section.innerHTML =
+    `
+      <div class="section-inner hsk5-drag-drop-wrapper">
 
-      <div class="hsk5-drag-drop-header">
+        <div class="hsk5-drag-drop-header">
 
-        <p class="section-label">
-          HSK 5 VOCABULARY PRACTICE
-        </p>
+          <p class="section-label">
+            HSK 5 VOCABULARY PRACTICE
+          </p>
 
-        <h2>
-          Drag & Drop Reading
-        </h2>
+          <h2>
+            Drag & Drop Reading
+          </h2>
 
-        <p id="hsk5-drag-drop-description">
-          Read the passage and drag the correct vocabulary
-          into each blank.
-        </p>
+          <p id="hsk5-drag-drop-description">
+            Read the passage and drag the correct vocabulary
+            into each blank.
+          </p>
 
-      </div>
-
-      <div class="hsk5-drag-drop-controls">
-
-        <button
-          id="hsk5-drag-drop-prev"
-          class="secondary-btn"
-          type="button"
-        >
-          ← Previous
-        </button>
-
-        <div
-          id="hsk5-drag-drop-counter"
-          class="hsk5-drag-drop-counter"
-        >
-          1 / ${dragDropPassages.length}
         </div>
 
-        <button
-          id="hsk5-drag-drop-next"
-          class="primary-btn"
-          type="button"
-        >
-          Next →
-        </button>
+
+        <div class="hsk5-drag-drop-controls">
+
+          <button
+            id="hsk5-drag-drop-prev"
+            class="secondary-btn"
+            type="button"
+          >
+            ← Previous
+          </button>
+
+          <div
+            id="hsk5-drag-drop-counter"
+            class="hsk5-drag-drop-counter"
+          >
+            1 / ${dragDropPassages.length}
+          </div>
+
+          <button
+            id="hsk5-drag-drop-next"
+            class="primary-btn"
+            type="button"
+          >
+            Next →
+          </button>
+
+        </div>
+
+
+        <div
+          id="hsk5-drag-drop-content"
+          class="hsk5-drag-drop-content"
+        ></div>
 
       </div>
-
-      <div
-        id="hsk5-drag-drop-content"
-        class="hsk5-drag-drop-content"
-      ></div>
-
-    </div>
-  `;
-
-  /*
-    Put the new section at the end of the page.
-    Existing sections are untouched.
-  */
+    `;
 
   const main =
-    document.querySelector("main");
+    document.querySelector(
+      "main"
+    );
 
   if (main) {
 
-    main.appendChild(section);
+    main.appendChild(
+      section
+    );
 
   } else {
 
-    document.body.appendChild(section);
+    document.body.appendChild(
+      section
+    );
 
   }
 
-  /*
-    Navigation button.
-    If the existing navigation has no button for this
-    practice, create one dynamically.
-  */
-
   createDragDropNavigationButton();
+
 
   const previous =
     document.getElementById(
@@ -3131,6 +3061,7 @@ function createDragDropInterface() {
     document.getElementById(
       "hsk5-drag-drop-next"
     );
+
 
   if (previous) {
 
@@ -3159,6 +3090,7 @@ function createDragDropInterface() {
     );
 
   }
+
 
   if (next) {
 
@@ -3189,14 +3121,15 @@ function createDragDropInterface() {
 
   }
 
+
   renderDragDropPassage();
 
 }
 
 
-/* ---------------------------------------------------------
-   CREATE NAVIGATION BUTTON
---------------------------------------------------------- */
+/* =========================================================
+   CREATE DRAG & DROP NAVIGATION BUTTON
+========================================================= */
 
 function createDragDropNavigationButton() {
 
@@ -3222,7 +3155,9 @@ function createDragDropNavigationButton() {
   }
 
   const button =
-    document.createElement("button");
+    document.createElement(
+      "button"
+    );
 
   button.type =
     "button";
@@ -3236,14 +3171,23 @@ function createDragDropNavigationButton() {
   button.textContent =
     "Drag & Drop";
 
-  nav.appendChild(button);
+  nav.appendChild(
+    button
+  );
 
 }
 
 
-/* ---------------------------------------------------------
-   RENDER CURRENT PASSAGE
---------------------------------------------------------- */
+/* =========================================================
+   RENDER CURRENT DRAG & DROP PASSAGE
+
+   IMPORTANT:
+   There is NO call to renderHighlightsForElement()
+   here.
+
+   The passage is deliberately independent from
+   the normal Highlight system.
+========================================================= */
 
 function renderDragDropPassage() {
 
@@ -3274,39 +3218,29 @@ function renderDragDropPassage() {
 
   dragDropAnswers = {};
 
+
   const words =
     passage.questions.map(
       question =>
         question.answer
     );
 
+
   const shuffledWords =
     shuffle(
       [...words]
     );
 
-  const blankMap = {};
-
-  passage.questions.forEach(
-    question => {
-
-      blankMap[
-        question.answer
-      ] =
-        `dragdrop-blank-${question.id}`;
-
-    }
-  );
 
   let passageHTML =
     escapeHTML(
       passage.passage
     );
 
-  /*
-    The JSON uses 【word】 to identify the target.
-    Replace each target with a real drop zone.
-  */
+
+  /* -------------------------------------------------------
+     Replace every 【answer】 marker with a drop zone.
+  ------------------------------------------------------- */
 
   passage.questions.forEach(
     question => {
@@ -3325,9 +3259,7 @@ function renderDragDropPassage() {
             id="dragdrop-blank-${question.id}"
             ondragover="allowHSK5DragDrop(event)"
             ondrop="dropHSK5Vocabulary(event)"
-          >
-            ______
-          </span>
+          >______</span>
         `;
 
       passageHTML =
@@ -3339,10 +3271,10 @@ function renderDragDropPassage() {
     }
   );
 
-  /*
-    If a target was not replaced because of HTML escaping,
-    try the raw vocabulary text as a fallback.
-  */
+
+  /* -------------------------------------------------------
+     Fallback replacement.
+  ------------------------------------------------------- */
 
   passage.questions.forEach(
     question => {
@@ -3351,7 +3283,9 @@ function renderDragDropPassage() {
         question.answer;
 
       const escapedWord =
-        escapeHTML(rawWord);
+        escapeHTML(
+          rawWord
+        );
 
       if (
         passageHTML.includes(
@@ -3368,9 +3302,7 @@ function renderDragDropPassage() {
               id="dragdrop-blank-${question.id}"
               ondragover="allowHSK5DragDrop(event)"
               ondrop="dropHSK5Vocabulary(event)"
-            >
-              ______
-            </span>
+            >______</span>
           `;
 
         passageHTML =
@@ -3384,13 +3316,20 @@ function renderDragDropPassage() {
     }
   );
 
+
+  /* -------------------------------------------------------
+     Vocabulary word bank.
+  ------------------------------------------------------- */
+
   const optionHTML =
     shuffledWords
       .map(
         word => {
 
           const escaped =
-            escapeHTML(word);
+            escapeHTML(
+              word
+            );
 
           return `
             <div
@@ -3407,112 +3346,122 @@ function renderDragDropPassage() {
       )
       .join("");
 
-  container.innerHTML = `
 
-    <div class="hsk5-drag-drop-meta">
+  /* -------------------------------------------------------
+     Render passage.
+     
+     IMPORTANT:
+     Do NOT add "highlightable" here.
+  ------------------------------------------------------- */
 
-      <span>
-        Passage ${passage.id}
-        /
-        ${dragDropPassages.length}
-      </span>
+  container.innerHTML =
+    `
+      <div class="hsk5-drag-drop-meta">
 
-      <span>
+        <span>
+          Passage ${passage.id}
+          /
+          ${dragDropPassages.length}
+        </span>
+
+        <span>
+          ${escapeHTML(
+            passage.level || "HSK 5"
+          )}
+        </span>
+
+        <span>
+          ${
+            passage.wordCountTarget ||
+            passage.questions.length
+          }
+          vocabulary targets
+        </span>
+
+        <span>
+          ${
+            passage.estimatedReadingMinutes ||
+            30
+          }
+          min
+        </span>
+
+      </div>
+
+
+      <h3 class="hsk5-drag-drop-title">
         ${escapeHTML(
-          passage.level || "HSK 5"
+          passage.title
         )}
-      </span>
+      </h3>
 
-      <span>
-        ${passage.wordCountTarget || passage.questions.length}
-        vocabulary targets
-      </span>
 
-      <span>
-        ${passage.estimatedReadingMinutes || 30}
-        min
-      </span>
+      <div
+        class="hsk5-drag-drop-word-bank"
+        id="hsk5-drag-drop-word-bank"
+      >
 
-    </div>
+        <div class="hsk5-drag-drop-bank-title">
+          Vocabulary
+        </div>
 
-    <h3 class="hsk5-drag-drop-title">
-      ${escapeHTML(passage.title)}
-    </h3>
+        <div class="hsk5-drag-drop-options">
+          ${optionHTML}
+        </div>
 
-    <div
-      class="hsk5-drag-drop-word-bank"
-      id="hsk5-drag-drop-word-bank"
-    >
-
-      <div class="hsk5-drag-drop-bank-title">
-        Vocabulary
       </div>
 
-      <div class="hsk5-drag-drop-options">
-        ${optionHTML}
+
+      <article
+        class="hsk5-drag-drop-passage"
+        data-highlight-target="hsk5-drag-drop-passage-${passage.id}"
+      >
+        ${passageHTML}
+      </article>
+
+
+      <div class="hsk5-drag-drop-actions">
+
+        <button
+          id="hsk5-drag-drop-check"
+          class="primary-btn"
+          type="button"
+        >
+          Check Answers
+        </button>
+
+        <button
+          id="hsk5-drag-drop-reset"
+          class="secondary-btn"
+          type="button"
+        >
+          Reset
+        </button>
+
       </div>
 
-    </div>
 
-    <article
-      class="hsk5-drag-drop-passage highlightable"
-      data-highlight-target="hsk5-drag-drop-passage-${passage.id}"
-    >
-      ${passageHTML}
-    </article>
+      <div
+        id="hsk5-drag-drop-result"
+        class="hsk5-drag-drop-result"
+      ></div>
+    `;
 
-    <div class="hsk5-drag-drop-actions">
-
-      <button
-        id="hsk5-drag-drop-check"
-        class="primary-btn"
-        type="button"
-      >
-        Check Answers
-      </button>
-
-      <button
-        id="hsk5-drag-drop-reset"
-        class="secondary-btn"
-        type="button"
-      >
-        Reset
-      </button>
-
-    </div>
-
-    <div
-      id="hsk5-drag-drop-result"
-      class="hsk5-drag-drop-result"
-    ></div>
-
-  `;
 
   setupDragDropButtons();
 
   updateDragDropCounter();
 
-  setTimeout(
-    function () {
-
-      renderHighlightsForElement(
-        container.querySelector(
-          ".hsk5-drag-drop-passage"
-        )
-      );
-
-    },
-    0
-  );
-
 }
 
 
-/* ---------------------------------------------------------
-   DRAG EVENTS
---------------------------------------------------------- */
+/* =========================================================
+   DRAG START
+========================================================= */
 
-function dragHSK5Vocabulary(event) {
+function dragHSK5Vocabulary(
+  event
+) {
 
   const word =
     event.currentTarget.dataset.word;
@@ -3534,7 +3483,13 @@ function dragHSK5Vocabulary(event) {
 }
 
 
-function allowHSK5DragDrop(event) {
+/* =========================================================
+   DRAG OVER
+========================================================= */
+
+function allowHSK5DragDrop(
+  event
+) {
 
   event.preventDefault();
 
@@ -3550,7 +3505,13 @@ function allowHSK5DragDrop(event) {
 }
 
 
-function dropHSK5Vocabulary(event) {
+/* =========================================================
+   DROP VOCABULARY
+========================================================= */
+
+function dropHSK5Vocabulary(
+  event
+) {
 
   event.preventDefault();
 
@@ -3593,9 +3554,9 @@ function dropHSK5Vocabulary(event) {
 }
 
 
-/* ---------------------------------------------------------
-   CHECK ANSWERS
---------------------------------------------------------- */
+/* =========================================================
+   CHECK DRAG & DROP ANSWERS
+========================================================= */
 
 function checkHSK5DragDropAnswers() {
 
@@ -3613,6 +3574,7 @@ function checkHSK5DragDropAnswers() {
   let correct = 0;
 
   let answered = 0;
+
 
   passage.questions.forEach(
     question => {
@@ -3632,16 +3594,19 @@ function checkHSK5DragDropAnswers() {
         blank.dataset.selectedWord ||
         "";
 
+
       if (selected) {
 
         answered++;
 
       }
 
+
       blank.classList.remove(
         "correct",
         "wrong"
       );
+
 
       if (
         selected ===
@@ -3665,38 +3630,45 @@ function checkHSK5DragDropAnswers() {
     }
   );
 
+
   dragDropScore =
     correct;
+
 
   const result =
     document.getElementById(
       "hsk5-drag-drop-result"
     );
 
+
   if (result) {
 
-    result.innerHTML = `
-      <strong>
-        ${correct} / ${passage.questions.length}
-      </strong>
+    result.innerHTML =
+      `
+        <strong>
+          ${correct} / ${passage.questions.length}
+        </strong>
 
-      <span>
-        ${answered}
-        answered
-        ·
-        ${passage.questions.length - answered}
-        unanswered
-      </span>
-    `;
+        <span>
+          ${answered}
+          answered
+          ·
+          ${
+            passage.questions.length -
+            answered
+          }
+          unanswered
+        </span>
+      `;
 
   }
 
 }
 
 
-/* ---------------------------------------------------------
-   RESET CURRENT PASSAGE
---------------------------------------------------------- */
+/* =========================================================
+   RESET DRAG & DROP
+========================================================= */
 
 function resetHSK5DragDrop() {
 
@@ -3712,6 +3684,7 @@ function resetHSK5DragDrop() {
     return;
 
   }
+
 
   passage.questions.forEach(
     question => {
@@ -3741,6 +3714,7 @@ function resetHSK5DragDrop() {
     }
   );
 
+
   const result =
     document.getElementById(
       "hsk5-drag-drop-result"
@@ -3756,9 +3730,9 @@ function resetHSK5DragDrop() {
 }
 
 
-/* ---------------------------------------------------------
-   BUTTON SETUP
---------------------------------------------------------- */
+/* =========================================================
+   DRAG & DROP BUTTONS
+========================================================= */
 
 function setupDragDropButtons() {
 
@@ -3772,6 +3746,7 @@ function setupDragDropButtons() {
       "hsk5-drag-drop-reset"
     );
 
+
   if (check) {
 
     check.addEventListener(
@@ -3780,6 +3755,7 @@ function setupDragDropButtons() {
     );
 
   }
+
 
   if (reset) {
 
@@ -3793,9 +3769,9 @@ function setupDragDropButtons() {
 }
 
 
-/* ---------------------------------------------------------
-   PASSAGE COUNTER
---------------------------------------------------------- */
+/* =========================================================
+   DRAG & DROP COUNTER
+========================================================= */
 
 function updateDragDropCounter() {
 
@@ -3813,6 +3789,7 @@ function updateDragDropCounter() {
   counter.textContent =
     `${dragDropPassageIndex + 1} / ${dragDropPassages.length}`;
 
+
   const previous =
     document.getElementById(
       "hsk5-drag-drop-prev"
@@ -3823,12 +3800,14 @@ function updateDragDropCounter() {
       "hsk5-drag-drop-next"
     );
 
+
   if (previous) {
 
     previous.disabled =
       dragDropPassageIndex === 0;
 
   }
+
 
   if (next) {
 
@@ -3841,9 +3820,9 @@ function updateDragDropCounter() {
 }
 
 
-/* ---------------------------------------------------------
-   INITIALIZE NEW FUNCTION
---------------------------------------------------------- */
+/* =========================================================
+   INITIALIZE DRAG & DROP
+========================================================= */
 
 document.addEventListener(
   "DOMContentLoaded",
