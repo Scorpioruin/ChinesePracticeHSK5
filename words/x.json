@@ -1,0 +1,247 @@
+[
+  {
+    "id": 1,
+    "words": "吸收",
+    "Pinyin": "xīshōu",
+    "Meaning": "to absorb; assimilate; take in",
+    "Sentences": "阅读不同类型的文章可以帮助我们吸收更多的知识和经验。"
+  },
+  {
+    "id": 2,
+    "words": "系",
+    "Pinyin": "jì",
+    "Meaning": "to tie; fasten; attach",
+    "Sentences": "上车以后，请记得系好安全带。"
+  },
+  {
+    "id": 3,
+    "words": "瞎",
+    "Pinyin": "xiā",
+    "Meaning": "blind; blindly; without reason",
+    "Sentences": "没有充分了解情况之前，不能瞎猜，更不能轻易下结论。"
+  },
+  {
+    "id": 4,
+    "words": "鲜艳",
+    "Pinyin": "xiānyàn",
+    "Meaning": "bright-colored; vivid",
+    "Sentences": "春天到了，公园里的花开得十分鲜艳。"
+  },
+  {
+    "id": 5,
+    "words": "咸",
+    "Pinyin": "xián",
+    "Meaning": "salty",
+    "Sentences": "这道菜有点咸，下次可以少放一点盐。"
+  },
+  {
+    "id": 6,
+    "words": "显得",
+    "Pinyin": "xiǎnde",
+    "Meaning": "to appear; seem; look",
+    "Sentences": "经过重新装修以后，这个房间显得更加宽敞明亮。"
+  },
+  {
+    "id": 7,
+    "words": "显然",
+    "Pinyin": "xiǎnrán",
+    "Meaning": "obviously; clearly; evidently",
+    "Sentences": "他显然没有提前做好准备，所以面对问题时显得有些紧张。"
+  },
+  {
+    "id": 8,
+    "words": "县",
+    "Pinyin": "xiàn",
+    "Meaning": "county",
+    "Sentences": "他的家乡位于一个风景优美的小县城。"
+  },
+  {
+    "id": 9,
+    "words": "现象",
+    "Pinyin": "xiànxiàng",
+    "Meaning": "phenomenon; appearance",
+    "Sentences": "这种现象在年轻人中越来越普遍，值得我们进一步研究。"
+  },
+  {
+    "id": 10,
+    "words": "限制",
+    "Pinyin": "xiànzhì",
+    "Meaning": "to limit; restrict; limitation",
+    "Sentences": "资金不足可能会限制这个项目的发展速度。"
+  },
+  {
+    "id": 11,
+    "words": "相当",
+    "Pinyin": "xiāngdāng",
+    "Meaning": "quite; fairly; equivalent; considerably",
+    "Sentences": "这份工作虽然有一定难度，但收入也相当不错。"
+  },
+  {
+    "id": 12,
+    "words": "相反",
+    "Pinyin": "xiāngfǎn",
+    "Meaning": "on the contrary; opposite",
+    "Sentences": "有些人认为压力会影响效率，相反，适当的压力有时能够提高工作动力。"
+  },
+  {
+    "id": 13,
+    "words": "相同",
+    "Pinyin": "xiāngtóng",
+    "Meaning": "same; identical",
+    "Sentences": "虽然我们的工作内容不同，但最终的目标是相同的。"
+  },
+  {
+    "id": 14,
+    "words": "响",
+    "Pinyin": "xiǎng",
+    "Meaning": "to sound; make a sound; ring",
+    "Sentences": "闹钟一响，他马上从床上起来准备上班。"
+  },
+  {
+    "id": 15,
+    "words": "想念",
+    "Pinyin": "xiǎngniàn",
+    "Meaning": "to miss; long for",
+    "Sentences": "一个人在国外生活的时候，我经常想念家人和朋友。"
+  },
+  {
+    "id": 16,
+    "words": "象征",
+    "Pinyin": "xiàngzhēng",
+    "Meaning": "symbol; symbolize; represent",
+    "Sentences": "白鸽常常被认为是和平的象征。"
+  },
+  {
+    "id": 17,
+    "words": "消化",
+    "Pinyin": "xiāohuà",
+    "Meaning": "to digest; digest; absorb information",
+    "Sentences": "刚学完的新知识需要时间消化，不能急着马上学习下一部分。"
+  },
+  {
+    "id": 18,
+    "words": "消灭",
+    "Pinyin": "xiāomiè",
+    "Meaning": "to eliminate; wipe out; destroy",
+    "Sentences": "我们应该采取有效措施，尽量消灭安全隐患。"
+  },
+  {
+    "id": 19,
+    "words": "小麦",
+    "Pinyin": "xiǎomài",
+    "Meaning": "wheat",
+    "Sentences": "小麦是世界上重要的粮食作物之一。"
+  },
+  {
+    "id": 20,
+    "words": "效率",
+    "Pinyin": "xiàolǜ",
+    "Meaning": "efficiency; effectiveness",
+    "Sentences": "合理安排时间可以提高工作效率，减少不必要的重复劳动。"
+  },
+  {
+    "id": 21,
+    "words": "孝顺",
+    "Pinyin": "xiàoshùn",
+    "Meaning": "filial; filial piety; to be dutiful to one's parents",
+    "Sentences": "他一直很孝顺，经常抽时间陪父母聊天。"
+  },
+  {
+    "id": 22,
+    "words": "歇",
+    "Pinyin": "xiē",
+    "Meaning": "to rest; take a break",
+    "Sentences": "你已经工作了几个小时了，先歇一会儿再继续吧。"
+  },
+  {
+    "id": 23,
+    "words": "欣赏",
+    "Pinyin": "xīnshǎng",
+    "Meaning": "to appreciate; admire; enjoy",
+    "Sentences": "很多游客来到这里，是为了欣赏美丽的自然风景。"
+  },
+  {
+    "id": 24,
+    "words": "行为",
+    "Pinyin": "xíngwéi",
+    "Meaning": "behavior; conduct; action",
+    "Sentences": "在公共场所，我们应该注意自己的行为，不要影响别人。"
+  },
+  {
+    "id": 25,
+    "words": "形式",
+    "Pinyin": "xíngshì",
+    "Meaning": "form; format; type; manner",
+    "Sentences": "随着网络的发展，学习的形式变得越来越多样化。"
+  },
+  {
+    "id": 26,
+    "words": "形势",
+    "Pinyin": "xíngshì",
+    "Meaning": "situation; circumstances; state of affairs",
+    "Sentences": "我们需要根据当前的形势及时调整原来的计划。"
+  },
+  {
+    "id": 27,
+    "words": "性质",
+    "Pinyin": "xìngzhì",
+    "Meaning": "nature; character; quality",
+    "Sentences": "在处理问题之前，我们首先要了解事情的性质。"
+  },
+  {
+    "id": 28,
+    "words": "雄伟",
+    "Pinyin": "xióngwěi",
+    "Meaning": "majestic; grand; imposing",
+    "Sentences": "站在山脚下，可以看到远处雄伟的山脉。"
+  },
+  {
+    "id": 29,
+    "words": "休闲",
+    "Pinyin": "xiūxián",
+    "Meaning": "leisure; recreation; to relax",
+    "Sentences": "周末的时候，他喜欢参加一些休闲活动来放松自己。"
+  },
+  {
+    "id": 30,
+    "words": "叙述",
+    "Pinyin": "xùshù",
+    "Meaning": "to narrate; relate; recount",
+    "Sentences": "作者通过第一人称叙述了自己在国外生活的经历。"
+  },
+  {
+    "id": 31,
+    "words": "宣布",
+    "Pinyin": "xuānbù",
+    "Meaning": "to announce; declare; proclaim",
+    "Sentences": "负责人在会议结束时宣布了最终的决定。"
+  },
+  {
+    "id": 32,
+    "words": "宣传",
+    "Pinyin": "xuānchuán",
+    "Meaning": "to publicize; promote; propaganda; publicity",
+    "Sentences": "公司通过社交媒体宣传新产品，希望吸引更多消费者。"
+  },
+  {
+    "id": 33,
+    "words": "选举",
+    "Pinyin": "xuǎnjǔ",
+    "Meaning": "election; to elect",
+    "Sentences": "社区将通过公开选举产生新的负责人。"
+  },
+  {
+    "id": 34,
+    "words": "学问",
+    "Pinyin": "xuéwen",
+    "Meaning": "learning; knowledge; scholarship",
+    "Sentences": "做学问需要耐心和长期积累，不能只追求短期的结果。"
+  },
+  {
+    "id": 35,
+    "words": "迅速",
+    "Pinyin": "xùnsù",
+    "Meaning": "rapid; quick; swiftly",
+    "Sentences": "发现系统出现问题以后，技术人员迅速采取了相应的措施。"
+  }
+]

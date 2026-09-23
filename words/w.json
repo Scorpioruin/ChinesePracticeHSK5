@@ -1,0 +1,177 @@
+[
+  {
+    "id": 1,
+    "words": "袜子",
+    "Pinyin": "wàzi",
+    "Meaning": "socks",
+    "Sentences": "天气变冷了，他买了几双厚一点的袜子。"
+  },
+  {
+    "id": 2,
+    "words": "歪",
+    "Pinyin": "wāi",
+    "Meaning": "crooked; slanted; askew",
+    "Sentences": "这张照片挂得有点歪，你能不能帮我调整一下？"
+  },
+  {
+    "id": 3,
+    "words": "外交",
+    "Pinyin": "wàijiāo",
+    "Meaning": "diplomacy; foreign affairs",
+    "Sentences": "两国之间的外交关系近年来不断得到改善。"
+  },
+  {
+    "id": 4,
+    "words": "弯",
+    "Pinyin": "wān",
+    "Meaning": "bend; curve; crooked; to bend",
+    "Sentences": "前面的路有一个急弯，开车的时候一定要减速。"
+  },
+  {
+    "id": 5,
+    "words": "完善",
+    "Pinyin": "wánshàn",
+    "Meaning": "to improve; perfect; sound; complete",
+    "Sentences": "公司正在不断完善员工培训和管理制度。"
+  },
+  {
+    "id": 6,
+    "words": "往返",
+    "Pinyin": "wǎngfǎn",
+    "Meaning": "go back and forth; round trip",
+    "Sentences": "为了节省时间，我提前订好了往返机票。"
+  },
+  {
+    "id": 7,
+    "words": "往往",
+    "Pinyin": "wǎngwǎng",
+    "Meaning": "often; frequently; more often than not",
+    "Sentences": "遇到困难时，人们往往会更加清楚地认识到自己的不足。"
+  },
+  {
+    "id": 8,
+    "words": "危害",
+    "Pinyin": "wēihài",
+    "Meaning": "to harm; endanger; harm; danger",
+    "Sentences": "长期缺乏运动可能会对身体健康造成危害。"
+  },
+  {
+    "id": 9,
+    "words": "威胁",
+    "Pinyin": "wēixié",
+    "Meaning": "to threaten; threat",
+    "Sentences": "环境污染已经成为威胁人类健康的重要问题之一。"
+  },
+  {
+    "id": 10,
+    "words": "违反",
+    "Pinyin": "wéifǎn",
+    "Meaning": "to violate; break; go against",
+    "Sentences": "如果违反公司的规定，可能会受到相应的处罚。"
+  },
+  {
+    "id": 11,
+    "words": "围巾",
+    "Pinyin": "wéijīn",
+    "Meaning": "scarf",
+    "Sentences": "天气越来越冷了，出门的时候别忘了戴围巾。"
+  },
+  {
+    "id": 12,
+    "words": "围绕",
+    "Pinyin": "wéirào",
+    "Meaning": "to revolve around; center on; surround",
+    "Sentences": "会议主要围绕如何提高工作效率这一问题展开讨论。"
+  },
+  {
+    "id": 13,
+    "words": "伟大",
+    "Pinyin": "wěidà",
+    "Meaning": "great; grand; magnificent",
+    "Sentences": "许多伟大的科学发现都来自长期的研究和不断的探索。"
+  },
+  {
+    "id": 14,
+    "words": "委屈",
+    "Pinyin": "wěiqu",
+    "Meaning": "to feel wronged; grievance; unfair treatment",
+    "Sentences": "虽然受了些委屈，但她还是选择冷静地解释事情的经过。"
+  },
+  {
+    "id": 15,
+    "words": "委托",
+    "Pinyin": "wěituō",
+    "Meaning": "to entrust; commission; authorize",
+    "Sentences": "因为本人无法亲自办理，他委托朋友代为处理相关手续。"
+  },
+  {
+    "id": 16,
+    "words": "文明",
+    "Pinyin": "wénmíng",
+    "Meaning": "civilization; civilized; courteous",
+    "Sentences": "在公共场所保持安静，是一种基本的文明行为。"
+  },
+  {
+    "id": 17,
+    "words": "文学",
+    "Pinyin": "wénxué",
+    "Meaning": "literature",
+    "Sentences": "她从小就喜欢阅读文学作品，尤其喜欢中国现代文学。"
+  },
+  {
+    "id": 18,
+    "words": "污染",
+    "Pinyin": "wūrǎn",
+    "Meaning": "pollution; to pollute; contamination",
+    "Sentences": "工业发展虽然带来了经济利益，但也可能造成严重的环境污染。"
+  },
+  {
+    "id": 19,
+    "words": "屋子",
+    "Pinyin": "wūzi",
+    "Meaning": "room; house",
+    "Sentences": "这间屋子虽然不大，但是收拾得非常整齐。"
+  },
+  {
+    "id": 20,
+    "words": "无奈",
+    "Pinyin": "wúnài",
+    "Meaning": "helpless; have no choice; reluctantly",
+    "Sentences": "由于航班突然取消，我们无奈之下只能改变原来的计划。"
+  },
+  {
+    "id": 21,
+    "words": "无数",
+    "Pinyin": "wúshù",
+    "Meaning": "countless; innumerable",
+    "Sentences": "经过无数次尝试，他终于找到了适合自己的学习方法。"
+  },
+  {
+    "id": 22,
+    "words": "武器",
+    "Pinyin": "wǔqì",
+    "Meaning": "weapon; arms",
+    "Sentences": "历史上，武器的发展在战争的变化中发挥了重要作用。"
+  },
+  {
+    "id": 23,
+    "words": "雾",
+    "Pinyin": "wù",
+    "Meaning": "fog; mist",
+    "Sentences": "今天早上雾很大，开车的时候一定要特别小心。"
+  },
+  {
+    "id": 24,
+    "words": "物理",
+    "Pinyin": "wùlǐ",
+    "Meaning": "physics; physical",
+    "Sentences": "他大学期间学习物理，对科学研究一直很感兴趣。"
+  },
+  {
+    "id": 25,
+    "words": "物质",
+    "Pinyin": "wùzhì",
+    "Meaning": "matter; material; substance; material wealth",
+    "Sentences": "除了物质条件以外，精神上的满足对生活质量同样重要。"
+  }
+]

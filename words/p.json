@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "words": "排列",
+    "Pinyin": "páiliè",
+    "Meaning": "to arrange; arrange in order; lineup",
+    "Sentences": "请按照编号排列这些文件，以便之后查找。"
+  },
+  {
+    "id": 2,
+    "words": "派",
+    "Pinyin": "pài",
+    "Meaning": "to send; dispatch; assign",
+    "Sentences": "公司派了一名工作人员去机场接待外国客户。"
+  },
+  {
+    "id": 3,
+    "words": "盼望",
+    "Pinyin": "pànwàng",
+    "Meaning": "to look forward to; hope for; long for",
+    "Sentences": "孩子们都盼望着寒假早点到来。"
+  },
+  {
+    "id": 4,
+    "words": "赔偿",
+    "Pinyin": "péicháng",
+    "Meaning": "to compensate; compensation",
+    "Sentences": "如果因为公司的原因造成客户损失，公司应该按照规定进行赔偿。"
+  },
+  {
+    "id": 5,
+    "words": "配合",
+    "Pinyin": "pèihé",
+    "Meaning": "to cooperate; coordinate; cooperate with",
+    "Sentences": "为了顺利完成项目，所有成员都需要积极配合彼此的工作。"
+  },
+  {
+    "id": 6,
+    "words": "盆",
+    "Pinyin": "pén",
+    "Meaning": "basin; pot; bowl",
+    "Sentences": "阳台上放着几盆花，每天都需要给它们浇水。"
+  },
+  {
+    "id": 7,
+    "words": "披",
+    "Pinyin": "pī",
+    "Meaning": "to drape over; put on loosely",
+    "Sentences": "天气有些凉，她在外套外面披了一条围巾。"
+  },
+  {
+    "id": 8,
+    "words": "批评",
+    "Pinyin": "pīpíng",
+    "Meaning": "to criticize; criticism",
+    "Sentences": "犯了错误并不可怕，重要的是能够接受批评并认真改正。"
+  },
+  {
+    "id": 9,
+    "words": "批准",
+    "Pinyin": "pīzhǔn",
+    "Meaning": "to approve; authorize; ratify",
+    "Sentences": "经理批准了他的请假申请，并安排其他同事暂时接手工作。"
+  },
+  {
+    "id": 10,
+    "words": "皮鞋",
+    "Pinyin": "píxié",
+    "Meaning": "leather shoes; dress shoes",
+    "Sentences": "参加正式面试时，他穿了一套西装和一双黑色皮鞋。"
+  },
+  {
+    "id": 11,
+    "words": "疲劳",
+    "Pinyin": "píláo",
+    "Meaning": "fatigue; tiredness; fatigued",
+    "Sentences": "长时间工作容易产生疲劳，因此应该适当休息。"
+  },
+  {
+    "id": 12,
+    "words": "凭",
+    "Pinyin": "píng",
+    "Meaning": "by; based on; rely on; with",
+    "Sentences": "我们不能凭个人感觉判断一件事情，而应该根据事实作出结论。"
+  },
+  {
+    "id": 13,
+    "words": "平等",
+    "Pinyin": "píngděng",
+    "Meaning": "equal; equality",
+    "Sentences": "每个人都应该受到平等的对待，并拥有表达自己意见的机会。"
+  },
+  {
+    "id": 14,
+    "words": "平方",
+    "Pinyin": "píngfāng",
+    "Meaning": "square; square measure",
+    "Sentences": "这套公寓的面积大约是八十平方米。"
+  },
+  {
+    "id": 15,
+    "words": "平均",
+    "Pinyin": "píngjūn",
+    "Meaning": "average; on average; evenly",
+    "Sentences": "这个项目每个成员平均需要投入十个小时左右。"
+  },
+  {
+    "id": 16,
+    "words": "迫切",
+    "Pinyin": "pòqiè",
+    "Meaning": "urgent; pressing; desperate",
+    "Sentences": "随着人口不断增加，这座城市迫切需要改善公共交通系统。"
+  },
+  {
+    "id": 17,
+    "words": "普遍",
+    "Pinyin": "pǔbiàn",
+    "Meaning": "common; widespread; universal",
+    "Sentences": "随着网络的发展，在线学习已经成为一种比较普遍的学习方式。"
+  },
+  {
+    "id": 18,
+    "words": "朴素",
+    "Pinyin": "pǔsù",
+    "Meaning": "simple; plain; modest; unsophisticated",
+    "Sentences": "虽然生活条件越来越好，但他仍然保持着朴素的生活习惯。"
+  }
+]

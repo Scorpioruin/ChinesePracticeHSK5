@@ -1,0 +1,184 @@
+[
+  {
+    "id": 1,
+    "words": "蜡烛",
+    "Pinyin": "làzhú",
+    "Meaning": "candle",
+    "Sentences": "停电以后，我们点了几根蜡烛，继续在房间里聊天。"
+  },
+  {
+    "id": 2,
+    "words": "拦",
+    "Pinyin": "lán",
+    "Meaning": "to stop; block; intercept",
+    "Sentences": "保安及时拦住了准备进入禁区的人。"
+  },
+  {
+    "id": 3,
+    "words": "烂",
+    "Pinyin": "làn",
+    "Meaning": "rotten; spoiled; broken; messy",
+    "Sentences": "这些水果放得太久了，有几个已经烂了。"
+  },
+  {
+    "id": 4,
+    "words": "狼",
+    "Pinyin": "láng",
+    "Meaning": "wolf",
+    "Sentences": "这种动物生活在野外，通常会以集体的方式捕猎。"
+  },
+  {
+    "id": 5,
+    "words": "劳动",
+    "Pinyin": "láodòng",
+    "Meaning": "labor; work; to work",
+    "Sentences": "通过劳动，人们不仅能够创造财富，也能够获得生活经验。"
+  },
+  {
+    "id": 6,
+    "words": "乐观",
+    "Pinyin": "lèguān",
+    "Meaning": "optimistic; optimism",
+    "Sentences": "即使遇到困难，他仍然保持乐观，相信问题最终能够得到解决。"
+  },
+  {
+    "id": 7,
+    "words": "梨",
+    "Pinyin": "lí",
+    "Meaning": "pear",
+    "Sentences": "这种梨吃起来很甜，而且水分也比较多。"
+  },
+  {
+    "id": 8,
+    "words": "理论",
+    "Pinyin": "lǐlùn",
+    "Meaning": "theory; theoretical",
+    "Sentences": "学习理论知识的同时，也应该注意把理论运用到实际工作中。"
+  },
+  {
+    "id": 9,
+    "words": "立方",
+    "Pinyin": "lìfāng",
+    "Meaning": "cubic; cube",
+    "Sentences": "这个水箱的容量大约是五立方米。"
+  },
+  {
+    "id": 10,
+    "words": "立即",
+    "Pinyin": "lìjí",
+    "Meaning": "immediately; at once",
+    "Sentences": "发现系统出现异常以后，工作人员立即进行了检查。"
+  },
+  {
+    "id": 11,
+    "words": "利息",
+    "Pinyin": "lìxī",
+    "Meaning": "interest",
+    "Sentences": "如果长期贷款，需要仔细计算本金和利息。"
+  },
+  {
+    "id": 12,
+    "words": "连忙",
+    "Pinyin": "liánmáng",
+    "Meaning": "hastily; hurriedly",
+    "Sentences": "看到客人来了，工作人员连忙上前表示欢迎。"
+  },
+  {
+    "id": 13,
+    "words": "连续剧",
+    "Pinyin": "liánxùjù",
+    "Meaning": "TV series; serial drama",
+    "Sentences": "这部连续剧播出以后受到了年轻观众的广泛关注。"
+  },
+  {
+    "id": 14,
+    "words": "联合",
+    "Pinyin": "liánhé",
+    "Meaning": "to unite; join; jointly",
+    "Sentences": "几家公司联合开展了一项市场调查，以了解消费者的需求。"
+  },
+  {
+    "id": 15,
+    "words": "了不起",
+    "Pinyin": "liǎobuqǐ",
+    "Meaning": "remarkable; amazing; extraordinary",
+    "Sentences": "能够在这么短的时间内完成这项任务，确实是一件了不起的事情。"
+  },
+  {
+    "id": 16,
+    "words": "零件",
+    "Pinyin": "língjiàn",
+    "Meaning": "part; component; spare part",
+    "Sentences": "机器出了问题，可能需要更换其中一个重要零件。"
+  },
+  {
+    "id": 17,
+    "words": "灵活",
+    "Pinyin": "línghuó",
+    "Meaning": "flexible; agile; adaptable",
+    "Sentences": "面对不同客户的需求，我们应该灵活调整自己的沟通方式。"
+  },
+  {
+    "id": 18,
+    "words": "领域",
+    "Pinyin": "lǐngyù",
+    "Meaning": "field; area; domain",
+    "Sentences": "人工智能正在逐渐应用于教育、医疗和金融等多个领域。"
+  },
+  {
+    "id": 19,
+    "words": "流传",
+    "Pinyin": "liúchuán",
+    "Meaning": "to spread; circulate; be handed down",
+    "Sentences": "关于这座古城的传说已经流传了很多年。"
+  },
+  {
+    "id": 20,
+    "words": "浏览",
+    "Pinyin": "liúlǎn",
+    "Meaning": "to browse; scan; look through",
+    "Sentences": "我每天都会浏览一些新闻，了解最近发生的重要事情。"
+  },
+  {
+    "id": 21,
+    "words": "漏",
+    "Pinyin": "lòu",
+    "Meaning": "to leak; leave out; miss",
+    "Sentences": "提交申请之前，请仔细检查资料，以免漏掉重要的信息。"
+  },
+  {
+    "id": 22,
+    "words": "陆地",
+    "Pinyin": "lùdì",
+    "Meaning": "land; dry land",
+    "Sentences": "这种动物主要生活在陆地上，很少进入水中。"
+  },
+  {
+    "id": 23,
+    "words": "录取",
+    "Pinyin": "lùqǔ",
+    "Meaning": "to admit; accept; enroll",
+    "Sentences": "经过严格的选拔，他最终被这所大学录取了。"
+  },
+  {
+    "id": 24,
+    "words": "陆续",
+    "Pinyin": "lùxù",
+    "Meaning": "one after another; successively",
+    "Sentences": "会议结束以后，参加者陆续离开了会场。"
+  },
+  {
+    "id": 25,
+    "words": "轮流",
+    "Pinyin": "lúnliú",
+    "Meaning": "to take turns; by turns",
+    "Sentences": "为了保证有人负责接待，大家决定轮流值班。"
+  },
+  {
+    "id": 26,
+    "words": "落后",
+    "Pinyin": "luòhòu",
+    "Meaning": "backward; fall behind; lag behind",
+    "Sentences": "如果不及时学习新的技术，就很容易在竞争中落后。"
+  }
+]

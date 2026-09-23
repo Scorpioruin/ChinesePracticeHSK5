@@ -1,0 +1,380 @@
+[
+  {
+    "id": 1,
+    "words": "几乎",
+    "Pinyin": "jīhū",
+    "Meaning": "almost; nearly",
+    "Sentences": "为了准备考试，他几乎每天晚上都学习到很晚。"
+  },
+  {
+    "id": 2,
+    "words": "积累",
+    "Pinyin": "jīlěi",
+    "Meaning": "to accumulate; accumulation",
+    "Sentences": "学习语言需要长期积累词汇和实际使用经验。"
+  },
+  {
+    "id": 3,
+    "words": "及格",
+    "Pinyin": "jígé",
+    "Meaning": "to pass; to get a passing grade",
+    "Sentences": "虽然这次考试的成绩不高，但总算达到了及格的标准。"
+  },
+  {
+    "id": 4,
+    "words": "集合",
+    "Pinyin": "jíhé",
+    "Meaning": "to gather; assemble; gathering",
+    "Sentences": "请大家在大厅集合，准备一起出发。"
+  },
+  {
+    "id": 5,
+    "words": "集体",
+    "Pinyin": "jítǐ",
+    "Meaning": "collective; group",
+    "Sentences": "在集体活动中，每个人都应该遵守共同的规则。"
+  },
+  {
+    "id": 6,
+    "words": "集中",
+    "Pinyin": "jízhōng",
+    "Meaning": "to concentrate; focus; centralize",
+    "Sentences": "考试的时候一定要集中注意力，不要被周围的声音影响。"
+  },
+  {
+    "id": 7,
+    "words": "急忙",
+    "Pinyin": "jímáng",
+    "Meaning": "hurriedly; in a hurry",
+    "Sentences": "听说会议马上就要开始了，他急忙拿上文件赶了过去。"
+  },
+  {
+    "id": 8,
+    "words": "即使",
+    "Pinyin": "jíshǐ",
+    "Meaning": "even if; even though",
+    "Sentences": "即使遇到困难，我们也不能轻易放弃自己的目标。"
+  },
+  {
+    "id": 9,
+    "words": "寄",
+    "Pinyin": "jì",
+    "Meaning": "to mail; send; entrust",
+    "Sentences": "我已经把需要的材料寄给对方了，请注意查收。"
+  },
+  {
+    "id": 10,
+    "words": "记忆",
+    "Pinyin": "jìyì",
+    "Meaning": "memory; recollection",
+    "Sentences": "这段旅行给我留下了非常深刻的记忆。"
+  },
+  {
+    "id": 11,
+    "words": "系领带",
+    "Pinyin": "jì lǐngdài",
+    "Meaning": "to tie a necktie",
+    "Sentences": "参加正式会议时，他通常会穿西装并系领带。"
+  },
+  {
+    "id": 12,
+    "words": "纪念",
+    "Pinyin": "jìniàn",
+    "Meaning": "to commemorate; memorialize; souvenir",
+    "Sentences": "为了纪念这次特别的经历，我拍了很多照片。"
+  },
+  {
+    "id": 13,
+    "words": "既然",
+    "Pinyin": "jìrán",
+    "Meaning": "since; now that",
+    "Sentences": "既然已经决定参加比赛，就应该认真准备。"
+  },
+  {
+    "id": 14,
+    "words": "寂寞",
+    "Pinyin": "jìmò",
+    "Meaning": "lonely; lonesome",
+    "Sentences": "刚搬到一个陌生的城市时，他曾经感到有些寂寞。"
+  },
+  {
+    "id": 15,
+    "words": "嘉宾",
+    "Pinyin": "jiābīn",
+    "Meaning": "guest; distinguished guest",
+    "Sentences": "活动邀请了几位知名嘉宾，与大家分享他们的工作经验。"
+  },
+  {
+    "id": 16,
+    "words": "夹子",
+    "Pinyin": "jiāzi",
+    "Meaning": "clip; clamp; tongs",
+    "Sentences": "请用夹子把这些文件整理好，以免它们散落在桌上。"
+  },
+  {
+    "id": 17,
+    "words": "甲",
+    "Pinyin": "jiǎ",
+    "Meaning": "first; A; party A",
+    "Sentences": "合同中规定，甲方需要按照约定时间支付相关费用。"
+  },
+  {
+    "id": 18,
+    "words": "驾驶",
+    "Pinyin": "jiàshǐ",
+    "Meaning": "to drive; operate a vehicle",
+    "Sentences": "驾驶车辆时必须遵守交通规则，不能随意使用手机。"
+  },
+  {
+    "id": 19,
+    "words": "肩膀",
+    "Pinyin": "jiānbǎng",
+    "Meaning": "shoulder",
+    "Sentences": "他昨天搬了很多东西，今天肩膀还有些疼。"
+  },
+  {
+    "id": 20,
+    "words": "艰苦",
+    "Pinyin": "jiānkǔ",
+    "Meaning": "hard; difficult; arduous",
+    "Sentences": "虽然创业初期的生活十分艰苦，但他一直没有放弃。"
+  },
+  {
+    "id": 21,
+    "words": "尖锐",
+    "Pinyin": "jiānruì",
+    "Meaning": "sharp; pointed; acute; harsh",
+    "Sentences": "双方在会议上提出了一些尖锐的问题，引发了热烈讨论。"
+  },
+  {
+    "id": 22,
+    "words": "简直",
+    "Pinyin": "jiǎnzhí",
+    "Meaning": "simply; practically; really",
+    "Sentences": "这家餐厅的服务简直太好了，让我们都有些意外。"
+  },
+  {
+    "id": 23,
+    "words": "讲究",
+    "Pinyin": "jiǎngjiu",
+    "Meaning": "to be particular about; pay attention to; sophisticated",
+    "Sentences": "选择工作时，他比较讲究工作环境和个人发展的机会。"
+  },
+  {
+    "id": 24,
+    "words": "酱油",
+    "Pinyin": "jiàngyóu",
+    "Meaning": "soy sauce",
+    "Sentences": "做这道菜的时候，加一点酱油可以让味道更加丰富。"
+  },
+  {
+    "id": 25,
+    "words": "郊区",
+    "Pinyin": "jiāoqū",
+    "Meaning": "suburbs; outskirts",
+    "Sentences": "为了远离城市的喧闹，他们周末开车去了郊区。"
+  },
+  {
+    "id": 26,
+    "words": "狡猾",
+    "Pinyin": "jiǎohuá",
+    "Meaning": "cunning; crafty; sly",
+    "Sentences": "这个骗子非常狡猾，总是想办法利用别人的信任。"
+  },
+  {
+    "id": 27,
+    "words": "接待",
+    "Pinyin": "jiēdài",
+    "Meaning": "to receive; entertain; reception",
+    "Sentences": "公司安排专人负责接待来自国外的客户。"
+  },
+  {
+    "id": 28,
+    "words": "阶段",
+    "Pinyin": "jiēduàn",
+    "Meaning": "stage; phase; period",
+    "Sentences": "在学习的不同阶段，我们需要采用不同的方法。"
+  },
+  {
+    "id": 29,
+    "words": "结实",
+    "Pinyin": "jiēshi",
+    "Meaning": "strong; sturdy; solid",
+    "Sentences": "这张桌子看起来很结实，应该可以使用很多年。"
+  },
+  {
+    "id": 30,
+    "words": "节省",
+    "Pinyin": "jiéshěng",
+    "Meaning": "to save; economize; conserve",
+    "Sentences": "提前规划路线可以节省不少时间和交通费用。"
+  },
+  {
+    "id": 31,
+    "words": "结合",
+    "Pinyin": "jiéhé",
+    "Meaning": "to combine; integrate; combine with",
+    "Sentences": "学习理论的同时，也应该结合实际情况进行分析。"
+  },
+  {
+    "id": 32,
+    "words": "结论",
+    "Pinyin": "jiélùn",
+    "Meaning": "conclusion",
+    "Sentences": "在没有充分证据之前，我们不能轻易得出结论。"
+  },
+  {
+    "id": 33,
+    "words": "解说员",
+    "Pinyin": "jiěshuōyuán",
+    "Meaning": "commentator; narrator; tour guide",
+    "Sentences": "解说员详细介绍了这座博物馆的历史和重要展品。"
+  },
+  {
+    "id": 34,
+    "words": "届",
+    "Pinyin": "jiè",
+    "Meaning": "session; edition; term; cohort",
+    "Sentences": "他是这一届毕业生中较早找到工作的学生之一。"
+  },
+  {
+    "id": 35,
+    "words": "戒烟",
+    "Pinyin": "jièyān",
+    "Meaning": "to quit smoking",
+    "Sentences": "为了改善身体状况，他下定决心戒烟。"
+  },
+  {
+    "id": 36,
+    "words": "尽管",
+    "Pinyin": "jǐnguǎn",
+    "Meaning": "although; despite; even though",
+    "Sentences": "尽管工作压力很大，他还是努力保持积极的态度。"
+  },
+  {
+    "id": 37,
+    "words": "谨慎",
+    "Pinyin": "jǐnshèn",
+    "Meaning": "cautious; prudent; careful",
+    "Sentences": "涉及个人信息的问题必须谨慎处理，以免造成不必要的风险。"
+  },
+  {
+    "id": 38,
+    "words": "近代",
+    "Pinyin": "jìndài",
+    "Meaning": "modern times; modern era",
+    "Sentences": "这本书主要介绍了中国近代社会的发展和变化。"
+  },
+  {
+    "id": 39,
+    "words": "尽力",
+    "Pinyin": "jìnlì",
+    "Meaning": "to do one's best; make every effort",
+    "Sentences": "我会尽力完成这项任务，如果遇到问题会及时告诉你。"
+  },
+  {
+    "id": 40,
+    "words": "经典",
+    "Pinyin": "jīngdiǎn",
+    "Meaning": "classic; classical; masterpiece",
+    "Sentences": "这部电影已经成为中国电影史上的经典作品。"
+  },
+  {
+    "id": 41,
+    "words": "经营",
+    "Pinyin": "jīngyíng",
+    "Meaning": "to manage; operate; run a business",
+    "Sentences": "经营一家企业不仅需要资金，还需要良好的管理能力。"
+  },
+  {
+    "id": 42,
+    "words": "敬爱",
+    "Pinyin": "jìng'ài",
+    "Meaning": "to respect and love; revered",
+    "Sentences": "他一直非常敬爱自己的老师，并经常向老师请教问题。"
+  },
+  {
+    "id": 43,
+    "words": "究竟",
+    "Pinyin": "jiūjìng",
+    "Meaning": "exactly; after all; in the end",
+    "Sentences": "我们需要进一步调查，才能知道事情究竟是怎么发生的。"
+  },
+  {
+    "id": 44,
+    "words": "救护车",
+    "Pinyin": "jiùhùchē",
+    "Meaning": "ambulance",
+    "Sentences": "事故发生后，救护车很快赶到现场，把受伤的人送往医院。"
+  },
+  {
+    "id": 45,
+    "words": "居然",
+    "Pinyin": "jūrán",
+    "Meaning": "unexpectedly; surprisingly",
+    "Sentences": "他平时很少运动，居然在这次比赛中取得了不错的成绩。"
+  },
+  {
+    "id": 46,
+    "words": "举",
+    "Pinyin": "jǔ",
+    "Meaning": "to raise; lift; hold up; cite",
+    "Sentences": "为了说明自己的观点，他举了一个非常具体的例子。"
+  },
+  {
+    "id": 47,
+    "words": "具备",
+    "Pinyin": "jùbèi",
+    "Meaning": "to possess; have; be equipped with",
+    "Sentences": "这份工作要求应聘者具备良好的沟通能力和团队合作精神。"
+  },
+  {
+    "id": 48,
+    "words": "俱乐部",
+    "Pinyin": "jùlèbù",
+    "Meaning": "club",
+    "Sentences": "学校的中文俱乐部每周都会组织一次交流活动。"
+  },
+  {
+    "id": 49,
+    "words": "距离",
+    "Pinyin": "jùlí",
+    "Meaning": "distance; be away from",
+    "Sentences": "从这里到机场的距离大约是三十公里。"
+  },
+  {
+    "id": 50,
+    "words": "捐",
+    "Pinyin": "juān",
+    "Meaning": "to donate; contribute",
+    "Sentences": "许多人主动捐款帮助受到灾害影响的家庭。"
+  },
+  {
+    "id": 51,
+    "words": "卷",
+    "Pinyin": "juǎn",
+    "Meaning": "to roll up; roll; volume; exam paper",
+    "Sentences": "考试结束以后，请把试卷放在讲台上。"
+  },
+  {
+    "id": 52,
+    "words": "决赛",
+    "Pinyin": "juésài",
+    "Meaning": "final match; finals",
+    "Sentences": "经过几轮激烈的比赛，两支队伍最终进入了决赛。"
+  },
+  {
+    "id": 53,
+    "words": "决心",
+    "Pinyin": "juéxīn",
+    "Meaning": "determination; resolve; to resolve",
+    "Sentences": "他下定决心改变自己的生活习惯，并坚持了下来。"
+  },
+  {
+    "id": 54,
+    "words": "均匀",
+    "Pinyin": "jūnyún",
+    "Meaning": "even; uniform; evenly distributed",
+    "Sentences": "请把这些材料均匀地分配给每个小组。"
+  }
+]

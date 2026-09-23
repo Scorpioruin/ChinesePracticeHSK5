@@ -1,0 +1,226 @@
+[
+  {
+    "id": 1,
+    "words": "塔",
+    "Pinyin": "tǎ",
+    "Meaning": "tower; pagoda",
+    "Sentences": "这座古老的塔已经有几百年的历史，是当地著名的景点。"
+  },
+  {
+    "id": 2,
+    "words": "抬",
+    "Pinyin": "tái",
+    "Meaning": "to lift; raise; carry",
+    "Sentences": "这个箱子太重了，我们两个人一起抬比较安全。"
+  },
+  {
+    "id": 3,
+    "words": "台",
+    "Pinyin": "tái",
+    "Meaning": "measure word for machines; platform; stand",
+    "Sentences": "公司新买了两台电脑，准备给新员工使用。"
+  },
+  {
+    "id": 4,
+    "words": "台阶",
+    "Pinyin": "táijiē",
+    "Meaning": "steps; stairs; step; room for compromise",
+    "Sentences": "下楼梯时要小心台阶，以免不小心摔倒。"
+  },
+  {
+    "id": 5,
+    "words": "太极拳",
+    "Pinyin": "tàijíquán",
+    "Meaning": "Tai Chi; Taijiquan",
+    "Sentences": "公园里每天早上都有一些老人练习太极拳。"
+  },
+  {
+    "id": 6,
+    "words": "谈判",
+    "Pinyin": "tánpàn",
+    "Meaning": "negotiation; to negotiate",
+    "Sentences": "经过几轮谈判，双方终于就合同中的主要问题达成了共识。"
+  },
+  {
+    "id": 7,
+    "words": "坦率",
+    "Pinyin": "tǎnshuài",
+    "Meaning": "frank; straightforward; candid",
+    "Sentences": "他很坦率地告诉我，这个方案目前还存在一些问题。"
+  },
+  {
+    "id": 8,
+    "words": "烫",
+    "Pinyin": "tàng",
+    "Meaning": "hot; scalding; to burn; to iron",
+    "Sentences": "小心，这杯咖啡很烫，最好等一会儿再喝。"
+  },
+  {
+    "id": 9,
+    "words": "趟",
+    "Pinyin": "tàng",
+    "Meaning": "measure word for trips",
+    "Sentences": "为了办理这个手续，我今天还得去一趟银行。"
+  },
+  {
+    "id": 10,
+    "words": "特点",
+    "Pinyin": "tèdiǎn",
+    "Meaning": "characteristic; feature; distinctive quality",
+    "Sentences": "这款产品最大的特点是操作简单，而且价格比较合理。"
+  },
+  {
+    "id": 11,
+    "words": "特意",
+    "Pinyin": "tèyì",
+    "Meaning": "specially; deliberately; intentionally",
+    "Sentences": "他特意提前来到机场，为了给朋友一个惊喜。"
+  },
+  {
+    "id": 12,
+    "words": "特征",
+    "Pinyin": "tèzhēng",
+    "Meaning": "characteristic; feature; distinguishing trait",
+    "Sentences": "不同地区的饮食文化都有自己的特点和特征。"
+  },
+  {
+    "id": 13,
+    "words": "疼爱",
+    "Pinyin": "téng'ài",
+    "Meaning": "to love dearly; dote on",
+    "Sentences": "爷爷奶奶从小就非常疼爱这个孙子。"
+  },
+  {
+    "id": 14,
+    "words": "提",
+    "Pinyin": "tí",
+    "Meaning": "to mention; raise; carry; lift",
+    "Sentences": "如果你有任何意见，可以在会议上提出来。"
+  },
+  {
+    "id": 15,
+    "words": "提倡",
+    "Pinyin": "tíchàng",
+    "Meaning": "to advocate; promote; encourage",
+    "Sentences": "学校提倡学生合理使用网络，不要过度依赖手机。"
+  },
+  {
+    "id": 16,
+    "words": "提纲",
+    "Pinyin": "tígāng",
+    "Meaning": "outline; summary; main points",
+    "Sentences": "写文章之前最好先列一个提纲，这样思路会更加清楚。"
+  },
+  {
+    "id": 17,
+    "words": "题目",
+    "Pinyin": "tímù",
+    "Meaning": "topic; title; question; problem",
+    "Sentences": "这道题目看起来很简单，但真正做起来并不容易。"
+  },
+  {
+    "id": 18,
+    "words": "体积",
+    "Pinyin": "tǐjī",
+    "Meaning": "volume; bulk",
+    "Sentences": "虽然这个箱子的体积不大，但是里面可以装很多东西。"
+  },
+  {
+    "id": 19,
+    "words": "体贴",
+    "Pinyin": "tǐtiē",
+    "Meaning": "considerate; thoughtful; caring",
+    "Sentences": "他非常体贴，总是能够注意到别人容易忽略的细节。"
+  },
+  {
+    "id": 20,
+    "words": "体现",
+    "Pinyin": "tǐxiàn",
+    "Meaning": "to embody; reflect; manifest",
+    "Sentences": "一个人的责任感往往能够从日常工作中的细节体现出来。"
+  },
+  {
+    "id": 21,
+    "words": "天真",
+    "Pinyin": "tiānzhēn",
+    "Meaning": "naive; innocent; simple-hearted",
+    "Sentences": "小时候的她非常天真，总觉得世界上的每个人都是善良的。"
+  },
+  {
+    "id": 22,
+    "words": "田野",
+    "Pinyin": "tiányě",
+    "Meaning": "field; open countryside",
+    "Sentences": "春天来到以后，田野里到处都是绿色，景色十分漂亮。"
+  },
+  {
+    "id": 23,
+    "words": "条",
+    "Pinyin": "tiáo",
+    "Meaning": "measure word for long objects; strip; item",
+    "Sentences": "我在网上买了两条裤子，打算旅行的时候穿。"
+  },
+  {
+    "id": 24,
+    "words": "调皮",
+    "Pinyin": "tiáopí",
+    "Meaning": "naughty; mischievous; playful",
+    "Sentences": "这个孩子虽然有点调皮，但是学习的时候还是很认真。"
+  },
+  {
+    "id": 25,
+    "words": "通讯",
+    "Pinyin": "tōngxùn",
+    "Meaning": "communication; telecommunications; correspondence",
+    "Sentences": "现代通讯技术的发展大大缩短了人与人之间的距离。"
+  },
+  {
+    "id": 26,
+    "words": "统一",
+    "Pinyin": "tǒngyī",
+    "Meaning": "unified; to unify; consistent",
+    "Sentences": "为了提高工作效率，公司决定统一使用新的管理系统。"
+  },
+  {
+    "id": 27,
+    "words": "统治",
+    "Pinyin": "tǒngzhì",
+    "Meaning": "to rule; govern; rule; domination",
+    "Sentences": "这个王朝统治了这个地区几百年，留下了许多历史遗迹。"
+  },
+  {
+    "id": 28,
+    "words": "痛快",
+    "Pinyin": "tòngkuài",
+    "Meaning": "delighted; satisfying; straightforward; heartily",
+    "Sentences": "把心里的想法痛快地说出来以后，他感觉轻松多了。"
+  },
+  {
+    "id": 29,
+    "words": "透明",
+    "Pinyin": "tòumíng",
+    "Meaning": "transparent; clear; open",
+    "Sentences": "这个玻璃杯是透明的，可以清楚地看到里面的水。"
+  },
+  {
+    "id": 30,
+    "words": "吐",
+    "Pinyin": "tǔ",
+    "Meaning": "to spit; vomit; throw up",
+    "Sentences": "他坐长途汽车时容易晕车，有时候甚至会吐。"
+  },
+  {
+    "id": 31,
+    "words": "推辞",
+    "Pinyin": "tuīcí",
+    "Meaning": "to decline; refuse; make excuses",
+    "Sentences": "既然大家都信任你，就不要再推辞这个重要的任务了。"
+  },
+  {
+    "id": 32,
+    "words": "推广",
+    "Pinyin": "tuīguǎng",
+    "Meaning": "to promote; popularize; spread",
+    "Sentences": "公司计划通过社交媒体推广这款新产品。"
+  }
+]

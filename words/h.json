@@ -1,0 +1,212 @@
+[
+  {
+    "id": 1,
+    "words": "海关",
+    "Pinyin": "hǎiguān",
+    "Meaning": "customs",
+    "Sentences": "入境时，所有旅客都需要按照规定通过海关检查。"
+  },
+  {
+    "id": 2,
+    "words": "寒假",
+    "Pinyin": "hánjià",
+    "Meaning": "winter vacation",
+    "Sentences": "寒假期间，我打算利用这段时间提高自己的中文水平。"
+  },
+  {
+    "id": 3,
+    "words": "喊",
+    "Pinyin": "hǎn",
+    "Meaning": "to shout; to call out",
+    "Sentences": "他站在门口大声喊我的名字，让我赶紧出来。"
+  },
+  {
+    "id": 4,
+    "words": "豪华",
+    "Pinyin": "háohuá",
+    "Meaning": "luxurious; deluxe",
+    "Sentences": "这家酒店虽然装修得非常豪华，但价格也相对较高。"
+  },
+  {
+    "id": 5,
+    "words": "和平",
+    "Pinyin": "hépíng",
+    "Meaning": "peace; peaceful",
+    "Sentences": "维护世界和平需要各国之间加强交流与合作。"
+  },
+  {
+    "id": 6,
+    "words": "何必",
+    "Pinyin": "hébì",
+    "Meaning": "why bother; there is no need to",
+    "Sentences": "既然事情已经发生了，何必一直为过去的错误感到后悔呢？"
+  },
+  {
+    "id": 7,
+    "words": "何况",
+    "Pinyin": "hékuàng",
+    "Meaning": "let alone; besides; moreover",
+    "Sentences": "连成年人都觉得这项任务很困难，何况是刚开始学习的学生呢？"
+  },
+  {
+    "id": 8,
+    "words": "合法",
+    "Pinyin": "héfǎ",
+    "Meaning": "legal; lawful",
+    "Sentences": "我们应该通过合法的方式维护自己的权益。"
+  },
+  {
+    "id": 9,
+    "words": "核心",
+    "Pinyin": "héxīn",
+    "Meaning": "core; central; key",
+    "Sentences": "提高产品质量是这家公司目前最核心的任务。"
+  },
+  {
+    "id": 10,
+    "words": "横",
+    "Pinyin": "héng",
+    "Meaning": "horizontal; across; sideways",
+    "Sentences": "这张桌子太窄了，最好把电脑横着放。"
+  },
+  {
+    "id": 11,
+    "words": "厚",
+    "Pinyin": "hòu",
+    "Meaning": "thick; deep",
+    "Sentences": "这本书虽然不厚，但是里面的内容非常丰富。"
+  },
+  {
+    "id": 12,
+    "words": "后果",
+    "Pinyin": "hòuguǒ",
+    "Meaning": "consequence; result",
+    "Sentences": "做决定之前，我们应该充分考虑可能产生的后果。"
+  },
+  {
+    "id": 13,
+    "words": "忽然",
+    "Pinyin": "hūrán",
+    "Meaning": "suddenly; all of a sudden",
+    "Sentences": "会议进行到一半时，会议室里的灯忽然熄灭了。"
+  },
+  {
+    "id": 14,
+    "words": "壶",
+    "Pinyin": "hú",
+    "Meaning": "pot; kettle; jug",
+    "Sentences": "桌上放着一壶热茶，大家可以自己倒来喝。"
+  },
+  {
+    "id": 15,
+    "words": "蝴蝶",
+    "Pinyin": "húdié",
+    "Meaning": "butterfly",
+    "Sentences": "花园里有很多蝴蝶在花丛中飞来飞去。"
+  },
+  {
+    "id": 16,
+    "words": "胡同",
+    "Pinyin": "hútòng",
+    "Meaning": "traditional narrow alley in northern Chinese cities",
+    "Sentences": "这座城市保留了许多古老的胡同，吸引了不少游客。"
+  },
+  {
+    "id": 17,
+    "words": "胡须",
+    "Pinyin": "húxū",
+    "Meaning": "beard; moustache",
+    "Sentences": "他留着一脸胡须，看起来比实际年龄成熟很多。"
+  },
+  {
+    "id": 18,
+    "words": "糊涂",
+    "Pinyin": "hútu",
+    "Meaning": "confused; muddle-headed; careless",
+    "Sentences": "我一时糊涂，把重要文件放错了地方。"
+  },
+  {
+    "id": 19,
+    "words": "划船",
+    "Pinyin": "huáchuán",
+    "Meaning": "to row a boat; go boating",
+    "Sentences": "天气好的时候，我们喜欢去湖边划船，放松一下。"
+  },
+  {
+    "id": 20,
+    "words": "华裔",
+    "Pinyin": "huáyì",
+    "Meaning": "person of Chinese descent; overseas Chinese descendant",
+    "Sentences": "这位华裔作家虽然出生在国外，但一直非常重视中华文化。"
+  },
+  {
+    "id": 21,
+    "words": "怀念",
+    "Pinyin": "huáiniàn",
+    "Meaning": "to miss; to cherish the memory of",
+    "Sentences": "每当听到这首歌，我都会怀念过去和朋友一起生活的日子。"
+  },
+  {
+    "id": 22,
+    "words": "缓解",
+    "Pinyin": "huǎnjiě",
+    "Meaning": "to relieve; alleviate; ease",
+    "Sentences": "适当运动不仅可以缓解压力，还能改善睡眠质量。"
+  },
+  {
+    "id": 23,
+    "words": "皇后",
+    "Pinyin": "huánghòu",
+    "Meaning": "empress; queen",
+    "Sentences": "这部历史剧主要讲述了皇后在宫廷中的生活。"
+  },
+  {
+    "id": 24,
+    "words": "挥",
+    "Pinyin": "huī",
+    "Meaning": "to wave; swing; brandish",
+    "Sentences": "火车开走的时候，他一直站在站台上挥手告别。"
+  },
+  {
+    "id": 25,
+    "words": "灰尘",
+    "Pinyin": "huīchén",
+    "Meaning": "dust",
+    "Sentences": "房间长时间没人使用，桌子上已经积了不少灰尘。"
+  },
+  {
+    "id": 26,
+    "words": "灰心",
+    "Pinyin": "huīxīn",
+    "Meaning": "to lose heart; become discouraged",
+    "Sentences": "一次失败并不意味着没有机会，我们千万不要因此灰心。"
+  },
+  {
+    "id": 27,
+    "words": "恢复",
+    "Pinyin": "huīfù",
+    "Meaning": "to recover; restore; resume",
+    "Sentences": "经过一段时间的休息，他的身体已经逐渐恢复了。"
+  },
+  {
+    "id": 28,
+    "words": "活泼",
+    "Pinyin": "huópō",
+    "Meaning": "lively; vivacious; cheerful",
+    "Sentences": "这个孩子性格非常活泼，很快就和班上的同学熟悉了。"
+  },
+  {
+    "id": 29,
+    "words": "活跃",
+    "Pinyin": "huóyuè",
+    "Meaning": "active; lively; to be active",
+    "Sentences": "他在课堂上非常活跃，经常主动回答老师提出的问题。"
+  },
+  {
+    "id": 30,
+    "words": "火柴",
+    "Pinyin": "huǒchái",
+    "Meaning": "match; matchstick",
+    "Sentences": "为了安全起见，请把火柴放在儿童拿不到的地方。"
+  }
+]

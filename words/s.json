@@ -1,0 +1,352 @@
+[
+  {
+    "id": 1,
+    "words": "洒",
+    "Pinyin": "sǎ",
+    "Meaning": "to sprinkle; to spill; to scatter",
+    "Sentences": "小心一点，别把水洒在地板上。"
+  },
+  {
+    "id": 2,
+    "words": "沙漠",
+    "Pinyin": "shāmò",
+    "Meaning": "desert",
+    "Sentences": "这支探险队计划穿越一片面积很大的沙漠。"
+  },
+  {
+    "id": 3,
+    "words": "沙滩",
+    "Pinyin": "shātān",
+    "Meaning": "sandy beach; beach",
+    "Sentences": "傍晚的时候，我们坐在沙滩上欣赏美丽的日落。"
+  },
+  {
+    "id": 4,
+    "words": "晒",
+    "Pinyin": "shài",
+    "Meaning": "to bask in the sun; to dry in the sun",
+    "Sentences": "天气很好，我把洗好的衣服拿到阳台上晒。"
+  },
+  {
+    "id": 5,
+    "words": "善良",
+    "Pinyin": "shànliáng",
+    "Meaning": "kind; kind-hearted; benevolent",
+    "Sentences": "她是一个非常善良的人，经常主动帮助有困难的人。"
+  },
+  {
+    "id": 6,
+    "words": "扇子",
+    "Pinyin": "shànzi",
+    "Meaning": "fan; hand fan",
+    "Sentences": "天气太热了，奶奶拿着扇子坐在门口乘凉。"
+  },
+  {
+    "id": 7,
+    "words": "商量",
+    "Pinyin": "shāngliang",
+    "Meaning": "to discuss; consult; negotiate",
+    "Sentences": "这件事情比较重要，我们先商量一下再作决定。"
+  },
+  {
+    "id": 8,
+    "words": "上当",
+    "Pinyin": "shàngdàng",
+    "Meaning": "to be deceived; be fooled; fall for a trick",
+    "Sentences": "网上的信息不一定都是真的，我们一定要提高警惕，以免上当。"
+  },
+  {
+    "id": 9,
+    "words": "稍微",
+    "Pinyin": "shāowéi",
+    "Meaning": "slightly; a little; somewhat",
+    "Sentences": "如果你觉得房间太暗，可以稍微把窗帘拉开一点。"
+  },
+  {
+    "id": 10,
+    "words": "舌头",
+    "Pinyin": "shétou",
+    "Meaning": "tongue",
+    "Sentences": "这道菜太辣了，我的舌头都有些麻了。"
+  },
+  {
+    "id": 11,
+    "words": "舍不得",
+    "Pinyin": "shěbude",
+    "Meaning": "hate to part with; be reluctant to leave or give up",
+    "Sentences": "在这里生活了这么多年，他真的舍不得离开这座城市。"
+  },
+  {
+    "id": 12,
+    "words": "射击",
+    "Pinyin": "shèjī",
+    "Meaning": "to shoot; shooting",
+    "Sentences": "这家体育中心提供射击训练课程，但参加者必须遵守严格的安全规定。"
+  },
+  {
+    "id": 13,
+    "words": "伸",
+    "Pinyin": "shēn",
+    "Meaning": "to stretch; extend; reach out",
+    "Sentences": "他伸出手来，主动和我打了个招呼。"
+  },
+  {
+    "id": 14,
+    "words": "神话",
+    "Pinyin": "shénhuà",
+    "Meaning": "myth; mythology",
+    "Sentences": "许多中国古代神话故事至今仍然受到人们的喜爱。"
+  },
+  {
+    "id": 15,
+    "words": "神经",
+    "Pinyin": "shénjīng",
+    "Meaning": "nerve; nervous system",
+    "Sentences": "长期处于紧张状态可能会影响神经系统和睡眠质量。"
+  },
+  {
+    "id": 16,
+    "words": "甚至",
+    "Pinyin": "shènzhì",
+    "Meaning": "even; so much so that",
+    "Sentences": "他每天工作到很晚，甚至周末也经常需要处理工作上的事情。"
+  },
+  {
+    "id": 17,
+    "words": "生动",
+    "Pinyin": "shēngdòng",
+    "Meaning": "vivid; lively; graphic",
+    "Sentences": "老师用几个生动的例子解释了这个比较复杂的概念。"
+  },
+  {
+    "id": 18,
+    "words": "省略",
+    "Pinyin": "shěnglüè",
+    "Meaning": "to omit; leave out; abbreviation",
+    "Sentences": "为了让文章更加简洁，有些重复的信息可以适当省略。"
+  },
+  {
+    "id": 19,
+    "words": "诗",
+    "Pinyin": "shī",
+    "Meaning": "poem; poetry",
+    "Sentences": "他喜欢读诗，尤其喜欢那些描写自然和人生的作品。"
+  },
+  {
+    "id": 20,
+    "words": "湿润",
+    "Pinyin": "shīrùn",
+    "Meaning": "moist; humid; damp",
+    "Sentences": "雨后的空气十分湿润，路边的植物看起来也更加有生气。"
+  },
+  {
+    "id": 21,
+    "words": "十分",
+    "Pinyin": "shífēn",
+    "Meaning": "very; extremely; fully",
+    "Sentences": "这次经历对我来说十分重要，让我学到了很多东西。"
+  },
+  {
+    "id": 22,
+    "words": "时髦",
+    "Pinyin": "shímáo",
+    "Meaning": "fashionable; stylish; trendy",
+    "Sentences": "这家店主要出售年轻人喜欢的时髦服装。"
+  },
+  {
+    "id": 23,
+    "words": "实际",
+    "Pinyin": "shíjì",
+    "Meaning": "actual; practical; reality",
+    "Sentences": "制定计划的时候，除了考虑理想目标，还应该结合实际情况。"
+  },
+  {
+    "id": 24,
+    "words": "实践",
+    "Pinyin": "shíjiàn",
+    "Meaning": "practice; to put into practice",
+    "Sentences": "只有通过实际的工作和实践，才能真正掌握所学的知识。"
+  },
+  {
+    "id": 25,
+    "words": "使",
+    "Pinyin": "shǐ",
+    "Meaning": "to make; cause; enable",
+    "Sentences": "这次经历使我更加重视团队合作的重要性。"
+  },
+  {
+    "id": 26,
+    "words": "使劲儿",
+    "Pinyin": "shǐjìnr",
+    "Meaning": "to use force; exert oneself; with all one's strength",
+    "Sentences": "他使劲儿推了几下，终于把卡住的门打开了。"
+  },
+  {
+    "id": 27,
+    "words": "始终",
+    "Pinyin": "shǐzhōng",
+    "Meaning": "always; throughout; from beginning to end",
+    "Sentences": "无论遇到什么困难，他始终没有放弃自己的目标。"
+  },
+  {
+    "id": 28,
+    "words": "试卷",
+    "Pinyin": "shìjuàn",
+    "Meaning": "test paper; examination paper",
+    "Sentences": "考试结束以后，请把试卷放在讲台上。"
+  },
+  {
+    "id": 29,
+    "words": "似的",
+    "Pinyin": "shìde",
+    "Meaning": "as if; like; -like",
+    "Sentences": "他高兴得像个孩子似的，一直和大家分享这个好消息。"
+  },
+  {
+    "id": 30,
+    "words": "事先",
+    "Pinyin": "shìxiān",
+    "Meaning": "beforehand; in advance",
+    "Sentences": "参加会议之前，最好事先准备好需要讨论的问题。"
+  },
+  {
+    "id": 31,
+    "words": "世纪",
+    "Pinyin": "shìjì",
+    "Meaning": "century",
+    "Sentences": "这座建筑建于二十世纪初，至今已经有一百多年的历史。"
+  },
+  {
+    "id": 32,
+    "words": "收获",
+    "Pinyin": "shōuhuò",
+    "Meaning": "harvest; gain; to gain; obtain",
+    "Sentences": "通过这次实习，我不仅积累了经验，还收获了很多新的认识。"
+  },
+  {
+    "id": 33,
+    "words": "手工",
+    "Pinyin": "shǒugōng",
+    "Meaning": "handmade; handicraft; manual work",
+    "Sentences": "这些传统手工艺品都是当地工人亲手制作的。"
+  },
+  {
+    "id": 34,
+    "words": "手续",
+    "Pinyin": "shǒuxù",
+    "Meaning": "formalities; procedures",
+    "Sentences": "办理签证需要准备一些材料，并按照规定完成相关手续。"
+  },
+  {
+    "id": 35,
+    "words": "寿命",
+    "Pinyin": "shòumìng",
+    "Meaning": "lifespan; service life",
+    "Sentences": "定期维护设备可以延长机器的使用寿命。"
+  },
+  {
+    "id": 36,
+    "words": "输",
+    "Pinyin": "shū",
+    "Meaning": "to lose; be defeated; transport; input",
+    "Sentences": "虽然这场比赛输了，但我们从中发现了很多需要改进的问题。"
+  },
+  {
+    "id": 37,
+    "words": "熟练",
+    "Pinyin": "shúliàn",
+    "Meaning": "skilled; proficient; practiced",
+    "Sentences": "经过几个月的训练，她已经能够熟练地使用这个软件了。"
+  },
+  {
+    "id": 38,
+    "words": "数码",
+    "Pinyin": "shùmǎ",
+    "Meaning": "digital; digital technology",
+    "Sentences": "如今，数码产品已经成为人们日常生活中不可缺少的一部分。"
+  },
+  {
+    "id": 39,
+    "words": "甩",
+    "Pinyin": "shuǎi",
+    "Meaning": "to swing; fling; throw off; shake off",
+    "Sentences": "他用力甩了甩手上的水，然后拿起毛巾擦干。"
+  },
+  {
+    "id": 40,
+    "words": "顺序",
+    "Pinyin": "shùnxù",
+    "Meaning": "order; sequence; order of things",
+    "Sentences": "请按照正确的顺序完成这些步骤，不要随意改变操作方法。"
+  },
+  {
+    "id": 41,
+    "words": "说服",
+    "Pinyin": "shuōfú",
+    "Meaning": "to persuade; convince",
+    "Sentences": "他花了很长时间，终于说服父母支持自己的决定。"
+  },
+  {
+    "id": 42,
+    "words": "丝绸",
+    "Pinyin": "sīchóu",
+    "Meaning": "silk",
+    "Sentences": "丝绸是中国传统文化中具有代表性的产品之一。"
+  },
+  {
+    "id": 43,
+    "words": "丝毫",
+    "Pinyin": "sīháo",
+    "Meaning": "the slightest amount; at all",
+    "Sentences": "即使遇到困难，他也没有丝毫放弃的意思。"
+  },
+  {
+    "id": 44,
+    "words": "似乎",
+    "Pinyin": "sìhū",
+    "Meaning": "seem; seem as if; apparently",
+    "Sentences": "他似乎已经知道了这件事情，只是没有主动提起。"
+  },
+  {
+    "id": 45,
+    "words": "寺庙",
+    "Pinyin": "sìmiào",
+    "Meaning": "temple; Buddhist temple",
+    "Sentences": "这座寺庙历史悠久，每年都会吸引许多游客前来参观。"
+  },
+  {
+    "id": 46,
+    "words": "损失",
+    "Pinyin": "sǔnshī",
+    "Meaning": "loss; damage; to lose",
+    "Sentences": "如果不及时采取措施，公司可能会遭受更大的经济损失。"
+  },
+  {
+    "id": 47,
+    "words": "缩短",
+    "Pinyin": "suōduǎn",
+    "Meaning": "to shorten; reduce; cut down",
+    "Sentences": "使用新的技术以后，大大缩短了产品的生产时间。"
+  },
+  {
+    "id": 48,
+    "words": "缩小",
+    "Pinyin": "suōxiǎo",
+    "Meaning": "to reduce; narrow; shrink",
+    "Sentences": "随着双方不断加强合作，两家公司之间的差距正在逐渐缩小。"
+  },
+  {
+    "id": 49,
+    "words": "锁",
+    "Pinyin": "suǒ",
+    "Meaning": "lock; to lock",
+    "Sentences": "离开办公室以前，请确认门窗已经锁好。"
+  },
+  {
+    "id": 50,
+    "words": "所",
+    "Pinyin": "suǒ",
+    "Meaning": "that which; place; used before a verb to nominalize it",
+    "Sentences": "我们应该珍惜自己所拥有的一切，并努力实现自己的目标。"
+  }
+]

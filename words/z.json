@@ -1,0 +1,317 @@
+[
+  {
+    "id": 1,
+    "words": "灾害",
+    "Pinyin": "zāihài",
+    "Meaning": "disaster; calamity",
+    "Sentences": "面对自然灾害，我们应该提前做好应急准备，尽量减少人员和财产损失。"
+  },
+  {
+    "id": 2,
+    "words": "再三",
+    "Pinyin": "zàisān",
+    "Meaning": "again and again; repeatedly",
+    "Sentences": "老师再三提醒我们，考试时一定要认真检查答案。"
+  },
+  {
+    "id": 3,
+    "words": "则",
+    "Pinyin": "zé",
+    "Meaning": "then; whereas; but; rule; standard",
+    "Sentences": "有些人重视工作效率，有些人则更看重工作环境。"
+  },
+  {
+    "id": 4,
+    "words": "责备",
+    "Pinyin": "zébèi",
+    "Meaning": "to blame; criticize; reproach",
+    "Sentences": "与其一味责备犯错的人，不如先找出问题产生的原因。"
+  },
+  {
+    "id": 5,
+    "words": "摘",
+    "Pinyin": "zhāi",
+    "Meaning": "to pick; pluck; take off",
+    "Sentences": "未经允许，游客不能随意摘公园里的花。"
+  },
+  {
+    "id": 6,
+    "words": "窄",
+    "Pinyin": "zhǎi",
+    "Meaning": "narrow; tight",
+    "Sentences": "这条路太窄，遇到高峰期很容易发生交通拥堵。"
+  },
+  {
+    "id": 7,
+    "words": "粘贴",
+    "Pinyin": "zhāntiē",
+    "Meaning": "to paste; stick; affix",
+    "Sentences": "请把这张通知粘贴在教室门口，让所有学生都能看到。"
+  },
+  {
+    "id": 8,
+    "words": "展览",
+    "Pinyin": "zhǎnlǎn",
+    "Meaning": "exhibition; to exhibit; display",
+    "Sentences": "博物馆正在举办一个关于中国传统文化的展览。"
+  },
+  {
+    "id": 9,
+    "words": "战线",
+    "Pinyin": "zhànxiàn",
+    "Meaning": "battlefront; front; line of battle",
+    "Sentences": "在这场长期的改革中，各部门需要在不同战线上共同努力。"
+  },
+  {
+    "id": 10,
+    "words": "涨",
+    "Pinyin": "zhǎng",
+    "Meaning": "to rise; increase; go up",
+    "Sentences": "最近生活成本不断上涨，很多人的经济压力也随之增加。"
+  },
+  {
+    "id": 11,
+    "words": "掌握",
+    "Pinyin": "zhǎngwò",
+    "Meaning": "to master; grasp; control",
+    "Sentences": "只有真正掌握学习方法，才能不断提高自己的语言能力。"
+  },
+  {
+    "id": 12,
+    "words": "招待",
+    "Pinyin": "zhāodài",
+    "Meaning": "to entertain; receive; host",
+    "Sentences": "公司安排了专门的工作人员负责招待来自国外的客人。"
+  },
+  {
+    "id": 13,
+    "words": "召开",
+    "Pinyin": "zhàokāi",
+    "Meaning": "to convene; call a meeting",
+    "Sentences": "公司决定下周召开一次全体员工会议，讨论新的工作安排。"
+  },
+  {
+    "id": 14,
+    "words": "照常",
+    "Pinyin": "zhàocháng",
+    "Meaning": "as usual; as normal",
+    "Sentences": "虽然今天下着大雨，学校的课程还是照常进行。"
+  },
+  {
+    "id": 15,
+    "words": "哲学",
+    "Pinyin": "zhéxué",
+    "Meaning": "philosophy",
+    "Sentences": "他对哲学很感兴趣，经常思考人与社会之间的关系。"
+  },
+  {
+    "id": 16,
+    "words": "诊断",
+    "Pinyin": "zhěnduàn",
+    "Meaning": "to diagnose; diagnosis",
+    "Sentences": "医生需要进行详细检查以后，才能对病人的情况作出准确的诊断。"
+  },
+  {
+    "id": 17,
+    "words": "针对",
+    "Pinyin": "zhēnduì",
+    "Meaning": "to target; in response to; aimed at",
+    "Sentences": "公司针对客户提出的问题，制定了相应的解决方案。"
+  },
+  {
+    "id": 18,
+    "words": "阵",
+    "Pinyin": "zhèn",
+    "Meaning": "burst; spell; period; measure word for sounds or feelings",
+    "Sentences": "窗外不时传来一阵阵笑声，整个房间都显得十分热闹。"
+  },
+  {
+    "id": 19,
+    "words": "震动",
+    "Pinyin": "zhèndòng",
+    "Meaning": "to shake; vibrate; shock",
+    "Sentences": "手机突然震动起来，原来是有人给我发了一条消息。"
+  },
+  {
+    "id": 20,
+    "words": "整齐",
+    "Pinyin": "zhěngqí",
+    "Meaning": "neat; tidy; orderly; uniform",
+    "Sentences": "请把桌上的文件整理整齐，以便大家查找。"
+  },
+  {
+    "id": 21,
+    "words": "政治",
+    "Pinyin": "zhèngzhì",
+    "Meaning": "politics; political",
+    "Sentences": "这门课程主要介绍中国近现代政治和社会的发展。"
+  },
+  {
+    "id": 22,
+    "words": "植物",
+    "Pinyin": "zhíwù",
+    "Meaning": "plant; vegetation",
+    "Sentences": "这些植物需要充足的阳光和水分才能健康生长。"
+  },
+  {
+    "id": 23,
+    "words": "指挥",
+    "Pinyin": "zhǐhuī",
+    "Meaning": "to command; direct; conduct",
+    "Sentences": "项目负责人负责指挥整个团队，确保每项任务按计划完成。"
+  },
+  {
+    "id": 24,
+    "words": "制度",
+    "Pinyin": "zhìdù",
+    "Meaning": "system; institution; regulation",
+    "Sentences": "完善的管理制度有助于提高工作效率，减少不必要的错误。"
+  },
+  {
+    "id": 25,
+    "words": "智慧",
+    "Pinyin": "zhìhuì",
+    "Meaning": "wisdom; intelligence",
+    "Sentences": "人们可以通过不断学习和思考积累知识与智慧。"
+  },
+  {
+    "id": 26,
+    "words": "至今",
+    "Pinyin": "zhìjīn",
+    "Meaning": "until now; to this day",
+    "Sentences": "这座古建筑至今仍然保存得比较完整。"
+  },
+  {
+    "id": 27,
+    "words": "至于",
+    "Pinyin": "zhìyú",
+    "Meaning": "as for; as to; as for whether",
+    "Sentences": "至于具体的解决办法，我们可以等了解完整情况以后再决定。"
+  },
+  {
+    "id": 28,
+    "words": "秩序",
+    "Pinyin": "zhìxù",
+    "Meaning": "order; discipline; orderly arrangement",
+    "Sentences": "为了维持现场秩序，工作人员提醒大家按照顺序排队。"
+  },
+  {
+    "id": 29,
+    "words": "中介",
+    "Pinyin": "zhōngjiè",
+    "Meaning": "intermediary; agency; middleman",
+    "Sentences": "通过中介租房时，一定要仔细阅读合同中的相关条款。"
+  },
+  {
+    "id": 30,
+    "words": "重点",
+    "Pinyin": "zhòngdiǎn",
+    "Meaning": "key point; main point; focus",
+    "Sentences": "复习的时候应该抓住重点，而不是把所有内容平均分配时间。"
+  },
+  {
+    "id": 31,
+    "words": "周到",
+    "Pinyin": "zhōudào",
+    "Meaning": "thoughtful; considerate; thorough",
+    "Sentences": "酒店工作人员考虑得非常周到，让客人感到很满意。"
+  },
+  {
+    "id": 32,
+    "words": "重视",
+    "Pinyin": "zhòngshì",
+    "Meaning": "to value; attach importance to; emphasize",
+    "Sentences": "越来越多的企业开始重视员工的职业发展和工作满意度。"
+  },
+  {
+    "id": 33,
+    "words": "逐步",
+    "Pinyin": "zhúbù",
+    "Meaning": "step by step; gradually",
+    "Sentences": "随着经验不断积累，他逐步提高了处理复杂问题的能力。"
+  },
+  {
+    "id": 34,
+    "words": "主管",
+    "Pinyin": "zhǔguǎn",
+    "Meaning": "supervisor; manager; person in charge",
+    "Sentences": "如果遇到无法解决的问题，可以及时向主管汇报。"
+  },
+  {
+    "id": 35,
+    "words": "嘱咐",
+    "Pinyin": "zhǔfù",
+    "Meaning": "to instruct; urge; tell someone to do something",
+    "Sentences": "出门以前，妈妈再三嘱咐我一定要注意安全。"
+  },
+  {
+    "id": 36,
+    "words": "专心",
+    "Pinyin": "zhuānxīn",
+    "Meaning": "to concentrate; attentive; focused",
+    "Sentences": "学习的时候应该专心，不要让手机上的消息影响自己的注意力。"
+  },
+  {
+    "id": 37,
+    "words": "装饰",
+    "Pinyin": "zhuāngshì",
+    "Meaning": "to decorate; decoration",
+    "Sentences": "他们用一些简单的灯光和植物装饰房间，营造出温馨的气氛。"
+  },
+  {
+    "id": 38,
+    "words": "咨询",
+    "Pinyin": "zīxún",
+    "Meaning": "to consult; inquire; consultation",
+    "Sentences": "如果你对申请流程有疑问，可以向工作人员咨询具体要求。"
+  },
+  {
+    "id": 39,
+    "words": "自从",
+    "Pinyin": "zìcóng",
+    "Meaning": "since; ever since",
+    "Sentences": "自从开始学习中文以后，他每天都会花一些时间练习听力。"
+  },
+  {
+    "id": 40,
+    "words": "自觉",
+    "Pinyin": "zìjué",
+    "Meaning": "conscious; voluntary; self-disciplined",
+    "Sentences": "学习语言需要高度自觉，不能只依靠老师的监督。"
+  },
+  {
+    "id": 41,
+    "words": "总之",
+    "Pinyin": "zǒngzhī",
+    "Meaning": "in short; in conclusion; all in all",
+    "Sentences": "总之，只要提前做好准备，就能减少很多不必要的问题。"
+  },
+  {
+    "id": 42,
+    "words": "祖国",
+    "Pinyin": "zǔguó",
+    "Meaning": "motherland; homeland",
+    "Sentences": "无论身在何处，许多人始终关心祖国的发展和变化。"
+  },
+  {
+    "id": 43,
+    "words": "罪犯",
+    "Pinyin": "zuìfàn",
+    "Meaning": "criminal; offender",
+    "Sentences": "警方经过调查后，最终确认了犯罪嫌疑人的身份，并将其依法处理。"
+  },
+  {
+    "id": 44,
+    "words": "作文",
+    "Pinyin": "zuòwén",
+    "Meaning": "composition; essay",
+    "Sentences": "写作文时，除了注意语法，还应该注意文章的结构和逻辑。"
+  },
+  {
+    "id": 45,
+    "words": "作用",
+    "Pinyin": "zuòyòng",
+    "Meaning": "effect; function; role; influence",
+    "Sentences": "良好的沟通在团队合作中发挥着非常重要的作用。"
+  }
+]

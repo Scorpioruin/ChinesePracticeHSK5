@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "words": "燃烧",
+    "Pinyin": "ránshāo",
+    "Meaning": "to burn; burn; combustion",
+    "Sentences": "如果不及时处理，这些废弃物燃烧后可能会产生有害气体。"
+  },
+  {
+    "id": 2,
+    "words": "嚷",
+    "Pinyin": "rǎng",
+    "Meaning": "to shout; yell; make a fuss",
+    "Sentences": "孩子们在房间里大声嚷着，吵得其他人无法安静休息。"
+  },
+  {
+    "id": 3,
+    "words": "绕",
+    "Pinyin": "rào",
+    "Meaning": "to go around; circle; wind around; detour",
+    "Sentences": "前面的道路正在施工，我们只能绕路去机场。"
+  },
+  {
+    "id": 4,
+    "words": "人事",
+    "Pinyin": "rénshì",
+    "Meaning": "personnel; human resources; personnel affairs",
+    "Sentences": "如果你对公司的福利待遇有疑问，可以直接向人事部门咨询。"
+  },
+  {
+    "id": 5,
+    "words": "扔",
+    "Pinyin": "rēng",
+    "Meaning": "to throw; discard",
+    "Sentences": "请不要随手把垃圾扔在地上，应该放进垃圾桶里。"
+  },
+  {
+    "id": 6,
+    "words": "日历",
+    "Pinyin": "rìlì",
+    "Meaning": "calendar",
+    "Sentences": "我在日历上标记了重要的考试日期，以免忘记。"
+  },
+  {
+    "id": 7,
+    "words": "融化",
+    "Pinyin": "rónghuà",
+    "Meaning": "to melt; dissolve",
+    "Sentences": "天气越来越热，冰块很快就融化了。"
+  },
+  {
+    "id": 8,
+    "words": "荣誉",
+    "Pinyin": "róngyù",
+    "Meaning": "honor; glory; distinction",
+    "Sentences": "能够代表学校参加比赛，对他来说是一种荣誉。"
+  },
+  {
+    "id": 9,
+    "words": "如今",
+    "Pinyin": "rújīn",
+    "Meaning": "nowadays; these days; at present",
+    "Sentences": "如今，越来越多的人选择通过网络学习新的知识和技能。"
+  }
+]

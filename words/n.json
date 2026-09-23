@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "words": "哪怕",
+    "Pinyin": "nǎpà",
+    "Meaning": "even if; even though",
+    "Sentences": "哪怕遇到再大的困难，我们也应该坚持把事情做好。"
+  },
+  {
+    "id": 2,
+    "words": "内科",
+    "Pinyin": "nèikē",
+    "Meaning": "internal medicine; department of internal medicine",
+    "Sentences": "如果只是感到身体不舒服，可以先去医院的内科检查一下。"
+  },
+  {
+    "id": 3,
+    "words": "嫩",
+    "Pinyin": "nèn",
+    "Meaning": "tender; soft; young; inexperienced",
+    "Sentences": "这种蔬菜比较嫩，简单炒一下就可以吃了。"
+  },
+  {
+    "id": 4,
+    "words": "能干",
+    "Pinyin": "nénggàn",
+    "Meaning": "capable; competent; able",
+    "Sentences": "她不仅工作认真，而且非常能干，能够独立处理各种问题。"
+  },
+  {
+    "id": 5,
+    "words": "念",
+    "Pinyin": "niàn",
+    "Meaning": "to read aloud; study; miss; think of",
+    "Sentences": "小时候，爷爷每天晚上都会念故事给我听。"
+  },
+  {
+    "id": 6,
+    "words": "宁可",
+    "Pinyin": "nìngkě",
+    "Meaning": "would rather; prefer to",
+    "Sentences": "他宁可多花一点时间检查，也不愿意因为粗心而出现错误。"
+  },
+  {
+    "id": 7,
+    "words": "浓",
+    "Pinyin": "nóng",
+    "Meaning": "strong; thick; dense; concentrated",
+    "Sentences": "这杯咖啡味道太浓了，我更喜欢清淡一点的。"
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "words": "开放",
+    "Pinyin": "kāifàng",
+    "Meaning": "to open; open; liberal",
+    "Sentences": "这个博物馆每天上午九点向公众开放。"
+  },
+  {
+    "id": 2,
+    "words": "砍",
+    "Pinyin": "kǎn",
+    "Meaning": "to chop; cut down",
+    "Sentences": "未经允许，任何人都不能随意砍伐公园里的树木。"
+  },
+  {
+    "id": 3,
+    "words": "抗议",
+    "Pinyin": "kàngyì",
+    "Meaning": "to protest; protest",
+    "Sentences": "居民通过合法方式表达抗议，希望有关方面能够重视这个问题。"
+  },
+  {
+    "id": 4,
+    "words": "可见",
+    "Pinyin": "kějiàn",
+    "Meaning": "it can be seen; evidently; thus",
+    "Sentences": "他每天坚持练习，最后取得了很大的进步，可见努力确实能够带来改变。"
+  },
+  {
+    "id": 5,
+    "words": "可惜",
+    "Pinyin": "kěxī",
+    "Meaning": "it's a pity; unfortunately",
+    "Sentences": "这次旅行本来安排得很顺利，可惜因为天气原因不得不提前结束。"
+  },
+  {
+    "id": 6,
+    "words": "克服",
+    "Pinyin": "kèfú",
+    "Meaning": "to overcome; conquer",
+    "Sentences": "只要找到适合自己的方法，就有可能逐渐克服学习中的困难。"
+  },
+  {
+    "id": 7,
+    "words": "刻苦",
+    "Pinyin": "kèkǔ",
+    "Meaning": "hardworking; diligent; assiduous",
+    "Sentences": "他学习非常刻苦，即使遇到困难也不会轻易放弃。"
+  },
+  {
+    "id": 8,
+    "words": "空闲",
+    "Pinyin": "kòngxián",
+    "Meaning": "free; spare; leisure",
+    "Sentences": "我平时工作比较忙，只有周末才有一些空闲时间。"
+  },
+  {
+    "id": 9,
+    "words": "宽",
+    "Pinyin": "kuān",
+    "Meaning": "wide; broad; spacious",
+    "Sentences": "这条路比较宽，即使车辆很多，也不容易发生严重的拥堵。"
+  },
+  {
+    "id": 10,
+    "words": "扩大",
+    "Pinyin": "kuòdà",
+    "Meaning": "to expand; enlarge; broaden",
+    "Sentences": "公司计划扩大海外市场，并进一步提高产品的知名度。"
+  }
+]
