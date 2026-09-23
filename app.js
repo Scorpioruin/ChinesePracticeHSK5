@@ -16,7 +16,25 @@ const vocabularyLetters = [
   "e",
   "f",
   "g",
-"h","j","k","l","m","n","p","q","r","s","t","w","x","y","z"
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z"
 ];
 
 const paragraphLetters = [
@@ -26,7 +44,26 @@ const paragraphLetters = [
   "d",
   "e",
   "f",
-  "g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v""w","x","y","z"
+  "g",
+  "h",
+  "i",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "o",
+  "p",
+  "q",
+  "r",
+  "s",
+  "t",
+  "u",
+  "v",
+  "w",
+  "x",
+  "y",
+  "z"
 ];
 
 
@@ -53,27 +90,8 @@ let examScore = 0;
    HIGHLIGHT SYSTEM
 ========================================================= */
 
-/*
-  All highlights are stored here:
-
-  localStorage
-  ↓
-  chineseHSK5Highlights
-
-  Example:
-
-  [
-    {
-      id: "...",
-      target: "paragraph-1-paragraph",
-      text: "真正重要的并不是避免所有风险",
-      start: 35,
-      end: 52
-    }
-  ]
-*/
-
-const HIGHLIGHT_STORAGE_KEY = "chineseHSK5Highlights";
+const HIGHLIGHT_STORAGE_KEY =
+  "chineseHSK5Highlights";
 
 let highlights = [];
 
@@ -88,9 +106,10 @@ function loadHighlights() {
 
   try {
 
-    const saved = localStorage.getItem(
-      HIGHLIGHT_STORAGE_KEY
-    );
+    const saved =
+      localStorage.getItem(
+        HIGHLIGHT_STORAGE_KEY
+      );
 
     if (!saved) {
 
@@ -99,7 +118,8 @@ function loadHighlights() {
       return;
     }
 
-    const parsed = JSON.parse(saved);
+    const parsed =
+      JSON.parse(saved);
 
     if (Array.isArray(parsed)) {
 
@@ -119,7 +139,9 @@ function loadHighlights() {
     );
 
     highlights = [];
+
   }
+
 }
 
 
@@ -142,7 +164,9 @@ function saveHighlights() {
       "Could not save highlights:",
       error
     );
+
   }
+
 }
 
 
@@ -154,8 +178,11 @@ function createHighlightId() {
 
   return (
     Date.now().toString(36) +
-    Math.random().toString(36).substring(2, 9)
+    Math.random()
+      .toString(36)
+      .substring(2, 9)
   );
+
 }
 
 
@@ -163,29 +190,41 @@ function createHighlightId() {
    GET TEXT OFFSET INSIDE ELEMENT
 ========================================================= */
 
-function getTextOffset(root, node, offset) {
+function getTextOffset(
+  root,
+  node,
+  offset
+) {
 
-  const walker = document.createTreeWalker(
-    root,
-    NodeFilter.SHOW_TEXT
-  );
+  const walker =
+    document.createTreeWalker(
+      root,
+      NodeFilter.SHOW_TEXT
+    );
 
   let currentNode;
   let total = 0;
 
   while (
-    currentNode = walker.nextNode()
+    currentNode =
+      walker.nextNode()
   ) {
 
-    if (currentNode === node) {
+    if (
+      currentNode === node
+    ) {
 
       return total + offset;
+
     }
 
-    total += currentNode.nodeValue.length;
+    total +=
+      currentNode.nodeValue.length;
+
   }
 
   return total;
+
 }
 
 
@@ -193,10 +232,14 @@ function getTextOffset(root, node, offset) {
    GET HIGHLIGHTABLE PARENT
 ========================================================= */
 
-function getHighlightableElement(node) {
+function getHighlightableElement(
+  node
+) {
 
   if (!node) {
+
     return null;
+
   }
 
   const element =
@@ -205,12 +248,15 @@ function getHighlightableElement(node) {
       : node;
 
   if (!element) {
+
     return null;
+
   }
 
   return element.closest(
     ".highlightable"
   );
+
 }
 
 
@@ -218,7 +264,9 @@ function getHighlightableElement(node) {
    SHOW HIGHLIGHT TOOLBAR
 ========================================================= */
 
-function showHighlightToolbar(rect) {
+function showHighlightToolbar(
+  rect
+) {
 
   const toolbar =
     document.getElementById(
@@ -226,10 +274,14 @@ function showHighlightToolbar(rect) {
     );
 
   if (!toolbar) {
+
     return;
+
   }
 
-  toolbar.classList.remove("hidden");
+  toolbar.classList.remove(
+    "hidden"
+  );
 
   const toolbarWidth =
     toolbar.offsetWidth;
@@ -252,10 +304,14 @@ function showHighlightToolbar(rect) {
     halfWidth -
     10;
 
-  left = Math.max(
-    minimum,
-    Math.min(left, maximum)
-  );
+  left =
+    Math.max(
+      minimum,
+      Math.min(
+        left,
+        maximum
+      )
+    );
 
   if (top < 80) {
 
@@ -274,6 +330,7 @@ function showHighlightToolbar(rect) {
 
   toolbar.style.top =
     `${top}px`;
+
 }
 
 
@@ -289,12 +346,17 @@ function hideHighlightToolbar() {
     );
 
   if (!toolbar) {
+
     return;
+
   }
 
-  toolbar.classList.add("hidden");
+  toolbar.classList.add(
+    "hidden"
+  );
 
   pendingSelection = null;
+
 }
 
 
@@ -302,24 +364,33 @@ function hideHighlightToolbar() {
    CHECK WHETHER RANGE IS VALID
 ========================================================= */
 
-function isValidSelection(range) {
+function isValidSelection(
+  range
+) {
 
   if (!range) {
+
     return false;
+
   }
 
   if (range.collapsed) {
+
     return false;
+
   }
 
   const selectedText =
     range.toString().trim();
 
   if (!selectedText) {
+
     return false;
+
   }
 
   return true;
+
 }
 
 
@@ -338,20 +409,32 @@ document.addEventListener(
           window.getSelection();
 
         if (!selection) {
+
           return;
+
         }
 
-        if (selection.rangeCount === 0) {
+        if (
+          selection.rangeCount === 0
+        ) {
+
           hideHighlightToolbar();
+
           return;
+
         }
 
         const range =
           selection.getRangeAt(0);
 
-        if (!isValidSelection(range)) {
+        if (
+          !isValidSelection(range)
+        ) {
+
           hideHighlightToolbar();
+
           return;
+
         }
 
         const startElement =
@@ -373,16 +456,19 @@ document.addEventListener(
           hideHighlightToolbar();
 
           return;
+
         }
 
         const text =
           range.toString().trim();
 
         if (!text) {
-          hideHighlightToolbar();
-          return;
-        }
 
+          hideHighlightToolbar();
+
+          return;
+
+        }
 
         const startOffset =
           getTextOffset(
@@ -398,24 +484,28 @@ document.addEventListener(
             range.endOffset
           );
 
-
         pendingSelection = {
 
-          element: startElement,
+          element:
+            startElement,
 
-          text: text,
+          text:
+            text,
 
-          start: startOffset,
+          start:
+            startOffset,
 
-          end: endOffset
+          end:
+            endOffset
 
         };
-
 
         const rect =
           range.getBoundingClientRect();
 
-        showHighlightToolbar(rect);
+        showHighlightToolbar(
+          rect
+        );
 
       },
       10
@@ -444,6 +534,7 @@ document.addEventListener(
     ) {
 
       return;
+
     }
 
   }
@@ -458,7 +549,11 @@ function getHighlightTarget(
   element
 ) {
 
-  return element.dataset.highlightTarget || "";
+  return (
+    element.dataset.highlightTarget ||
+    ""
+  );
+
 }
 
 
@@ -469,7 +564,9 @@ function getHighlightTarget(
 function addHighlight() {
 
   if (!pendingSelection) {
+
     return;
+
   }
 
   const selection =
@@ -490,36 +587,37 @@ function addHighlight() {
     hideHighlightToolbar();
 
     return;
-  }
 
+  }
 
   const newHighlight = {
 
-    id: createHighlightId(),
+    id:
+      createHighlightId(),
 
-    target: target,
+    target:
+      target,
 
-    text: selection.text,
+    text:
+      selection.text,
 
-    start: selection.start,
+    start:
+      selection.start,
 
-    end: selection.end
+    end:
+      selection.end
 
   };
-
-
-  /*
-    Prevent duplicate highlights.
-  */
 
   const alreadyExists =
     highlights.some(
       highlight =>
         highlight.target === target &&
-        highlight.start === selection.start &&
-        highlight.end === selection.end
+        highlight.start ===
+          selection.start &&
+        highlight.end ===
+          selection.end
     );
-
 
   if (!alreadyExists) {
 
@@ -531,19 +629,9 @@ function addHighlight() {
 
   }
 
-
-  /*
-    Immediately render the highlight.
-  */
-
   renderHighlightsForElement(
     element
   );
-
-
-  /*
-    Clear browser selection.
-  */
 
   const browserSelection =
     window.getSelection();
@@ -554,8 +642,8 @@ function addHighlight() {
 
   }
 
-
   hideHighlightToolbar();
+
 }
 
 
@@ -566,7 +654,9 @@ function addHighlight() {
 function removeHighlight() {
 
   if (!pendingSelection) {
+
     return;
+
   }
 
   const selection =
@@ -578,37 +668,32 @@ function removeHighlight() {
   const target =
     getHighlightTarget(element);
 
-
-  /*
-    Find highlights overlapping
-    the selected area.
-  */
-
   const before =
     highlights.length;
-
 
   highlights =
     highlights.filter(
       highlight => {
 
         if (
-          highlight.target !== target
+          highlight.target !==
+          target
         ) {
 
           return true;
+
         }
 
-
         const overlaps =
-          highlight.start < selection.end &&
-          highlight.end > selection.start;
-
+          highlight.start <
+            selection.end &&
+          highlight.end >
+            selection.start;
 
         return !overlaps;
+
       }
     );
-
 
   if (
     highlights.length !== before
@@ -618,16 +703,9 @@ function removeHighlight() {
 
   }
 
-
-  /*
-    Re-render the element
-    without the removed highlight.
-  */
-
   rerenderHighlightableElement(
     element
   );
-
 
   const browserSelection =
     window.getSelection();
@@ -639,6 +717,7 @@ function removeHighlight() {
   }
 
   hideHighlightToolbar();
+
 }
 
 
@@ -651,23 +730,13 @@ function rerenderHighlightableElement(
 ) {
 
   if (!element) {
+
     return;
+
   }
-
-  /*
-    We need the original plain text.
-
-    Existing highlight <span> elements
-    are converted back into text.
-  */
 
   const text =
     element.textContent;
-
-
-  /*
-    Remove all existing HTML.
-  */
 
   element.innerHTML = "";
 
@@ -675,10 +744,10 @@ function rerenderHighlightableElement(
     document.createTextNode(text)
   );
 
-
   renderHighlightsForElement(
     element
   );
+
 }
 
 
@@ -691,88 +760,68 @@ function renderHighlightsForElement(
 ) {
 
   if (!element) {
+
     return;
+
   }
 
   const target =
     getHighlightTarget(element);
 
   if (!target) {
-    return;
-  }
 
+    return;
+
+  }
 
   const relevantHighlights =
     highlights
       .filter(
         highlight =>
-          highlight.target === target
+          highlight.target ===
+          target
       )
       .sort(
         (a, b) =>
           a.start - b.start
       );
 
-
-  /*
-    If there are no highlights,
-    keep the original text.
-  */
-
   if (
     relevantHighlights.length === 0
   ) {
 
     return;
-  }
 
+  }
 
   const text =
     element.textContent;
 
-
-  /*
-    Remove existing highlight HTML.
-  */
-
   element.innerHTML = "";
 
-
   let position = 0;
-
 
   relevantHighlights.forEach(
     highlight => {
 
-      /*
-        Validate offsets.
-      */
-
       if (
         highlight.start < 0 ||
         highlight.end > text.length ||
-        highlight.start >= highlight.end
+        highlight.start >=
+          highlight.end
       ) {
 
         return;
+
       }
-
-
-      /*
-        Skip overlapping highlights.
-      */
 
       if (
         highlight.start < position
       ) {
 
         return;
+
       }
-
-
-      /*
-        Normal text before highlight.
-      */
 
       if (
         highlight.start > position
@@ -786,12 +835,8 @@ function renderHighlightsForElement(
             )
           )
         );
+
       }
-
-
-      /*
-        Highlighted text.
-      */
 
       const mark =
         document.createElement(
@@ -810,9 +855,9 @@ function renderHighlightsForElement(
           highlight.end
         );
 
-
-      element.appendChild(mark);
-
+      element.appendChild(
+        mark
+      );
 
       position =
         highlight.end;
@@ -820,18 +865,15 @@ function renderHighlightsForElement(
     }
   );
 
-
-  /*
-    Remaining text.
-  */
-
   if (
     position < text.length
   ) {
 
     element.appendChild(
       document.createTextNode(
-        text.substring(position)
+        text.substring(
+          position
+        )
       )
     );
 
@@ -875,16 +917,10 @@ if (highlightButton) {
     "mousedown",
     function (event) {
 
-      /*
-        Prevent browser selection from
-        disappearing before click.
-      */
-
       event.preventDefault();
 
     }
   );
-
 
   highlightButton.addEventListener(
     "click",
@@ -909,7 +945,6 @@ if (removeHighlightButton) {
 
     }
   );
-
 
   removeHighlightButton.addEventListener(
     "click",
@@ -938,13 +973,8 @@ document.addEventListener(
     ) {
 
       return;
+
     }
-
-
-    /*
-      Don't immediately close it if
-      the user has just selected text.
-    */
 
     if (
       event.target.closest(
@@ -953,8 +983,8 @@ document.addEventListener(
     ) {
 
       return;
-    }
 
+    }
 
     hideHighlightToolbar();
 
@@ -981,12 +1011,10 @@ function showSection(
         )
     );
 
-
   const section =
     document.getElementById(
       sectionId
     );
-
 
   if (section) {
 
@@ -995,7 +1023,6 @@ function showSection(
     );
 
   }
-
 
   document
     .querySelectorAll(
@@ -1007,7 +1034,6 @@ function showSection(
         button.classList.remove(
           "active"
         );
-
 
         if (
           button.dataset.section ===
@@ -1023,22 +1049,16 @@ function showSection(
       }
     );
 
-
   window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
 
-
-  /*
-    Re-render highlights whenever
-    a section becomes visible.
-  */
-
   setTimeout(
     renderAllHighlights,
     100
   );
+
 }
 
 
@@ -1056,7 +1076,9 @@ document.addEventListener(
       );
 
     if (!button) {
+
       return;
+
     }
 
     showSection(
@@ -1083,7 +1105,6 @@ async function loadJSON(
       }
     );
 
-
   if (!response.ok) {
 
     throw new Error(
@@ -1092,10 +1113,8 @@ async function loadJSON(
 
   }
 
-
   const text =
     await response.text();
-
 
   if (!text.trim()) {
 
@@ -1105,23 +1124,9 @@ async function loadJSON(
 
   }
 
-
   try {
 
-    const data =
-      JSON.parse(text);
-
-
-    if (!Array.isArray(data)) {
-
-      throw new Error(
-        "JSON root must be an array"
-      );
-
-    }
-
-
-    return data;
+    return JSON.parse(text);
 
   } catch (error) {
 
@@ -1142,7 +1147,6 @@ async function loadVocabulary() {
 
   vocabulary = [];
 
-
   for (
     const letter of vocabularyLetters
   ) {
@@ -1150,12 +1154,23 @@ async function loadVocabulary() {
     const file =
       `./words/${letter}.json`;
 
-
     try {
 
       const data =
         await loadJSON(file);
 
+      /*
+        Vocabulary files should contain
+        an array.
+      */
+
+      if (!Array.isArray(data)) {
+
+        throw new Error(
+          `${file} → Vocabulary JSON must be an array`
+        );
+
+      }
 
       data.forEach(
         word => {
@@ -1172,20 +1187,25 @@ async function loadVocabulary() {
         }
       );
 
-
     } catch (error) {
 
-      console.error(error);
+      /*
+        Missing files are allowed.
+        The website continues loading.
+      */
+
+      console.warn(
+        `Could not load ${file}:`,
+        error.message
+      );
 
     }
 
   }
 
-
   console.log(
     `Vocabulary loaded: ${vocabulary.length} words`
   );
-
 
   setupAlphabet();
 
@@ -1194,7 +1214,6 @@ async function loadVocabulary() {
   );
 
   updateStatistics();
-
 
   if (
     vocabulary.length > 0
@@ -1218,7 +1237,6 @@ async function loadParagraphs() {
 
   paragraphs = [];
 
-
   for (
     const letter of paragraphLetters
   ) {
@@ -1226,42 +1244,89 @@ async function loadParagraphs() {
     const file =
       `./paragraph/paragraph_${letter}.json`;
 
-
     try {
 
       const data =
         await loadJSON(file);
 
+      /*
+        Paragraph files normally contain
+        one object:
 
-      data.forEach(
-        paragraph => {
-
-          paragraphs.push({
-
-            ...paragraph,
-
-            letter:
-              letter.toUpperCase()
-
-          });
-
+        {
+          "title": "...",
+          "paragraph": "...",
+          "Pinyin": "..."
         }
-      );
 
+        This loader also supports an array.
+      */
+
+      if (Array.isArray(data)) {
+
+        data.forEach(
+          (paragraph, index) => {
+
+            paragraphs.push({
+
+              ...paragraph,
+
+              id:
+                paragraph.id ??
+                index + 1,
+
+              letter:
+                letter.toUpperCase()
+
+            });
+
+          }
+        );
+
+      } else if (
+        data &&
+        typeof data === "object"
+      ) {
+
+        paragraphs.push({
+
+          ...data,
+
+          id:
+            data.id ??
+            1,
+
+          letter:
+            letter.toUpperCase()
+
+        });
+
+      } else {
+
+        throw new Error(
+          `${file} → Invalid paragraph format`
+        );
+
+      }
 
     } catch (error) {
 
-      console.error(error);
+      /*
+        Missing paragraph files are allowed.
+      */
+
+      console.warn(
+        `Could not load ${file}:`,
+        error.message
+      );
 
     }
 
   }
 
-
   console.log(
     `Paragraphs loaded: ${paragraphs.length}`
   );
-
 
   if (
     paragraphs.length > 0
@@ -1270,7 +1335,6 @@ async function loadParagraphs() {
     showParagraph(0);
 
   }
-
 
   updateStatistics();
 
@@ -1288,18 +1352,18 @@ function setupAlphabet() {
       "alphabet-list"
     );
 
-
   if (!alphabetList) {
-    return;
-  }
 
+    return;
+
+  }
 
   alphabetList.innerHTML = "";
 
-
   const alphabet =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(
+      ""
+    );
 
   alphabet.forEach(
     letter => {
@@ -1309,35 +1373,30 @@ function setupAlphabet() {
           "button"
         );
 
-
       button.className =
         "alphabet-btn";
-
 
       button.textContent =
         letter;
 
-
       button.dataset.letter =
         letter.toLowerCase();
-
 
       const exists =
         vocabularyLetters.includes(
           letter.toLowerCase()
         );
 
-
       if (!exists) {
 
-        button.disabled = true;
+        button.disabled =
+          true;
 
         button.classList.add(
           "disabled"
         );
 
       }
-
 
       alphabetList.appendChild(
         button
@@ -1362,15 +1421,14 @@ document.addEventListener(
         ".alphabet-btn"
       );
 
-
     if (
       !button ||
       button.disabled
     ) {
 
       return;
-    }
 
+    }
 
     document
       .querySelectorAll(
@@ -1383,19 +1441,15 @@ document.addEventListener(
           )
       );
 
-
     button.classList.add(
       "active"
     );
 
-
     const letter =
       button.dataset.letter;
 
-
     currentLetter =
       letter;
-
 
     if (
       letter === "all"
@@ -1410,7 +1464,8 @@ document.addEventListener(
       displayWords(
         vocabulary.filter(
           word =>
-            word.letter.toLowerCase() ===
+            word.letter
+              .toLowerCase() ===
             letter
         )
       );
@@ -1434,18 +1489,16 @@ function displayWords(
       "word-list"
     );
 
-
   if (!wordList) {
-    return;
-  }
 
+    return;
+
+  }
 
   wordList.innerHTML = "";
 
-
   currentWords =
     words;
-
 
   if (
     words.length === 0
@@ -1459,8 +1512,8 @@ function displayWords(
       `;
 
     return;
-  }
 
+  }
 
   words.forEach(
     word => {
@@ -1470,10 +1523,8 @@ function displayWords(
           "div"
         );
 
-
       card.className =
         "word-card";
-
 
       card.innerHTML =
         `
@@ -1498,7 +1549,6 @@ function displayWords(
           </div>
         `;
 
-
       card.addEventListener(
         "click",
         function () {
@@ -1507,7 +1557,6 @@ function displayWords(
 
         }
       );
-
 
       wordList.appendChild(
         card
@@ -1532,24 +1581,20 @@ function showWord(
       "word-title"
     );
 
-
   const pinyin =
     document.getElementById(
       "word-pinyin"
     );
-
 
   const meaning =
     document.getElementById(
       "word-meaning"
     );
 
-
   const sentence =
     document.getElementById(
       "word-sentence"
     );
-
 
   if (title) {
 
@@ -1558,14 +1603,12 @@ function showWord(
 
   }
 
-
   if (pinyin) {
 
     pinyin.textContent =
       word.Pinyin;
 
   }
-
 
   if (meaning) {
 
@@ -1574,29 +1617,20 @@ function showWord(
 
   }
 
-
   if (sentence) {
 
     sentence.textContent =
       word.Sentences;
-
-
-    /*
-      Every vocabulary sentence gets
-      its own permanent highlight target.
-    */
 
     sentence.dataset.highlightTarget =
       `word-${word.letter}-${word.id}-sentence`;
 
   }
 
-
   const detail =
     document.getElementById(
       "word-detail"
     );
-
 
   if (detail) {
 
@@ -1605,12 +1639,6 @@ function showWord(
     );
 
   }
-
-
-  /*
-    Re-render saved highlights
-    for this sentence.
-  */
 
   setTimeout(
     function () {
@@ -1627,13 +1655,13 @@ function showWord(
     0
   );
 
-
   const index =
     currentWords.findIndex(
       item =>
-        item.id === word.id
+        item.id === word.id &&
+        item.letter ===
+          word.letter
     );
-
 
   if (index !== -1) {
 
@@ -1653,7 +1681,6 @@ const closeWordDetail =
     "close-word-detail"
   );
 
-
 if (closeWordDetail) {
 
   closeWordDetail.addEventListener(
@@ -1664,7 +1691,6 @@ if (closeWordDetail) {
         document.getElementById(
           "word-detail"
         );
-
 
       if (detail) {
 
@@ -1689,7 +1715,6 @@ const searchInput =
     "search-input"
   );
 
-
 if (searchInput) {
 
   searchInput.addEventListener(
@@ -1701,9 +1726,7 @@ if (searchInput) {
           .trim()
           .toLowerCase();
 
-
       let wordsToSearch;
-
 
       if (
         currentLetter === "all"
@@ -1717,12 +1740,12 @@ if (searchInput) {
         wordsToSearch =
           vocabulary.filter(
             word =>
-              word.letter.toLowerCase() ===
+              word.letter
+                .toLowerCase() ===
               currentLetter
           );
 
       }
-
 
       if (!query) {
 
@@ -1733,7 +1756,6 @@ if (searchInput) {
         return;
 
       }
-
 
       const results =
         wordsToSearch.filter(
@@ -1755,8 +1777,13 @@ if (searchInput) {
               .toLowerCase()
               .includes(query)
 
-        );
+            ||
 
+            String(word.Sentences)
+              .toLowerCase()
+              .includes(query)
+
+        );
 
       displayWords(
         results
@@ -1781,42 +1808,42 @@ function showFlashcard(
   ) {
 
     return;
-  }
 
+  }
 
   currentWordIndex =
     index;
-
 
   const word =
     currentWords[
       currentWordIndex
     ];
 
+  if (!word) {
+
+    return;
+
+  }
 
   const wordElement =
     document.getElementById(
       "flashcard-word"
     );
 
-
   const pinyinElement =
     document.getElementById(
       "flashcard-pinyin"
     );
-
 
   const meaningElement =
     document.getElementById(
       "flashcard-meaning"
     );
 
-
   const sentenceElement =
     document.getElementById(
       "flashcard-sentence"
     );
-
 
   if (wordElement) {
 
@@ -1825,14 +1852,12 @@ function showFlashcard(
 
   }
 
-
   if (pinyinElement) {
 
     pinyinElement.textContent =
       word.Pinyin;
 
   }
-
 
   if (meaningElement) {
 
@@ -1841,7 +1866,6 @@ function showFlashcard(
 
   }
 
-
   if (sentenceElement) {
 
     sentenceElement.textContent =
@@ -1849,12 +1873,10 @@ function showFlashcard(
 
   }
 
-
   const card =
     document.getElementById(
       "flashcard"
     );
-
 
   if (card) {
 
@@ -1875,7 +1897,6 @@ const flashcard =
   document.getElementById(
     "flashcard"
   );
-
 
 if (flashcard) {
 
@@ -1902,7 +1923,6 @@ const nextWord =
     "next-word"
   );
 
-
 if (nextWord) {
 
   nextWord.addEventListener(
@@ -1914,11 +1934,10 @@ if (nextWord) {
       ) {
 
         return;
+
       }
 
-
       currentWordIndex++;
-
 
       if (
         currentWordIndex >=
@@ -1928,7 +1947,6 @@ if (nextWord) {
         currentWordIndex = 0;
 
       }
-
 
       showFlashcard(
         currentWordIndex
@@ -1949,7 +1967,6 @@ const previousWord =
     "previous-word"
   );
 
-
 if (previousWord) {
 
   previousWord.addEventListener(
@@ -1961,11 +1978,10 @@ if (previousWord) {
       ) {
 
         return;
+
       }
 
-
       currentWordIndex--;
-
 
       if (
         currentWordIndex < 0
@@ -1975,7 +1991,6 @@ if (previousWord) {
           currentWords.length - 1;
 
       }
-
 
       showFlashcard(
         currentWordIndex
@@ -2000,36 +2015,37 @@ function showParagraph(
   ) {
 
     return;
-  }
 
+  }
 
   currentParagraphIndex =
     index;
-
 
   const paragraph =
     paragraphs[
       currentParagraphIndex
     ];
 
+  if (!paragraph) {
+
+    return;
+
+  }
 
   const title =
     document.getElementById(
       "paragraph-title"
     );
 
-
   const text =
     document.getElementById(
       "paragraph-text"
     );
 
-
   const pinyin =
     document.getElementById(
       "paragraph-pinyin"
     );
-
 
   if (title) {
 
@@ -2038,29 +2054,17 @@ function showParagraph(
 
   }
 
-
   if (text) {
-
-    /*
-      IMPORTANT:
-      Set the original text first.
-    */
 
     text.innerHTML = "";
 
     text.textContent =
       paragraph.paragraph;
 
-
-    /*
-      Give this paragraph a permanent ID.
-    */
-
     text.dataset.highlightTarget =
       `paragraph-${paragraph.letter}-${paragraph.id}-paragraph`;
 
   }
-
 
   if (pinyin) {
 
@@ -2069,19 +2073,12 @@ function showParagraph(
     pinyin.textContent =
       paragraph.Pinyin;
 
-
     pinyin.dataset.highlightTarget =
       `paragraph-${paragraph.letter}-${paragraph.id}-pinyin`;
 
   }
 
-
   updateParagraphCounter();
-
-
-  /*
-    Render saved highlights.
-  */
 
   setTimeout(
     function () {
@@ -2094,7 +2091,6 @@ function showParagraph(
 
       }
 
-
       if (pinyin) {
 
         renderHighlightsForElement(
@@ -2106,7 +2102,6 @@ function showParagraph(
     },
     0
   );
-
 
   window.scrollTo({
     top: 0,
@@ -2127,7 +2122,6 @@ function updateParagraphCounter() {
       "paragraph-counter"
     );
 
-
   if (counter) {
 
     counter.textContent =
@@ -2147,7 +2141,6 @@ const nextParagraph =
     "next-paragraph"
   );
 
-
 if (nextParagraph) {
 
   nextParagraph.addEventListener(
@@ -2159,11 +2152,10 @@ if (nextParagraph) {
       ) {
 
         return;
+
       }
 
-
       currentParagraphIndex++;
-
 
       if (
         currentParagraphIndex >=
@@ -2173,7 +2165,6 @@ if (nextParagraph) {
         currentParagraphIndex = 0;
 
       }
-
 
       showParagraph(
         currentParagraphIndex
@@ -2194,7 +2185,6 @@ const previousParagraph =
     "previous-paragraph"
   );
 
-
 if (previousParagraph) {
 
   previousParagraph.addEventListener(
@@ -2206,11 +2196,10 @@ if (previousParagraph) {
       ) {
 
         return;
+
       }
 
-
       currentParagraphIndex--;
-
 
       if (
         currentParagraphIndex < 0
@@ -2220,7 +2209,6 @@ if (previousParagraph) {
           paragraphs.length - 1;
 
       }
-
 
       showParagraph(
         currentParagraphIndex
@@ -2241,12 +2229,10 @@ const togglePinyin =
     "toggle-pinyin"
   );
 
-
 const paragraphPinyin =
   document.getElementById(
     "paragraph-pinyin"
   );
-
 
 if (
   togglePinyin &&
@@ -2260,7 +2246,6 @@ if (
       paragraphPinyin.classList.toggle(
         "hidden"
       );
-
 
       if (
         paragraphPinyin.classList.contains(
@@ -2293,24 +2278,23 @@ const readingProgress =
     "reading-progress"
   );
 
-
 window.addEventListener(
   "scroll",
   function () {
 
     if (!readingProgress) {
-      return;
-    }
 
+      return;
+
+    }
 
     const scrollTop =
       window.scrollY;
 
-
     const documentHeight =
-      document.documentElement.scrollHeight -
+      document.documentElement
+        .scrollHeight -
       window.innerHeight;
-
 
     if (
       documentHeight <= 0
@@ -2320,16 +2304,21 @@ window.addEventListener(
         "0%";
 
       return;
+
     }
 
-
     const progress =
-      (scrollTop / documentHeight) *
+      (
+        scrollTop /
+        documentHeight
+      ) *
       100;
 
-
     readingProgress.style.width =
-      `${Math.min(progress, 100)}%`;
+      `${Math.min(
+        progress,
+        100
+      )}%`;
 
   }
 );
@@ -2346,12 +2335,10 @@ function updateStatistics() {
       "total-words"
     );
 
-
   const totalParagraphs =
     document.getElementById(
       "total-paragraphs"
     );
-
 
   if (totalWords) {
 
@@ -2359,7 +2346,6 @@ function updateStatistics() {
       vocabulary.length;
 
   }
-
 
   if (totalParagraphs) {
 
@@ -2391,45 +2377,37 @@ function updateCountdown() {
       "2026-10-11T09:00:00+07:00"
     );
 
-
   const now =
     new Date();
-
 
   const difference =
     examDate.getTime() -
     now.getTime();
-
 
   const days =
     document.getElementById(
       "countdown-days"
     );
 
-
   const hours =
     document.getElementById(
       "countdown-hours"
     );
-
 
   const minutes =
     document.getElementById(
       "countdown-minutes"
     );
 
-
   const seconds =
     document.getElementById(
       "countdown-seconds"
     );
 
-
   const message =
     document.getElementById(
       "countdown-message"
     );
-
 
   if (
     !days ||
@@ -2439,8 +2417,8 @@ function updateCountdown() {
   ) {
 
     return;
-  }
 
+  }
 
   if (
     difference <= 0
@@ -2458,7 +2436,6 @@ function updateCountdown() {
     seconds.textContent =
       "00";
 
-
     if (message) {
 
       message.textContent =
@@ -2466,44 +2443,39 @@ function updateCountdown() {
 
     }
 
-
     return;
-  }
 
+  }
 
   const totalSeconds =
     Math.floor(
       difference / 1000
     );
 
-
   const d =
     Math.floor(
       totalSeconds / 86400
     );
 
-
   const h =
     Math.floor(
-      (totalSeconds % 86400) /
-      3600
+      (
+        totalSeconds % 86400
+      ) / 3600
     );
-
 
   const m =
     Math.floor(
-      (totalSeconds % 3600) /
-      60
+      (
+        totalSeconds % 3600
+      ) / 60
     );
-
 
   const s =
     totalSeconds % 60;
 
-
   days.textContent =
     d;
-
 
   hours.textContent =
     String(h).padStart(
@@ -2511,13 +2483,11 @@ function updateCountdown() {
       "0"
     );
 
-
   minutes.textContent =
     String(m).padStart(
       2,
       "0"
     );
-
 
   seconds.textContent =
     String(s).padStart(
@@ -2526,7 +2496,6 @@ function updateCountdown() {
     );
 
 }
-
 
 updateCountdown();
 
@@ -2544,7 +2513,6 @@ const startExam =
   document.getElementById(
     "start-exam"
   );
-
 
 if (startExam) {
 
@@ -2571,8 +2539,8 @@ function startVocabularyExam() {
     );
 
     return;
-  }
 
+  }
 
   examQuestions =
     shuffle(
@@ -2585,11 +2553,9 @@ function startVocabularyExam() {
       )
     );
 
-
   examIndex = 0;
 
   examScore = 0;
-
 
   showExamQuestion();
 
@@ -2607,11 +2573,11 @@ function showExamQuestion() {
       "exam-container"
     );
 
-
   if (!container) {
-    return;
-  }
 
+    return;
+
+  }
 
   if (
     examIndex >=
@@ -2621,14 +2587,13 @@ function showExamQuestion() {
     showExamResult();
 
     return;
-  }
 
+  }
 
   const question =
     examQuestions[
       examIndex
     ];
-
 
   const otherWords =
     vocabulary.filter(
@@ -2636,7 +2601,6 @@ function showExamQuestion() {
         word.words !==
         question.words
     );
-
 
   const wrongAnswers =
     shuffle(
@@ -2646,7 +2610,6 @@ function showExamQuestion() {
       3
     );
 
-
   const options =
     shuffle(
       [
@@ -2654,7 +2617,6 @@ function showExamQuestion() {
         ...wrongAnswers
       ]
     );
-
 
   container.innerHTML =
     `
@@ -2668,11 +2630,15 @@ function showExamQuestion() {
         </p>
 
         <div class="exam-word">
-          ${escapeHTML(question.words)}
+          ${escapeHTML(
+            question.words
+          )}
         </div>
 
         <div class="exam-pinyin">
-          ${escapeHTML(question.Pinyin)}
+          ${escapeHTML(
+            question.Pinyin
+          )}
         </div>
 
         <div class="exam-options">
@@ -2683,9 +2649,13 @@ function showExamQuestion() {
                 `
                   <button
                     class="exam-option"
-                    data-answer="${escapeHTML(option.words)}"
+                    data-answer="${escapeHTML(
+                      option.words
+                    )}"
                   >
-                    ${escapeHTML(option.Meaning)}
+                    ${escapeHTML(
+                      option.Meaning
+                    )}
                   </button>
                 `
             )
@@ -2695,7 +2665,6 @@ function showExamQuestion() {
 
       </div>
     `;
-
 
   container
     .querySelectorAll(
@@ -2711,7 +2680,6 @@ function showExamQuestion() {
             const answer =
               button.dataset.answer;
 
-
             if (
               answer ===
               question.words
@@ -2723,13 +2691,11 @@ function showExamQuestion() {
 
               examScore++;
 
-
             } else {
 
               button.classList.add(
                 "wrong"
               );
-
 
               const correct =
                 Array.from(
@@ -2742,7 +2708,6 @@ function showExamQuestion() {
                     question.words
                 );
 
-
               if (correct) {
 
                 correct.classList.add(
@@ -2753,7 +2718,6 @@ function showExamQuestion() {
 
             }
 
-
             container
               .querySelectorAll(
                 ".exam-option"
@@ -2762,7 +2726,6 @@ function showExamQuestion() {
                 btn =>
                   btn.disabled = true
               );
-
 
             setTimeout(
               function () {
@@ -2795,11 +2758,11 @@ function showExamResult() {
       "exam-container"
     );
 
-
   if (!container) {
-    return;
-  }
 
+    return;
+
+  }
 
   container.innerHTML =
     `
@@ -2814,7 +2777,8 @@ function showExamResult() {
         </h3>
 
         <div class="exam-score">
-          ${examScore} / ${examQuestions.length}
+          ${examScore} /
+          ${examQuestions.length}
         </div>
 
         <p>
@@ -2833,12 +2797,10 @@ function showExamResult() {
       </div>
     `;
 
-
   const restart =
     document.getElementById(
       "restart-exam"
     );
-
 
   if (restart) {
 
@@ -2861,7 +2823,8 @@ function shuffle(
 ) {
 
   for (
-    let i = array.length - 1;
+    let i =
+      array.length - 1;
     i > 0;
     i--
   ) {
@@ -2871,7 +2834,6 @@ function shuffle(
         Math.random() *
         (i + 1)
       );
-
 
     [
       array[i],
@@ -2883,8 +2845,8 @@ function shuffle(
 
   }
 
-
   return array;
+
 }
 
 
@@ -2904,7 +2866,6 @@ function escapeHTML(
     return "";
 
   }
-
 
   return String(value)
     .replace(
@@ -2941,16 +2902,14 @@ async function initializeApp() {
     "Starting Chinese Learning website..."
   );
 
-
   /*
     Load saved highlights FIRST.
   */
 
   loadHighlights();
 
-
   /*
-    Then load vocabulary and paragraphs.
+    Load vocabulary and paragraphs.
   */
 
   await Promise.all(
@@ -2960,13 +2919,11 @@ async function initializeApp() {
     ]
   );
 
-
   /*
-    Render anything that was saved.
+    Render saved highlights.
   */
 
   renderAllHighlights();
-
 
   console.log(
     "Chinese Learning website ready."
