@@ -15,7 +15,8 @@ const vocabularyLetters = [
   "d",
   "e",
   "f",
-  "g"
+  "g",
+"h","j","k","l","m","n","p","q","r","s","t","w","x","y","z"
 ];
 
 const paragraphLetters = [
@@ -25,7 +26,7 @@ const paragraphLetters = [
   "d",
   "e",
   "f",
-  "g"
+  "g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v""w","x","y","z"
 ];
 
 
