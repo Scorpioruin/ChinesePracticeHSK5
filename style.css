@@ -1460,3 +1460,316 @@ button {
       calc(100vw - 20px);
   }
 }
+
+
+/* =========================================================
+   HSK 5 VOCABULARY DRAG & DROP READING PRACTICE
+========================================================= */
+
+.hsk5-drag-drop-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.hsk5-drag-drop-header {
+  max-width: 850px;
+  margin: 0 auto 30px;
+}
+
+.hsk5-drag-drop-header h2 {
+  margin: 5px 0 10px;
+  font-size: clamp(36px, 5vw, 58px);
+  line-height: 1.1;
+}
+
+.hsk5-drag-drop-header p:not(.section-label) {
+  color: #777;
+  max-width: 700px;
+}
+
+.hsk5-drag-drop-controls {
+  max-width: 850px;
+  margin: 0 auto 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.hsk5-drag-drop-counter {
+  color: #888;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hsk5-drag-drop-controls button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.hsk5-drag-drop-content {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.hsk5-drag-drop-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.hsk5-drag-drop-meta span {
+  background: white;
+  border: 1px solid #e2e2dd;
+  border-radius: 8px;
+  padding: 7px 11px;
+  color: #777;
+  font-size: 12px;
+}
+
+.hsk5-drag-drop-title {
+  margin: 0 0 25px;
+  font-family:
+    "FangSong",
+    "仿宋",
+    "FangSong_GB2312",
+    serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.hsk5-drag-drop-word-bank {
+  background: white;
+  border: 1px solid #e2e2dd;
+  border-radius: 18px;
+  padding: 25px;
+  margin-bottom: 25px;
+}
+
+.hsk5-drag-drop-bank-title {
+  margin-bottom: 15px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #888;
+}
+
+.hsk5-drag-drop-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.hsk5-drag-word {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 8px 14px;
+  background: #f7f7f5;
+  border: 1px solid #dcdcd7;
+  border-radius: 9px;
+  color: #222;
+  font-family:
+    "FangSong",
+    "仿宋",
+    "FangSong_GB2312",
+    serif;
+  font-size: 18px;
+  cursor: grab;
+  user-select: none;
+  transition:
+    transform 0.15s,
+    background 0.15s,
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.hsk5-drag-word:hover {
+  background: #eeeeeb;
+  border-color: #bbb;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.06);
+}
+
+.hsk5-drag-word:active {
+  cursor: grabbing;
+  transform: scale(0.97);
+}
+
+.hsk5-drag-drop-passage {
+  background: white;
+  border: 1px solid #e2e2dd;
+  border-radius: 20px;
+  padding: 45px;
+  font-family:
+    "FangSong",
+    "仿宋",
+    "FangSong_GB2312",
+    serif;
+  font-size: 23px;
+  line-height: 2.15;
+  letter-spacing: 0.02em;
+  color: #181818;
+  user-select: text;
+}
+
+.hsk5-drag-drop-blank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 75px;
+  min-height: 34px;
+  margin: 0 4px;
+  padding: 1px 8px;
+  border-bottom: 2px solid #181818;
+  background: #fafaf8;
+  border-radius: 4px;
+  font-family:
+    "FangSong",
+    "仿宋",
+    "FangSong_GB2312",
+    serif;
+  font-size: 20px;
+  line-height: 1.5;
+  vertical-align: baseline;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.hsk5-drag-drop-blank:hover {
+  background: #eeeeeb;
+}
+
+.hsk5-drag-drop-blank.filled {
+  border-bottom-color: #555;
+  background: #f1f1ed;
+}
+
+.hsk5-drag-drop-blank.correct {
+  background: #dff3df;
+  border-bottom-color: #5d9e5d;
+  color: #245c24;
+}
+
+.hsk5-drag-drop-blank.wrong {
+  background: #f8dddd;
+  border-bottom-color: #c66;
+  color: #8a2222;
+}
+
+.hsk5-drag-drop-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.hsk5-drag-drop-result {
+  min-height: 65px;
+  margin-top: 20px;
+  padding: 18px 20px;
+  background: white;
+  border: 1px solid #e2e2dd;
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+}
+
+.hsk5-drag-drop-result:empty {
+  display: none;
+}
+
+.hsk5-drag-drop-result strong {
+  color: #181818;
+  font-size: 22px;
+}
+
+.nav-btn[data-section="hsk5-drag-drop-section"] {
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+
+  .hsk5-drag-drop-wrapper {
+    width: 100%;
+  }
+
+  .hsk5-drag-drop-controls {
+    flex-wrap: wrap;
+  }
+
+  .hsk5-drag-drop-controls button {
+    flex: 1;
+  }
+
+  .hsk5-drag-drop-counter {
+    order: -1;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .hsk5-drag-drop-title {
+    font-size: 28px;
+  }
+
+  .hsk5-drag-drop-word-bank {
+    padding: 18px;
+  }
+
+  .hsk5-drag-word {
+    min-height: 40px;
+    padding: 7px 11px;
+    font-size: 17px;
+  }
+
+  .hsk5-drag-drop-passage {
+    padding: 25px 20px;
+    font-size: 21px;
+    line-height: 2.1;
+  }
+
+  .hsk5-drag-drop-blank {
+    min-width: 60px;
+    min-height: 32px;
+    font-size: 19px;
+    padding: 1px 5px;
+  }
+
+  .hsk5-drag-drop-actions {
+    flex-direction: column;
+  }
+
+  .hsk5-drag-drop-actions button {
+    width: 100%;
+  }
+
+  .hsk5-drag-drop-result {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 400px) {
+
+  .hsk5-drag-drop-passage {
+    padding: 22px 16px;
+    font-size: 20px;
+  }
+
+  .hsk5-drag-word {
+    font-size: 16px;
+  }
+}
