@@ -2937,3 +2937,919 @@ async function initializeApp() {
 ========================================================= */
 
 initializeApp();
+
+
+/* =========================================================
+   HSK 5 VOCABULARY DRAG & DROP READING PRACTICE
+   Added without changing existing website functions.
+   Requires:
+   ./HSK5_Vocabulary_DragDrop_25_Passages.json
+   ========================================================= */
+
+let dragDropPassages = [];
+let dragDropPassageIndex = 0;
+let dragDropAnswers = {};
+let dragDropScore = 0;
+let dragDropStarted = false;
+
+const DRAG_DROP_JSON_FILE =
+  "./HSK5_Vocabulary_DragDrop_25_Passages.json";
+
+
+/* ---------------------------------------------------------
+   LOAD DRAG & DROP JSON
+--------------------------------------------------------- */
+
+async function loadDragDropPractice() {
+
+  try {
+
+    const response =
+      await fetch(
+        DRAG_DROP_JSON_FILE,
+        {
+          cache: "no-store"
+        }
+      );
+
+    if (!response.ok) {
+
+      throw new Error(
+        `${DRAG_DROP_JSON_FILE} → HTTP ${response.status}`
+      );
+
+    }
+
+    const data =
+      await response.json();
+
+    if (
+      !data ||
+      !Array.isArray(data.passages)
+    ) {
+
+      throw new Error(
+        "Invalid HSK 5 drag-and-drop JSON format."
+      );
+
+    }
+
+    dragDropPassages =
+      data.passages;
+
+    console.log(
+      `HSK 5 Drag & Drop loaded: ${dragDropPassages.length} passages`
+    );
+
+    createDragDropInterface();
+
+  } catch (error) {
+
+    console.error(
+      "Could not load HSK 5 Drag & Drop practice:",
+      error
+    );
+
+  }
+
+}
+
+
+/* ---------------------------------------------------------
+   CREATE INTERFACE DYNAMICALLY
+   This means no existing HTML needs to be changed.
+--------------------------------------------------------- */
+
+function createDragDropInterface() {
+
+  if (
+    document.getElementById(
+      "hsk5-drag-drop-section"
+    )
+  ) {
+
+    return;
+
+  }
+
+  const section =
+    document.createElement("section");
+
+  section.id =
+    "hsk5-drag-drop-section";
+
+  section.className =
+    "page-section";
+
+  section.innerHTML = `
+    <div class="section-inner hsk5-drag-drop-wrapper">
+
+      <div class="hsk5-drag-drop-header">
+
+        <p class="section-label">
+          HSK 5 VOCABULARY PRACTICE
+        </p>
+
+        <h2>
+          Drag & Drop Reading
+        </h2>
+
+        <p id="hsk5-drag-drop-description">
+          Read the passage and drag the correct vocabulary
+          into each blank.
+        </p>
+
+      </div>
+
+      <div class="hsk5-drag-drop-controls">
+
+        <button
+          id="hsk5-drag-drop-prev"
+          class="secondary-btn"
+          type="button"
+        >
+          ← Previous
+        </button>
+
+        <div
+          id="hsk5-drag-drop-counter"
+          class="hsk5-drag-drop-counter"
+        >
+          1 / ${dragDropPassages.length}
+        </div>
+
+        <button
+          id="hsk5-drag-drop-next"
+          class="primary-btn"
+          type="button"
+        >
+          Next →
+        </button>
+
+      </div>
+
+      <div
+        id="hsk5-drag-drop-content"
+        class="hsk5-drag-drop-content"
+      ></div>
+
+    </div>
+  `;
+
+  /*
+    Put the new section at the end of the page.
+    Existing sections are untouched.
+  */
+
+  const main =
+    document.querySelector("main");
+
+  if (main) {
+
+    main.appendChild(section);
+
+  } else {
+
+    document.body.appendChild(section);
+
+  }
+
+  /*
+    Navigation button.
+    If the existing navigation has no button for this
+    practice, create one dynamically.
+  */
+
+  createDragDropNavigationButton();
+
+  const previous =
+    document.getElementById(
+      "hsk5-drag-drop-prev"
+    );
+
+  const next =
+    document.getElementById(
+      "hsk5-drag-drop-next"
+    );
+
+  if (previous) {
+
+    previous.addEventListener(
+      "click",
+      function () {
+
+        if (
+          dragDropPassageIndex > 0
+        ) {
+
+          dragDropPassageIndex--;
+
+          dragDropAnswers = {};
+
+          renderDragDropPassage();
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+
+        }
+
+      }
+    );
+
+  }
+
+  if (next) {
+
+    next.addEventListener(
+      "click",
+      function () {
+
+        if (
+          dragDropPassageIndex <
+          dragDropPassages.length - 1
+        ) {
+
+          dragDropPassageIndex++;
+
+          dragDropAnswers = {};
+
+          renderDragDropPassage();
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+
+        }
+
+      }
+    );
+
+  }
+
+  renderDragDropPassage();
+
+}
+
+
+/* ---------------------------------------------------------
+   CREATE NAVIGATION BUTTON
+--------------------------------------------------------- */
+
+function createDragDropNavigationButton() {
+
+  if (
+    document.querySelector(
+      '[data-section="hsk5-drag-drop-section"]'
+    )
+  ) {
+
+    return;
+
+  }
+
+  const nav =
+    document.querySelector(
+      "nav"
+    );
+
+  if (!nav) {
+
+    return;
+
+  }
+
+  const button =
+    document.createElement("button");
+
+  button.type =
+    "button";
+
+  button.className =
+    "nav-btn";
+
+  button.dataset.section =
+    "hsk5-drag-drop-section";
+
+  button.textContent =
+    "Drag & Drop";
+
+  nav.appendChild(button);
+
+}
+
+
+/* ---------------------------------------------------------
+   RENDER CURRENT PASSAGE
+--------------------------------------------------------- */
+
+function renderDragDropPassage() {
+
+  const container =
+    document.getElementById(
+      "hsk5-drag-drop-content"
+    );
+
+  if (
+    !container ||
+    !dragDropPassages.length
+  ) {
+
+    return;
+
+  }
+
+  const passage =
+    dragDropPassages[
+      dragDropPassageIndex
+    ];
+
+  if (!passage) {
+
+    return;
+
+  }
+
+  dragDropAnswers = {};
+
+  const words =
+    passage.questions.map(
+      question =>
+        question.answer
+    );
+
+  const shuffledWords =
+    shuffle(
+      [...words]
+    );
+
+  const blankMap = {};
+
+  passage.questions.forEach(
+    question => {
+
+      blankMap[
+        question.answer
+      ] =
+        `dragdrop-blank-${question.id}`;
+
+    }
+  );
+
+  let passageHTML =
+    escapeHTML(
+      passage.passage
+    );
+
+  /*
+    The JSON uses 【word】 to identify the target.
+    Replace each target with a real drop zone.
+  */
+
+  passage.questions.forEach(
+    question => {
+
+      const escapedWord =
+        escapeHTML(
+          question.answer
+        );
+
+      const blank =
+        `
+          <span
+            class="hsk5-drag-drop-blank"
+            data-answer="${escapedWord}"
+            data-question-id="${question.id}"
+            id="dragdrop-blank-${question.id}"
+            ondragover="allowHSK5DragDrop(event)"
+            ondrop="dropHSK5Vocabulary(event)"
+          >
+            ______
+          </span>
+        `;
+
+      passageHTML =
+        passageHTML.replace(
+          `【${escapedWord}】`,
+          blank
+        );
+
+    }
+  );
+
+  /*
+    If a target was not replaced because of HTML escaping,
+    try the raw vocabulary text as a fallback.
+  */
+
+  passage.questions.forEach(
+    question => {
+
+      const rawWord =
+        question.answer;
+
+      const escapedWord =
+        escapeHTML(rawWord);
+
+      if (
+        passageHTML.includes(
+          `【${escapedWord}】`
+        )
+      ) {
+
+        const blank =
+          `
+            <span
+              class="hsk5-drag-drop-blank"
+              data-answer="${escapedWord}"
+              data-question-id="${question.id}"
+              id="dragdrop-blank-${question.id}"
+              ondragover="allowHSK5DragDrop(event)"
+              ondrop="dropHSK5Vocabulary(event)"
+            >
+              ______
+            </span>
+          `;
+
+        passageHTML =
+          passageHTML.replace(
+            `【${escapedWord}】`,
+            blank
+          );
+
+      }
+
+    }
+  );
+
+  const optionHTML =
+    shuffledWords
+      .map(
+        word => {
+
+          const escaped =
+            escapeHTML(word);
+
+          return `
+            <div
+              class="hsk5-drag-word"
+              draggable="true"
+              data-word="${escaped}"
+              ondragstart="dragHSK5Vocabulary(event)"
+            >
+              ${escaped}
+            </div>
+          `;
+
+        }
+      )
+      .join("");
+
+  container.innerHTML = `
+
+    <div class="hsk5-drag-drop-meta">
+
+      <span>
+        Passage ${passage.id}
+        /
+        ${dragDropPassages.length}
+      </span>
+
+      <span>
+        ${escapeHTML(
+          passage.level || "HSK 5"
+        )}
+      </span>
+
+      <span>
+        ${passage.wordCountTarget || passage.questions.length}
+        vocabulary targets
+      </span>
+
+      <span>
+        ${passage.estimatedReadingMinutes || 30}
+        min
+      </span>
+
+    </div>
+
+    <h3 class="hsk5-drag-drop-title">
+      ${escapeHTML(passage.title)}
+    </h3>
+
+    <div
+      class="hsk5-drag-drop-word-bank"
+      id="hsk5-drag-drop-word-bank"
+    >
+
+      <div class="hsk5-drag-drop-bank-title">
+        Vocabulary
+      </div>
+
+      <div class="hsk5-drag-drop-options">
+        ${optionHTML}
+      </div>
+
+    </div>
+
+    <article
+      class="hsk5-drag-drop-passage highlightable"
+      data-highlight-target="hsk5-drag-drop-passage-${passage.id}"
+    >
+      ${passageHTML}
+    </article>
+
+    <div class="hsk5-drag-drop-actions">
+
+      <button
+        id="hsk5-drag-drop-check"
+        class="primary-btn"
+        type="button"
+      >
+        Check Answers
+      </button>
+
+      <button
+        id="hsk5-drag-drop-reset"
+        class="secondary-btn"
+        type="button"
+      >
+        Reset
+      </button>
+
+    </div>
+
+    <div
+      id="hsk5-drag-drop-result"
+      class="hsk5-drag-drop-result"
+    ></div>
+
+  `;
+
+  setupDragDropButtons();
+
+  updateDragDropCounter();
+
+  setTimeout(
+    function () {
+
+      renderHighlightsForElement(
+        container.querySelector(
+          ".hsk5-drag-drop-passage"
+        )
+      );
+
+    },
+    0
+  );
+
+}
+
+
+/* ---------------------------------------------------------
+   DRAG EVENTS
+--------------------------------------------------------- */
+
+function dragHSK5Vocabulary(event) {
+
+  const word =
+    event.currentTarget.dataset.word;
+
+  if (
+    event.dataTransfer
+  ) {
+
+    event.dataTransfer.setData(
+      "text/plain",
+      word
+    );
+
+    event.dataTransfer.effectAllowed =
+      "move";
+
+  }
+
+}
+
+
+function allowHSK5DragDrop(event) {
+
+  event.preventDefault();
+
+  if (
+    event.dataTransfer
+  ) {
+
+    event.dataTransfer.dropEffect =
+      "move";
+
+  }
+
+}
+
+
+function dropHSK5Vocabulary(event) {
+
+  event.preventDefault();
+
+  const word =
+    event.dataTransfer
+      ? event.dataTransfer.getData(
+          "text/plain"
+        )
+      : "";
+
+  if (!word) {
+
+    return;
+
+  }
+
+  const blank =
+    event.currentTarget;
+
+  blank.textContent =
+    word;
+
+  blank.classList.add(
+    "filled"
+  );
+
+  blank.classList.remove(
+    "correct",
+    "wrong"
+  );
+
+  blank.dataset.selectedWord =
+    word;
+
+  dragDropAnswers[
+    blank.dataset.questionId
+  ] =
+    word;
+
+}
+
+
+/* ---------------------------------------------------------
+   CHECK ANSWERS
+--------------------------------------------------------- */
+
+function checkHSK5DragDropAnswers() {
+
+  const passage =
+    dragDropPassages[
+      dragDropPassageIndex
+    ];
+
+  if (!passage) {
+
+    return;
+
+  }
+
+  let correct = 0;
+
+  let answered = 0;
+
+  passage.questions.forEach(
+    question => {
+
+      const blank =
+        document.getElementById(
+          `dragdrop-blank-${question.id}`
+        );
+
+      if (!blank) {
+
+        return;
+
+      }
+
+      const selected =
+        blank.dataset.selectedWord ||
+        "";
+
+      if (selected) {
+
+        answered++;
+
+      }
+
+      blank.classList.remove(
+        "correct",
+        "wrong"
+      );
+
+      if (
+        selected ===
+        question.answer
+      ) {
+
+        correct++;
+
+        blank.classList.add(
+          "correct"
+        );
+
+      } else if (selected) {
+
+        blank.classList.add(
+          "wrong"
+        );
+
+      }
+
+    }
+  );
+
+  dragDropScore =
+    correct;
+
+  const result =
+    document.getElementById(
+      "hsk5-drag-drop-result"
+    );
+
+  if (result) {
+
+    result.innerHTML = `
+      <strong>
+        ${correct} / ${passage.questions.length}
+      </strong>
+
+      <span>
+        ${answered}
+        answered
+        ·
+        ${passage.questions.length - answered}
+        unanswered
+      </span>
+    `;
+
+  }
+
+}
+
+
+/* ---------------------------------------------------------
+   RESET CURRENT PASSAGE
+--------------------------------------------------------- */
+
+function resetHSK5DragDrop() {
+
+  dragDropAnswers = {};
+
+  const passage =
+    dragDropPassages[
+      dragDropPassageIndex
+    ];
+
+  if (!passage) {
+
+    return;
+
+  }
+
+  passage.questions.forEach(
+    question => {
+
+      const blank =
+        document.getElementById(
+          `dragdrop-blank-${question.id}`
+        );
+
+      if (!blank) {
+
+        return;
+
+      }
+
+      blank.textContent =
+        "______";
+
+      blank.classList.remove(
+        "filled",
+        "correct",
+        "wrong"
+      );
+
+      delete blank.dataset.selectedWord;
+
+    }
+  );
+
+  const result =
+    document.getElementById(
+      "hsk5-drag-drop-result"
+    );
+
+  if (result) {
+
+    result.innerHTML =
+      "";
+
+  }
+
+}
+
+
+/* ---------------------------------------------------------
+   BUTTON SETUP
+--------------------------------------------------------- */
+
+function setupDragDropButtons() {
+
+  const check =
+    document.getElementById(
+      "hsk5-drag-drop-check"
+    );
+
+  const reset =
+    document.getElementById(
+      "hsk5-drag-drop-reset"
+    );
+
+  if (check) {
+
+    check.addEventListener(
+      "click",
+      checkHSK5DragDropAnswers
+    );
+
+  }
+
+  if (reset) {
+
+    reset.addEventListener(
+      "click",
+      resetHSK5DragDrop
+    );
+
+  }
+
+}
+
+
+/* ---------------------------------------------------------
+   PASSAGE COUNTER
+--------------------------------------------------------- */
+
+function updateDragDropCounter() {
+
+  const counter =
+    document.getElementById(
+      "hsk5-drag-drop-counter"
+    );
+
+  if (!counter) {
+
+    return;
+
+  }
+
+  counter.textContent =
+    `${dragDropPassageIndex + 1} / ${dragDropPassages.length}`;
+
+  const previous =
+    document.getElementById(
+      "hsk5-drag-drop-prev"
+    );
+
+  const next =
+    document.getElementById(
+      "hsk5-drag-drop-next"
+    );
+
+  if (previous) {
+
+    previous.disabled =
+      dragDropPassageIndex === 0;
+
+  }
+
+  if (next) {
+
+    next.disabled =
+      dragDropPassageIndex ===
+      dragDropPassages.length - 1;
+
+  }
+
+}
+
+
+/* ---------------------------------------------------------
+   INITIALIZE NEW FUNCTION
+--------------------------------------------------------- */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+    loadDragDropPractice();
+
+  }
+);
