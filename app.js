@@ -9,61 +9,17 @@
 ========================================================= */
 
 const vocabularyLetters = [
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z"
+  "a", "b", "c", "d", "e", "f", "g",
+  "h", "i", "j", "k", "l", "m", "n",
+  "o", "p", "q", "r", "s", "t", "u",
+  "v", "w", "x", "y", "z"
 ];
 
 const paragraphLetters = [
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z"
+  "a", "b", "c", "d", "e", "f", "g",
+  "h", "i", "j", "k", "l", "m", "n",
+  "o", "p", "q", "r", "s", "t", "u",
+  "v", "w", "x", "y", "z"
 ];
 
 
@@ -94,12 +50,11 @@ const HIGHLIGHT_STORAGE_KEY =
   "chineseHSK5Highlights";
 
 let highlights = [];
-
 let pendingSelection = null;
 
 
 /* =========================================================
-   LOAD HIGHLIGHTS FROM LOCAL STORAGE
+   HIGHLIGHT - LOAD
 ========================================================= */
 
 function loadHighlights() {
@@ -114,22 +69,17 @@ function loadHighlights() {
     if (!saved) {
 
       highlights = [];
-
       return;
+
     }
 
     const parsed =
       JSON.parse(saved);
 
-    if (Array.isArray(parsed)) {
-
-      highlights = parsed;
-
-    } else {
-
-      highlights = [];
-
-    }
+    highlights =
+      Array.isArray(parsed)
+        ? parsed
+        : [];
 
   } catch (error) {
 
@@ -146,7 +96,7 @@ function loadHighlights() {
 
 
 /* =========================================================
-   SAVE HIGHLIGHTS
+   HIGHLIGHT - SAVE
 ========================================================= */
 
 function saveHighlights() {
@@ -171,7 +121,7 @@ function saveHighlights() {
 
 
 /* =========================================================
-   CREATE UNIQUE HIGHLIGHT ID
+   HIGHLIGHT - ID
 ========================================================= */
 
 function createHighlightId() {
@@ -187,7 +137,7 @@ function createHighlightId() {
 
 
 /* =========================================================
-   GET TEXT OFFSET INSIDE ELEMENT
+   HIGHLIGHT - TEXT OFFSET
 ========================================================= */
 
 function getTextOffset(
@@ -229,12 +179,10 @@ function getTextOffset(
 
 
 /* =========================================================
-   GET HIGHLIGHTABLE PARENT
+   HIGHLIGHT - GET ELEMENT
 ========================================================= */
 
-function getHighlightableElement(
-  node
-) {
+function getHighlightableElement(node) {
 
   if (!node) {
 
@@ -252,14 +200,6 @@ function getHighlightableElement(
     return null;
 
   }
-
-  /*
-    HSK 5 Drag & Drop contains interactive
-    drop zones. The normal highlight system
-    must never process this section because
-    rerendering a highlightable element can
-    destroy the drop-zone elements.
-  */
 
   if (
     element.closest(
@@ -279,12 +219,10 @@ function getHighlightableElement(
 
 
 /* =========================================================
-   SHOW HIGHLIGHT TOOLBAR
+   HIGHLIGHT - TOOLBAR
 ========================================================= */
 
-function showHighlightToolbar(
-  rect
-) {
+function showHighlightToolbar(rect) {
 
   const toolbar =
     document.getElementById(
@@ -319,7 +257,8 @@ function showHighlightToolbar(
 
   const maximum =
     window.innerWidth -
-    halfWidth - 10;
+    halfWidth -
+    10;
 
   left =
     Math.max(
@@ -351,10 +290,6 @@ function showHighlightToolbar(
 }
 
 
-/* =========================================================
-   HIDE HIGHLIGHT TOOLBAR
-========================================================= */
-
 function hideHighlightToolbar() {
 
   const toolbar =
@@ -378,12 +313,10 @@ function hideHighlightToolbar() {
 
 
 /* =========================================================
-   CHECK WHETHER RANGE IS VALID
+   HIGHLIGHT - SELECTION
 ========================================================= */
 
-function isValidSelection(
-  range
-) {
+function isValidSelection(range) {
 
   if (!range) {
 
@@ -397,23 +330,12 @@ function isValidSelection(
 
   }
 
-  const selectedText =
-    range.toString().trim();
-
-  if (!selectedText) {
-
-    return false;
-
-  }
-
-  return true;
+  return Boolean(
+    range.toString().trim()
+  );
 
 }
 
-
-/* =========================================================
-   HANDLE TEXT SELECTION
-========================================================= */
 
 document.addEventListener(
   "mouseup",
@@ -436,7 +358,6 @@ document.addEventListener(
         ) {
 
           hideHighlightToolbar();
-
           return;
 
         }
@@ -449,7 +370,6 @@ document.addEventListener(
         ) {
 
           hideHighlightToolbar();
-
           return;
 
         }
@@ -471,21 +391,12 @@ document.addEventListener(
         ) {
 
           hideHighlightToolbar();
-
           return;
 
         }
 
         const text =
           range.toString().trim();
-
-        if (!text) {
-
-          hideHighlightToolbar();
-
-          return;
-
-        }
 
         const startOffset =
           getTextOffset(
@@ -517,11 +428,8 @@ document.addEventListener(
 
         };
 
-        const rect =
-          range.getBoundingClientRect();
-
         showHighlightToolbar(
-          rect
+          range.getBoundingClientRect()
         );
 
       },
@@ -533,38 +441,16 @@ document.addEventListener(
 
 
 /* =========================================================
-   PREVENT TOOLBAR FROM DISAPPEARING TOO EARLY
+   HIGHLIGHT - TARGET
 ========================================================= */
 
-document.addEventListener(
-  "mousedown",
-  function (event) {
+function getHighlightTarget(element) {
 
-    const toolbar =
-      document.getElementById(
-        "highlight-toolbar"
-      );
+  if (!element) {
 
-    if (
-      toolbar &&
-      toolbar.contains(event.target)
-    ) {
-
-      return;
-
-    }
+    return "";
 
   }
-);
-
-
-/* =========================================================
-   CREATE HIGHLIGHT TARGET KEY
-========================================================= */
-
-function getHighlightTarget(
-  element
-) {
 
   return (
     element.dataset.highlightTarget ||
@@ -575,7 +461,7 @@ function getHighlightTarget(
 
 
 /* =========================================================
-   ADD HIGHLIGHT
+   HIGHLIGHT - ADD
 ========================================================= */
 
 function addHighlight() {
@@ -592,11 +478,6 @@ function addHighlight() {
   const element =
     selection.element;
 
-  /*
-    Never allow highlighting to modify the
-    interactive Drag & Drop passage.
-  */
-
   if (
     element.closest(
       "#hsk5-drag-drop-section"
@@ -604,7 +485,6 @@ function addHighlight() {
   ) {
 
     hideHighlightToolbar();
-
     return;
 
   }
@@ -614,36 +494,12 @@ function addHighlight() {
 
   if (!target) {
 
-    console.warn(
-      "Highlight target missing."
-    );
-
     hideHighlightToolbar();
-
     return;
 
   }
 
-  const newHighlight = {
-
-    id:
-      createHighlightId(),
-
-    target:
-      target,
-
-    text:
-      selection.text,
-
-    start:
-      selection.start,
-
-    end:
-      selection.end
-
-  };
-
-  const alreadyExists =
+  const exists =
     highlights.some(
       highlight =>
         highlight.target === target &&
@@ -653,11 +509,26 @@ function addHighlight() {
           selection.end
     );
 
-  if (!alreadyExists) {
+  if (!exists) {
 
-    highlights.push(
-      newHighlight
-    );
+    highlights.push({
+
+      id:
+        createHighlightId(),
+
+      target:
+        target,
+
+      text:
+        selection.text,
+
+      start:
+        selection.start,
+
+      end:
+        selection.end
+
+    });
 
     saveHighlights();
 
@@ -682,7 +553,7 @@ function addHighlight() {
 
 
 /* =========================================================
-   REMOVE HIGHLIGHT
+   HIGHLIGHT - REMOVE
 ========================================================= */
 
 function removeHighlight() {
@@ -699,11 +570,6 @@ function removeHighlight() {
   const element =
     selection.element;
 
-  /*
-    Never allow Remove Highlight to rebuild
-    the interactive Drag & Drop passage.
-  */
-
   if (
     element.closest(
       "#hsk5-drag-drop-section"
@@ -711,16 +577,12 @@ function removeHighlight() {
   ) {
 
     hideHighlightToolbar();
-
     return;
 
   }
 
   const target =
     getHighlightTarget(element);
-
-  const before =
-    highlights.length;
 
   highlights =
     highlights.filter(
@@ -746,13 +608,7 @@ function removeHighlight() {
       }
     );
 
-  if (
-    highlights.length !== before
-  ) {
-
-    saveHighlights();
-
-  }
+  saveHighlights();
 
   rerenderHighlightableElement(
     element
@@ -773,69 +629,16 @@ function removeHighlight() {
 
 
 /* =========================================================
-   RERENDER HIGHLIGHTABLE ELEMENT
+   HIGHLIGHT - RENDER
 ========================================================= */
 
-function rerenderHighlightableElement(
-  element
-) {
+function renderHighlightsForElement(element) {
 
   if (!element) {
 
     return;
 
   }
-
-  /*
-    Never rebuild Drag & Drop HTML from
-    textContent. Doing so would delete the
-    interactive drop zones.
-  */
-
-  if (
-    element.closest(
-      "#hsk5-drag-drop-section"
-    )
-  ) {
-
-    return;
-
-  }
-
-  const text =
-    element.textContent;
-
-  element.innerHTML = "";
-
-  element.appendChild(
-    document.createTextNode(text)
-  );
-
-  renderHighlightsForElement(
-    element
-  );
-
-}
-
-
-/* =========================================================
-   RENDER HIGHLIGHTS
-========================================================= */
-
-function renderHighlightsForElement(
-  element
-) {
-
-  if (!element) {
-
-    return;
-
-  }
-
-  /*
-    Never rebuild the Drag & Drop passage.
-    It contains interactive drop-zone spans.
-  */
 
   if (
     element.closest(
@@ -856,21 +659,18 @@ function renderHighlightsForElement(
 
   }
 
-  const relevantHighlights =
+  const relevant =
     highlights
       .filter(
         highlight =>
-          highlight.target ===
-          target
+          highlight.target === target
       )
       .sort(
         (a, b) =>
           a.start - b.start
       );
 
-  if (
-    relevantHighlights.length === 0
-  ) {
+  if (!relevant.length) {
 
     return;
 
@@ -883,21 +683,14 @@ function renderHighlightsForElement(
 
   let position = 0;
 
-  relevantHighlights.forEach(
+  relevant.forEach(
     highlight => {
 
       if (
         highlight.start < 0 ||
         highlight.end > text.length ||
         highlight.start >=
-          highlight.end
-      ) {
-
-        return;
-
-      }
-
-      if (
+          highlight.end ||
         highlight.start < position
       ) {
 
@@ -937,9 +730,7 @@ function renderHighlightsForElement(
           highlight.end
         );
 
-      element.appendChild(
-        mark
-      );
+      element.appendChild(mark);
 
       position =
         highlight.end;
@@ -953,9 +744,7 @@ function renderHighlightsForElement(
 
     element.appendChild(
       document.createTextNode(
-        text.substring(
-          position
-        )
+        text.substring(position)
       )
     );
 
@@ -964,9 +753,39 @@ function renderHighlightsForElement(
 }
 
 
-/* =========================================================
-   INITIAL RENDER OF ALL HIGHLIGHTS
-========================================================= */
+function rerenderHighlightableElement(element) {
+
+  if (!element) {
+
+    return;
+
+  }
+
+  if (
+    element.closest(
+      "#hsk5-drag-drop-section"
+    )
+  ) {
+
+    return;
+
+  }
+
+  const text =
+    element.textContent;
+
+  element.innerHTML = "";
+
+  element.appendChild(
+    document.createTextNode(text)
+  );
+
+  renderHighlightsForElement(
+    element
+  );
+
+}
+
 
 function renderAllHighlights() {
 
@@ -976,12 +795,6 @@ function renderAllHighlights() {
     )
     .forEach(
       element => {
-
-        /*
-          The Drag & Drop passage is intentionally
-          excluded because it contains interactive
-          blank elements.
-        */
 
         if (
           element.closest(
@@ -1004,8 +817,42 @@ function renderAllHighlights() {
 
 
 /* =========================================================
-   HIGHLIGHT BUTTONS
+   HIGHLIGHT - BUTTONS
 ========================================================= */
+
+document.addEventListener(
+  "click",
+  function (event) {
+
+    const toolbar =
+      document.getElementById(
+        "highlight-toolbar"
+      );
+
+    if (
+      toolbar &&
+      toolbar.contains(event.target)
+    ) {
+
+      return;
+
+    }
+
+    if (
+      event.target.closest(
+        ".highlightable"
+      )
+    ) {
+
+      return;
+
+    }
+
+    hideHighlightToolbar();
+
+  }
+);
+
 
 const highlightButton =
   document.getElementById(
@@ -1056,50 +903,10 @@ if (removeHighlightButton) {
 
 
 /* =========================================================
-   CLOSE TOOLBAR WHEN CLICKING ELSEWHERE
-========================================================= */
-
-document.addEventListener(
-  "click",
-  function (event) {
-
-    const toolbar =
-      document.getElementById(
-        "highlight-toolbar"
-      );
-
-    if (
-      toolbar &&
-      toolbar.contains(event.target)
-    ) {
-
-      return;
-
-    }
-
-    if (
-      event.target.closest(
-        ".highlightable"
-      )
-    ) {
-
-      return;
-
-    }
-
-    hideHighlightToolbar();
-
-  }
-);
-
-
-/* =========================================================
    NAVIGATION
 ========================================================= */
 
-function showSection(
-  sectionId
-) {
+function showSection(sectionId) {
 
   document
     .querySelectorAll(
@@ -1163,10 +970,6 @@ function showSection(
 }
 
 
-/* =========================================================
-   NAVIGATION CLICK
-========================================================= */
-
 document.addEventListener(
   "click",
   function (event) {
@@ -1194,9 +997,7 @@ document.addEventListener(
    JSON LOADER
 ========================================================= */
 
-async function loadJSON(
-  file
-) {
+async function loadJSON(file) {
 
   const response =
     await fetch(
@@ -1260,11 +1061,6 @@ async function loadVocabulary() {
       const data =
         await loadJSON(file);
 
-      /*
-        Vocabulary files should contain
-        an array.
-      */
-
       if (!Array.isArray(data)) {
 
         throw new Error(
@@ -1290,11 +1086,6 @@ async function loadVocabulary() {
 
     } catch (error) {
 
-      /*
-        Missing files are allowed.
-        The website continues loading.
-      */
-
       console.warn(
         `Could not load ${file}:`,
         error.message
@@ -1316,133 +1107,11 @@ async function loadVocabulary() {
 
   updateStatistics();
 
-  if (
-    vocabulary.length > 0
-  ) {
-
-    currentWords =
-      vocabulary;
-
-
-  }
-
 }
 
 
 /* =========================================================
-   LOAD PARAGRAPHS
-========================================================= */
-
-async function loadParagraphs() {
-
-  paragraphs = [];
-
-  for (
-    const letter of paragraphLetters
-  ) {
-
-    const file =
-      `./paragraph/paragraph_${letter}.json`;
-
-    try {
-
-      const data =
-        await loadJSON(file);
-
-      /*
-        Paragraph files normally contain
-        one object:
-
-        {
-          "title": "...",
-          "paragraph": "...",
-          "Pinyin": "..."
-        }
-
-        This loader also supports an array.
-      */
-
-      if (Array.isArray(data)) {
-
-        data.forEach(
-          (paragraph, index) => {
-
-            paragraphs.push({
-
-              ...paragraph,
-
-              id:
-                paragraph.id ??
-                index + 1,
-
-              letter:
-                letter.toUpperCase()
-
-            });
-
-          }
-        );
-
-      } else if (
-        data &&
-        typeof data === "object"
-      ) {
-
-        paragraphs.push({
-
-          ...data,
-
-          id:
-            data.id ??
-            1,
-
-          letter:
-            letter.toUpperCase()
-
-        });
-
-      } else {
-
-        throw new Error(
-          `${file} → Invalid paragraph format`
-        );
-
-      }
-
-    } catch (error) {
-
-      /*
-        Missing paragraph files are allowed.
-      */
-
-      console.warn(
-        `Could not load ${file}:`,
-        error.message
-      );
-
-    }
-
-  }
-
-  console.log(
-    `Paragraphs loaded: ${paragraphs.length}`
-  );
-
-  if (
-    paragraphs.length > 0
-  ) {
-
-    showParagraph(0);
-
-  }
-
-  updateStatistics();
-
-}
-
-
-/* =========================================================
-   ALPHABET BUTTONS
+   ALPHABET FILTER
 ========================================================= */
 
 function setupAlphabet() {
@@ -1460,57 +1129,70 @@ function setupAlphabet() {
 
   alphabetList.innerHTML = "";
 
-  const alphabet =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(
-      ""
+  const allButton =
+    document.querySelector(
+      '.alphabet-btn[data-letter="all"]'
     );
 
-  alphabet.forEach(
-    letter => {
+  if (allButton) {
 
-      const button =
-        document.createElement(
-          "button"
-        );
+    allButton.classList.add(
+      "active"
+    );
 
-      button.className =
-        "alphabet-btn";
+  }
 
-      button.textContent =
-        letter;
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    .split("")
+    .forEach(
+      letter => {
 
-      button.dataset.letter =
-        letter.toLowerCase();
+        const button =
+          document.createElement(
+            "button"
+          );
 
-      const exists =
-        vocabularyLetters.includes(
-          letter.toLowerCase()
-        );
+        button.type =
+          "button";
 
-      if (!exists) {
+        button.className =
+          "alphabet-btn";
 
-        button.disabled =
-          true;
+        button.textContent =
+          letter;
 
-        button.classList.add(
-          "disabled"
+        button.dataset.letter =
+          letter.toLowerCase();
+
+        const exists =
+          vocabulary.some(
+            word =>
+              String(
+                word.letter
+              ).toLowerCase() ===
+              letter.toLowerCase()
+          );
+
+        if (!exists) {
+
+          button.disabled =
+            true;
+
+          button.classList.add(
+            "disabled"
+          );
+
+        }
+
+        alphabetList.appendChild(
+          button
         );
 
       }
-
-      alphabetList.appendChild(
-        button
-      );
-
-    }
-  );
+    );
 
 }
 
-
-/* =========================================================
-   ALPHABET CLICK
-========================================================= */
 
 document.addEventListener(
   "click",
@@ -1545,14 +1227,11 @@ document.addEventListener(
       "active"
     );
 
-    const letter =
+    currentLetter =
       button.dataset.letter;
 
-    currentLetter =
-      letter;
-
     if (
-      letter === "all"
+      currentLetter === "all"
     ) {
 
       displayWords(
@@ -1564,9 +1243,10 @@ document.addEventListener(
       displayWords(
         vocabulary.filter(
           word =>
-            word.letter
-              .toLowerCase() ===
-            letter
+            String(
+              word.letter
+            ).toLowerCase() ===
+            currentLetter
         )
       );
 
@@ -1580,9 +1260,7 @@ document.addEventListener(
    DISPLAY VOCABULARY
 ========================================================= */
 
-function displayWords(
-  words
-) {
+function displayWords(words) {
 
   const wordList =
     document.getElementById(
@@ -1600,9 +1278,7 @@ function displayWords(
   currentWords =
     words;
 
-  if (
-    words.length === 0
-  ) {
+  if (!words.length) {
 
     wordList.innerHTML =
       `
@@ -1631,15 +1307,21 @@ function displayWords(
           <div class="word-card-main">
 
             <h3>
-              ${escapeHTML(word.words)}
+              ${escapeHTML(
+                word.words
+              )}
             </h3>
 
             <p class="word-pinyin">
-              ${escapeHTML(word.Pinyin)}
+              ${escapeHTML(
+                word.Pinyin
+              )}
             </p>
 
             <p class="word-meaning">
-              ${escapeHTML(word.Meaning)}
+              ${escapeHTML(
+                word.Meaning
+              )}
             </p>
 
           </div>
@@ -1669,12 +1351,11 @@ function displayWords(
 
 
 /* =========================================================
-   SHOW WORD DETAIL
+   WORD DETAIL
+   INCLUDING EXAMPLE SENTENCE
 ========================================================= */
 
-function showWord(
-  word
-) {
+function showWord(word) {
 
   const title =
     document.getElementById(
@@ -1699,28 +1380,33 @@ function showWord(
   if (title) {
 
     title.textContent =
-      word.words;
+      word.words || "";
 
   }
 
   if (pinyin) {
 
     pinyin.textContent =
-      word.Pinyin;
+      word.Pinyin || "";
 
   }
 
   if (meaning) {
 
     meaning.textContent =
-      word.Meaning;
+      word.Meaning || "";
 
   }
+
+  /* =====================================================
+     IMPORTANT:
+     Example sentence is restored here.
+  ===================================================== */
 
   if (sentence) {
 
     sentence.textContent =
-      word.Sentences;
+      word.Sentences || "";
 
     sentence.dataset.highlightTarget =
       `word-${word.letter}-${word.id}-sentence`;
@@ -1826,8 +1512,9 @@ if (searchInput) {
         wordsToSearch =
           vocabulary.filter(
             word =>
-              word.letter
-                .toLowerCase() ===
+              String(
+                word.letter
+              ).toLowerCase() ===
               currentLetter
           );
 
@@ -1847,25 +1534,33 @@ if (searchInput) {
         wordsToSearch.filter(
           word =>
 
-            String(word.words)
+            String(
+              word.words
+            )
               .toLowerCase()
               .includes(query)
 
             ||
 
-            String(word.Pinyin)
+            String(
+              word.Pinyin
+            )
               .toLowerCase()
               .includes(query)
 
             ||
 
-            String(word.Meaning)
+            String(
+              word.Meaning
+            )
               .toLowerCase()
               .includes(query)
 
             ||
 
-            String(word.Sentences)
+            String(
+              word.Sentences
+            )
               .toLowerCase()
               .includes(query)
 
@@ -1882,512 +1577,101 @@ if (searchInput) {
 
 
 /* =========================================================
-   COLLOCATION PRACTICE
-========================================================= */
-
-let collocationSets = [];
-let currentCollocationFileIndex = 0;
-let currentCollocationQuestionIndex = 0;
-let collocationSelected = new Set();
-let collocationChecked = false;
-let collocationScore = 0;
-let collocationAnswered = 0;
-
-const COLLOCATION_MAX_FILES = 10;
-
-function getCollocationFileList() {
-  return Array.from({ length: COLLOCATION_MAX_FILES }, (_, i) => `./collocations/${i + 1}.json`);
-}
-
-async function loadCollocations() {
-  collocationSets = [];
-  const files = getCollocationFileList();
-
-  for (let i = 0; i < files.length; i++) {
-    try {
-      const data = await loadJSON(files[i]);
-      if (!Array.isArray(data)) throw new Error(`${files[i]} → Collocation JSON must be an array`);
-      collocationSets.push({ fileNumber: i + 1, file: files[i], questions: data });
-    } catch (error) {
-      console.warn(`Collocation file not loaded: ${files[i]}`, error.message);
-    }
-  }
-
-  createCollocationInterface();
-  renderCollocationQuestion();
-}
-
-function createCollocationInterface() {
-  let section = document.getElementById("collocation");
-
-  if (!section) {
-    section = document.createElement("section");
-    section.id = "collocation";
-    section.className = "page-section";
-    const main = document.querySelector("main");
-    if (main) main.appendChild(section);
-    else document.body.appendChild(section);
-  }
-
-  section.innerHTML = `
-    <div class="section-inner collocation-wrapper">
-      <div class="collocation-header">
-        <p class="section-label">HSK 5 VOCABULARY</p>
-        <h2>词语搭配</h2>
-        <p>Choose all words that can naturally form a collocation with the main word.</p>
-      </div>
-      <div class="collocation-file-bar">
-        <button id="collocation-file-prev" class="secondary-btn" type="button">← Previous Set</button>
-        <div id="collocation-file-name">No collocation file</div>
-        <button id="collocation-file-next" class="secondary-btn" type="button">Next Set →</button>
-      </div>
-      <div id="collocation-content"></div>
-    </div>
-  `;
-
-  let nav = document.querySelector("nav");
-  if (nav && !nav.querySelector('[data-section="collocation"]')) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "nav-btn";
-    button.dataset.section = "collocation";
-    button.textContent = "Collocation";
-    nav.appendChild(button);
-  }
-
-  document.getElementById("collocation-file-prev")?.addEventListener("click", () => {
-    if (!collocationSets.length) return;
-    currentCollocationFileIndex = (currentCollocationFileIndex - 1 + collocationSets.length) % collocationSets.length;
-    currentCollocationQuestionIndex = 0;
-    collocationScore = 0;
-    collocationAnswered = 0;
-    renderCollocationQuestion();
-  });
-
-  document.getElementById("collocation-file-next")?.addEventListener("click", () => {
-    if (!collocationSets.length) return;
-    currentCollocationFileIndex = (currentCollocationFileIndex + 1) % collocationSets.length;
-    currentCollocationQuestionIndex = 0;
-    collocationScore = 0;
-    collocationAnswered = 0;
-    renderCollocationQuestion();
-  });
-}
-
-function getCurrentCollocationQuestion() {
-  const set = collocationSets[currentCollocationFileIndex];
-  if (!set || !Array.isArray(set.questions) || !set.questions.length) return null;
-  return set.questions[currentCollocationQuestionIndex] || null;
-}
-
-function renderCollocationQuestion() {
-  const content = document.getElementById("collocation-content");
-  const fileName = document.getElementById("collocation-file-name");
-  if (!content) return;
-
-  collocationSelected = new Set();
-  collocationChecked = false;
-
-  if (!collocationSets.length) {
-    if (fileName) fileName.textContent = "No collocation JSON files found";
-    content.innerHTML = `<div class="empty-state">No collocation files were found in <code>collocations/</code>.</div>`;
-    return;
-  }
-
-  const set = collocationSets[currentCollocationFileIndex];
-  const question = getCurrentCollocationQuestion();
-  if (!question) {
-    content.innerHTML = `<div class="empty-state">This collocation file has no questions.</div>`;
-    return;
-  }
-
-  if (fileName) fileName.textContent = `Set ${set.fileNumber} · ${currentCollocationQuestionIndex + 1} / ${set.questions.length}`;
-
-  const choices = Array.isArray(question.choices) ? question.choices : [];
-
-  content.innerHTML = `
-    <div class="collocation-card">
-      <div class="collocation-progress">
-        <span>Question ${currentCollocationQuestionIndex + 1} / ${set.questions.length}</span>
-        <span>Score: ${collocationScore}</span>
-      </div>
-      <div class="collocation-main-word">${escapeHTML(question.word)}</div>
-      <div class="collocation-meaning">${escapeHTML(question.meaning || "")}</div>
-      <p class="collocation-instruction">Select all natural collocations:</p>
-      <div class="collocation-choices" id="collocation-choices">
-        ${choices.map((choice, index) => `
-          <button type="button" class="collocation-choice" data-choice-index="${index}" data-choice="${escapeHTML(choice)}">
-            ${escapeHTML(choice)}
-          </button>
-        `).join("")}
-      </div>
-      <div id="collocation-result" class="collocation-result"></div>
-      <div class="collocation-actions">
-        <button id="collocation-check" class="primary-btn" type="button">Check Answer</button>
-        <button id="collocation-next" class="secondary-btn" type="button">Next Question →</button>
-      </div>
-    </div>
-  `;
-
-  content.querySelectorAll(".collocation-choice").forEach(button => {
-    button.addEventListener("click", () => {
-      if (collocationChecked) return;
-      const index = Number(button.dataset.choiceIndex);
-      if (collocationSelected.has(index)) {
-        collocationSelected.delete(index);
-        button.classList.remove("selected");
-      } else {
-        collocationSelected.add(index);
-        button.classList.add("selected");
-      }
-    });
-  });
-
-  document.getElementById("collocation-check")?.addEventListener("click", checkCollocationAnswer);
-  document.getElementById("collocation-next")?.addEventListener("click", nextCollocationQuestion);
-}
-
-function checkCollocationAnswer() {
-  if (collocationChecked) return;
-  const question = getCurrentCollocationQuestion();
-  if (!question) return;
-
-  const correct = new Set((Array.isArray(question.correct) ? question.correct : []).map(String));
-  const selected = new Set();
-
-  document.querySelectorAll(".collocation-choice").forEach(button => {
-    const index = Number(button.dataset.choiceIndex);
-    const choice = button.dataset.choice;
-
-    if (collocationSelected.has(index)) {
-      selected.add(choice);
-    }
-  });
-
-  const exact =
-    selected.size === correct.size &&
-    [...correct].every(word => selected.has(word));
-
-  collocationChecked = true;
-  collocationAnswered++;
-
-  if (exact) {
-    collocationScore++;
-  }
-
-  document.querySelectorAll(".collocation-choice").forEach(button => {
-
-    const choice = button.dataset.choice;
-
-    const isCorrect =
-      correct.has(choice);
-
-    const isSelected =
-      collocationSelected.has(
-        Number(button.dataset.choiceIndex)
-      );
-
-    button.disabled = true;
-
-    button.classList.remove(
-      "selected"
-    );
-
-    if (isCorrect) {
-
-      button.classList.add(
-        "correct"
-      );
-
-    } else if (isSelected) {
-
-      button.classList.add(
-        "wrong"
-      );
-
-    }
-
-  });
-
-  const result =
-    document.getElementById(
-      "collocation-result"
-    );
-
-  if (result) {
-
-    if (exact) {
-
-      result.innerHTML =
-        `
-          <strong>✓ Correct!</strong>
-          <span>
-            ${correct.size}
-            correct collocation${correct.size === 1 ? "" : "s"}
-            selected.
-          </span>
-        `;
-
-      result.classList.add(
-        "correct-result"
-      );
-
-    } else {
-
-      result.innerHTML =
-        `
-          <strong>✗ Not quite.</strong>
-          <span>
-            The green choices are the natural collocations.
-          </span>
-        `;
-
-      result.classList.add(
-        "wrong-result"
-      );
-
-    }
-
-  }
-
-}
-
-function nextCollocationQuestion() {
-
-  const set =
-    collocationSets[
-      currentCollocationFileIndex
-    ];
-
-  if (
-    !set ||
-    !set.questions.length
-  ) {
-
-    return;
-
-  }
-
-  currentCollocationQuestionIndex++;
-
-  if (
-    currentCollocationQuestionIndex >=
-    set.questions.length
-  ) {
-
-    currentCollocationQuestionIndex = 0;
-
-  }
-
-  renderCollocationQuestion();
-
-}
-
-
-/* ---------------------------------------------------------
-   COLLOCATION STYLES
-   Injected here so the feature works without requiring
-   additional CSS changes.
---------------------------------------------------------- */
-
-(function injectCollocationStyles() {
-
-  if (
-    document.getElementById(
-      "collocation-runtime-styles"
-    )
-  ) {
-
-    return;
-
-  }
-
-  const style =
-    document.createElement(
-      "style"
-    );
-
-  style.id =
-    "collocation-runtime-styles";
-
-  style.textContent =
-    `
-    .collocation-wrapper{
-      max-width:900px;
-      margin:0 auto;
-      padding:20px 0 60px
-    }
-
-    .collocation-header{
-      text-align:center;
-      margin-bottom:25px
-    }
-
-    .collocation-file-bar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:15px;
-      margin:20px 0
-    }
-
-    #collocation-file-name{
-      font-weight:700;
-      text-align:center
-    }
-
-    .collocation-card{
-      background:var(--card-bg,#fff);
-      border-radius:20px;
-      padding:30px;
-      box-shadow:0 10px 30px rgba(0,0,0,.08)
-    }
-
-    .collocation-progress{
-      display:flex;
-      justify-content:space-between;
-      gap:20px;
-      font-size:.9rem;
-      opacity:.75;
-      margin-bottom:25px
-    }
-
-    .collocation-main-word{
-      text-align:center;
-      font-size:clamp(2.2rem,7vw,4rem);
-      font-weight:800;
-      margin-top:10px
-    }
-
-    .collocation-meaning{
-      text-align:center;
-      font-size:1.05rem;
-      opacity:.75;
-      margin:8px 0 30px
-    }
-
-    .collocation-instruction{
-      text-align:center;
-      font-weight:700;
-      margin-bottom:18px
-    }
-
-    .collocation-choices{
-      display:grid;
-      grid-template-columns:
-        repeat(auto-fit,minmax(140px,1fr));
-      gap:12px
-    }
-
-    .collocation-choice{
-      border:2px solid rgba(128,128,128,.25);
-      background:transparent;
-      border-radius:12px;
-      padding:14px 12px;
-      font-size:1.05rem;
-      cursor:pointer;
-      transition:.2s
-    }
-
-    .collocation-choice:hover{
-      transform:translateY(-2px)
-    }
-
-    .collocation-choice.selected{
-      border-color:#7c3aed;
-      background:rgba(124,58,237,.12)
-    }
-
-    .collocation-choice.correct{
-      border-color:#16a34a;
-      background:rgba(22,163,74,.14);
-      color:#15803d
-    }
-
-    .collocation-choice.wrong{
-      border-color:#dc2626;
-      background:rgba(220,38,38,.12);
-      color:#b91c1c
-    }
-
-    .collocation-choice:disabled{
-      cursor:default;
-      transform:none
-    }
-
-    .collocation-result{
-      min-height:55px;
-      margin:22px 0 5px;
-      padding:14px;
-      border-radius:12px;
-      text-align:center;
-      display:flex;
-      flex-direction:column;
-      gap:5px
-    }
-
-    .collocation-result:empty{
-      display:block
-    }
-
-    .collocation-result.correct-result{
-      background:rgba(22,163,74,.1)
-    }
-
-    .collocation-result.wrong-result{
-      background:rgba(220,38,38,.08)
-    }
-
-    .collocation-actions{
-      display:flex;
-      justify-content:center;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:20px
-    }
-
-    @media(max-width:600px){
-      .collocation-file-bar{
-        flex-direction:column
-      }
-
-      .collocation-card{
-        padding:20px 15px
-      }
-
-      .collocation-progress{
-        font-size:.8rem
-      }
-
-      .collocation-choices{
-        grid-template-columns:repeat(2,1fr)
-      }
-
-      .collocation-choice{
-        padding:12px 8px
-      }
-    }
-  `;
-
-  document.head.appendChild(
-    style
-  );
-
-})();
-
-
-/* =========================================================
    READING
 ========================================================= */
 
+async function loadParagraphs() {
 
-function showParagraph(
-  index
-) {
+  paragraphs = [];
 
-  if (
-    !paragraphs.length
+  for (
+    const letter of paragraphLetters
   ) {
+
+    const file =
+      `./paragraph/paragraph_${letter}.json`;
+
+    try {
+
+      const data =
+        await loadJSON(file);
+
+      if (Array.isArray(data)) {
+
+        data.forEach(
+          (paragraph, index) => {
+
+            paragraphs.push({
+
+              ...paragraph,
+
+              id:
+                paragraph.id ??
+                index + 1,
+
+              letter:
+                letter.toUpperCase()
+
+            });
+
+          }
+        );
+
+      } else if (
+        data &&
+        typeof data === "object"
+      ) {
+
+        paragraphs.push({
+
+          ...data,
+
+          id:
+            data.id ??
+            1,
+
+          letter:
+            letter.toUpperCase()
+
+        });
+
+      } else {
+
+        throw new Error(
+          `${file} → Invalid paragraph format`
+        );
+
+      }
+
+    } catch (error) {
+
+      console.warn(
+        `Could not load ${file}:`,
+        error.message
+      );
+
+    }
+
+  }
+
+  console.log(
+    `Paragraphs loaded: ${paragraphs.length}`
+  );
+
+  if (paragraphs.length) {
+
+    showParagraph(0);
+
+  }
+
+  updateStatistics();
+
+}
+
+
+function showParagraph(index) {
+
+  if (!paragraphs.length) {
 
     return;
 
@@ -2425,7 +1709,9 @@ function showParagraph(
   if (title) {
 
     title.textContent =
-      paragraph.title;
+      paragraph.title ||
+      paragraph.Title ||
+      "";
 
   }
 
@@ -2434,7 +1720,11 @@ function showParagraph(
     text.innerHTML = "";
 
     text.textContent =
-      paragraph.paragraph;
+      paragraph.paragraph ||
+      paragraph.Paragraph ||
+      paragraph.text ||
+      paragraph.Text ||
+      "";
 
     text.dataset.highlightTarget =
       `paragraph-${paragraph.letter}-${paragraph.id}-paragraph`;
@@ -2446,7 +1736,9 @@ function showParagraph(
     pinyin.innerHTML = "";
 
     pinyin.textContent =
-      paragraph.Pinyin;
+      paragraph.Pinyin ||
+      paragraph.pinyin ||
+      "";
 
     pinyin.dataset.highlightTarget =
       `paragraph-${paragraph.letter}-${paragraph.id}-pinyin`;
@@ -2478,17 +1770,8 @@ function showParagraph(
     0
   );
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-
 }
 
-
-/* =========================================================
-   PARAGRAPH COUNTER
-========================================================= */
 
 function updateParagraphCounter() {
 
@@ -2497,19 +1780,17 @@ function updateParagraphCounter() {
       "paragraph-counter"
     );
 
-  if (counter) {
+  if (!counter) {
 
-    counter.textContent =
-      `${currentParagraphIndex + 1} / ${paragraphs.length}`;
+    return;
 
   }
 
+  counter.textContent =
+    `${currentParagraphIndex + 1} / ${paragraphs.length}`;
+
 }
 
-
-/* =========================================================
-   NEXT PARAGRAPH
-========================================================= */
 
 const nextParagraph =
   document.getElementById(
@@ -2522,9 +1803,7 @@ if (nextParagraph) {
     "click",
     function () {
 
-      if (
-        !paragraphs.length
-      ) {
+      if (!paragraphs.length) {
 
         return;
 
@@ -2551,10 +1830,6 @@ if (nextParagraph) {
 }
 
 
-/* =========================================================
-   PREVIOUS PARAGRAPH
-========================================================= */
-
 const previousParagraph =
   document.getElementById(
     "previous-paragraph"
@@ -2566,9 +1841,7 @@ if (previousParagraph) {
     "click",
     function () {
 
-      if (
-        !paragraphs.length
-      ) {
+      if (!paragraphs.length) {
 
         return;
 
@@ -2622,21 +1895,12 @@ if (
         "hidden"
       );
 
-      if (
+      togglePinyin.textContent =
         paragraphPinyin.classList.contains(
           "hidden"
         )
-      ) {
-
-        togglePinyin.textContent =
-          "Show Pinyin";
-
-      } else {
-
-        togglePinyin.textContent =
-          "Hide Pinyin";
-
-      }
+          ? "Show Pinyin"
+          : "Hide Pinyin";
 
     }
   );
@@ -2663,9 +1927,6 @@ window.addEventListener(
 
     }
 
-    const scrollTop =
-      window.scrollY;
-
     const documentHeight =
       document.documentElement
         .scrollHeight -
@@ -2684,7 +1945,7 @@ window.addEventListener(
 
     const progress =
       (
-        scrollTop /
+        window.scrollY /
         documentHeight
       ) *
       100;
@@ -2697,6 +1958,1228 @@ window.addEventListener(
 
   }
 );
+
+
+/* =========================================================
+   COLLOCATION
+========================================================= */
+
+let collocationSets = [];
+
+let currentCollocationFileIndex =
+  0;
+
+let currentCollocationQuestionIndex =
+  0;
+
+let collocationSelected =
+  new Set();
+
+let collocationChecked =
+  false;
+
+let collocationScore =
+  0;
+
+let collocationAnswered =
+  0;
+
+const COLLOCATION_MAX_FILES =
+  10;
+
+
+/* =========================================================
+   COLLOCATION FILE LIST
+========================================================= */
+
+function getCollocationFileList() {
+
+  return Array.from(
+    {
+      length:
+        COLLOCATION_MAX_FILES
+    },
+    (_, index) =>
+      `./collocations/${index + 1}.json`
+  );
+
+}
+
+
+/* =========================================================
+   LOAD COLLOCATION FILES
+
+   IMPORTANT:
+   Missing files are ignored.
+   Only existing JSON files appear.
+========================================================= */
+
+async function loadCollocations() {
+
+  collocationSets = [];
+
+  const files =
+    getCollocationFileList();
+
+  for (
+    let i = 0;
+    i < files.length;
+    i++
+  ) {
+
+    try {
+
+      const data =
+        await loadJSON(
+          files[i]
+        );
+
+      if (
+        !Array.isArray(data)
+      ) {
+
+        throw new Error(
+          `${files[i]} → Collocation JSON must be an array`
+        );
+
+      }
+
+      collocationSets.push({
+
+        fileNumber:
+          i + 1,
+
+        file:
+          files[i],
+
+        questions:
+          data
+
+      });
+
+    } catch (error) {
+
+      /*
+        Missing 2.json, 3.json, etc.
+        are completely ignored.
+      */
+
+      console.warn(
+        `Collocation file not loaded: ${files[i]} → ${error.message}`
+      );
+
+    }
+
+  }
+
+  console.log(
+    `Collocation files loaded: ${collocationSets.length}`
+  );
+
+  createCollocationInterface();
+
+}
+
+
+/* =========================================================
+   CREATE COLLOCATION INTERFACE
+========================================================= */
+
+function createCollocationInterface() {
+
+  let section =
+    document.getElementById(
+      "collocation"
+    );
+
+  if (!section) {
+
+    section =
+      document.createElement(
+        "section"
+      );
+
+    section.id =
+      "collocation";
+
+    section.className =
+      "page-section";
+
+    const main =
+      document.querySelector(
+        "main"
+      );
+
+    if (main) {
+
+      main.appendChild(
+        section
+      );
+
+    }
+
+  }
+
+  if (!section) {
+
+    return;
+
+  }
+
+  section.innerHTML =
+    `
+      <div class="section-inner collocation-wrapper">
+
+        <div class="collocation-header">
+
+          <p class="section-label">
+            HSK 5 VOCABULARY
+          </p>
+
+          <h2>
+            词语搭配
+          </h2>
+
+          <p>
+            Choose all words that can naturally
+            form a collocation with the main word.
+          </p>
+
+        </div>
+
+
+        <div class="collocation-file-bar">
+
+          <button
+            id="collocation-file-prev"
+            class="secondary-btn"
+            type="button"
+          >
+            ← Previous Set
+          </button>
+
+
+          <div
+            id="collocation-file-name"
+          >
+            Loading...
+          </div>
+
+
+          <button
+            id="collocation-file-next"
+            class="secondary-btn"
+            type="button"
+          >
+            Next Set →
+          </button>
+
+        </div>
+
+
+        <div
+          id="collocation-content"
+        ></div>
+
+      </div>
+    `;
+
+
+  const nav =
+    document.querySelector(
+      "nav"
+    );
+
+  if (
+    nav &&
+    !nav.querySelector(
+      '[data-section="collocation"]'
+    )
+  ) {
+
+    const button =
+      document.createElement(
+        "button"
+      );
+
+    button.type =
+      "button";
+
+    button.className =
+      "nav-btn";
+
+    button.dataset.section =
+      "collocation";
+
+    button.textContent =
+      "Collocation";
+
+    nav.appendChild(
+      button
+    );
+
+  }
+
+
+  const previous =
+    document.getElementById(
+      "collocation-file-prev"
+    );
+
+  const next =
+    document.getElementById(
+      "collocation-file-next"
+    );
+
+
+  if (previous) {
+
+    previous.addEventListener(
+      "click",
+      function () {
+
+        if (
+          !collocationSets.length
+        ) {
+
+          return;
+
+        }
+
+        currentCollocationFileIndex =
+          (
+            currentCollocationFileIndex -
+            1 +
+            collocationSets.length
+          ) %
+          collocationSets.length;
+
+        currentCollocationQuestionIndex =
+          0;
+
+        collocationScore =
+          0;
+
+        collocationAnswered =
+          0;
+
+        renderCollocationQuestion();
+
+      }
+    );
+
+  }
+
+
+  if (next) {
+
+    next.addEventListener(
+      "click",
+      function () {
+
+        if (
+          !collocationSets.length
+        ) {
+
+          return;
+
+        }
+
+        currentCollocationFileIndex =
+          (
+            currentCollocationFileIndex +
+            1
+          ) %
+          collocationSets.length;
+
+        currentCollocationQuestionIndex =
+          0;
+
+        collocationScore =
+          0;
+
+        collocationAnswered =
+          0;
+
+        renderCollocationQuestion();
+
+      }
+    );
+
+  }
+
+  renderCollocationQuestion();
+
+}
+
+
+/* =========================================================
+   CURRENT COLLOCATION QUESTION
+========================================================= */
+
+function getCurrentCollocationQuestion() {
+
+  const set =
+    collocationSets[
+      currentCollocationFileIndex
+    ];
+
+  if (
+    !set ||
+    !Array.isArray(
+      set.questions
+    ) ||
+    !set.questions.length
+  ) {
+
+    return null;
+
+  }
+
+  return (
+    set.questions[
+      currentCollocationQuestionIndex
+    ] ||
+    null
+  );
+
+}
+
+
+/* =========================================================
+   RENDER COLLOCATION QUESTION
+========================================================= */
+
+function renderCollocationQuestion() {
+
+  const content =
+    document.getElementById(
+      "collocation-content"
+    );
+
+  const fileName =
+    document.getElementById(
+      "collocation-file-name"
+    );
+
+  if (!content) {
+
+    return;
+
+  }
+
+  collocationSelected =
+    new Set();
+
+  collocationChecked =
+    false;
+
+
+  /* NO FILES */
+
+  if (
+    !collocationSets.length
+  ) {
+
+    if (fileName) {
+
+      fileName.textContent =
+        "No collocation JSON files found";
+
+    }
+
+    content.innerHTML =
+      `
+        <div class="empty-state">
+
+          No collocation files were found in
+          <code>collocations/</code>.
+
+        </div>
+      `;
+
+    return;
+
+  }
+
+
+  const set =
+    collocationSets[
+      currentCollocationFileIndex
+    ];
+
+  const question =
+    getCurrentCollocationQuestion();
+
+  if (!question) {
+
+    content.innerHTML =
+      `
+        <div class="empty-state">
+          This collocation file has no questions.
+        </div>
+      `;
+
+    return;
+
+  }
+
+
+  if (fileName) {
+
+    fileName.textContent =
+      `Set ${set.fileNumber} · ${
+        currentCollocationQuestionIndex + 1
+      } / ${
+        set.questions.length
+      }`;
+
+  }
+
+
+  const choices =
+    Array.isArray(
+      question.choices
+    )
+      ? shuffle(
+          [...question.choices]
+        )
+      : [];
+
+
+  content.innerHTML =
+    `
+      <div class="collocation-card">
+
+
+        <div class="collocation-progress">
+
+          <span>
+            Question
+            ${
+              currentCollocationQuestionIndex + 1
+            }
+            /
+            ${
+              set.questions.length
+            }
+          </span>
+
+
+          <span>
+            Score:
+            ${collocationScore}
+          </span>
+
+        </div>
+
+
+        <div
+          class="collocation-main-word"
+        >
+          ${escapeHTML(
+            question.word
+          )}
+        </div>
+
+
+        <div
+          class="collocation-meaning"
+        >
+          ${escapeHTML(
+            question.meaning || ""
+          )}
+        </div>
+
+
+        <p
+          class="collocation-instruction"
+        >
+          Select all natural collocations:
+        </p>
+
+
+        <div
+          id="collocation-choices"
+          class="collocation-choices"
+        >
+
+          ${
+            choices
+              .map(
+                (choice, index) =>
+                  `
+                    <button
+                      type="button"
+                      class="collocation-choice"
+                      data-choice-index="${index}"
+                      data-choice="${escapeHTML(
+                        choice
+                      )}"
+                    >
+                      ${escapeHTML(
+                        choice
+                      )}
+                    </button>
+                  `
+              )
+              .join("")
+          }
+
+        </div>
+
+
+        <div
+          id="collocation-result"
+          class="collocation-result"
+        ></div>
+
+
+        <div
+          class="collocation-actions"
+        >
+
+          <button
+            id="collocation-check"
+            class="primary-btn"
+            type="button"
+          >
+            Check Answer
+          </button>
+
+
+          <button
+            id="collocation-next"
+            class="secondary-btn"
+            type="button"
+          >
+            Next Question →
+          </button>
+
+        </div>
+
+
+      </div>
+    `;
+
+
+  document
+    .querySelectorAll(
+      "#collocation .collocation-choice"
+    )
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          function () {
+
+            if (
+              collocationChecked
+            ) {
+
+              return;
+
+            }
+
+            const index =
+              Number(
+                button.dataset.choiceIndex
+              );
+
+            if (
+              collocationSelected.has(
+                index
+              )
+            ) {
+
+              collocationSelected.delete(
+                index
+              );
+
+              button.classList.remove(
+                "selected"
+              );
+
+            } else {
+
+              collocationSelected.add(
+                index
+              );
+
+              button.classList.add(
+                "selected"
+              );
+
+            }
+
+          }
+        );
+
+      }
+    );
+
+
+  const check =
+    document.getElementById(
+      "collocation-check"
+    );
+
+  if (check) {
+
+    check.addEventListener(
+      "click",
+      checkCollocationAnswer
+    );
+
+  }
+
+
+  const next =
+    document.getElementById(
+      "collocation-next"
+    );
+
+  if (next) {
+
+    next.addEventListener(
+      "click",
+      nextCollocationQuestion
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   CHECK COLLOCATION
+========================================================= */
+
+function checkCollocationAnswer() {
+
+  if (
+    collocationChecked
+  ) {
+
+    return;
+
+  }
+
+  const question =
+    getCurrentCollocationQuestion();
+
+  if (!question) {
+
+    return;
+
+  }
+
+
+  const correct =
+    new Set(
+      (
+        Array.isArray(
+          question.correct
+        )
+          ? question.correct
+          : []
+      ).map(
+        String
+      )
+    );
+
+
+  const selected =
+    new Set();
+
+
+  document
+    .querySelectorAll(
+      "#collocation .collocation-choice"
+    )
+    .forEach(
+      button => {
+
+        const index =
+          Number(
+            button.dataset.choiceIndex
+          );
+
+        if (
+          collocationSelected.has(
+            index
+          )
+        ) {
+
+          selected.add(
+            String(
+              button.dataset.choice
+            )
+          );
+
+        }
+
+      }
+    );
+
+
+  const exact =
+    selected.size ===
+      correct.size &&
+    [...correct].every(
+      word =>
+        selected.has(word)
+    );
+
+
+  collocationChecked =
+    true;
+
+  collocationAnswered++;
+
+
+  if (exact) {
+
+    collocationScore++;
+
+  }
+
+
+  document
+    .querySelectorAll(
+      "#collocation .collocation-choice"
+    )
+    .forEach(
+      button => {
+
+        const choice =
+          String(
+            button.dataset.choice
+          );
+
+        const isCorrect =
+          correct.has(choice);
+
+        const isSelected =
+          collocationSelected.has(
+            Number(
+              button.dataset.choiceIndex
+            )
+          );
+
+        button.disabled =
+          true;
+
+        button.classList.remove(
+          "selected"
+        );
+
+
+        if (isCorrect) {
+
+          button.classList.add(
+            "correct"
+          );
+
+        } else if (isSelected) {
+
+          button.classList.add(
+            "wrong"
+          );
+
+        }
+
+      }
+    );
+
+
+  const result =
+    document.getElementById(
+      "collocation-result"
+    );
+
+  if (result) {
+
+    if (exact) {
+
+      result.innerHTML =
+        `
+          <strong>
+            ✓ Correct!
+          </strong>
+
+          <span>
+            All correct collocations selected.
+          </span>
+        `;
+
+      result.classList.add(
+        "correct-result"
+      );
+
+    } else {
+
+      result.innerHTML =
+        `
+          <strong>
+            ✗ Not quite.
+          </strong>
+
+          <span>
+            Green choices are the correct
+            collocations.
+          </span>
+        `;
+
+      result.classList.add(
+        "wrong-result"
+      );
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   NEXT COLLOCATION QUESTION
+========================================================= */
+
+function nextCollocationQuestion() {
+
+  const set =
+    collocationSets[
+      currentCollocationFileIndex
+    ];
+
+  if (
+    !set ||
+    !set.questions.length
+  ) {
+
+    return;
+
+  }
+
+  currentCollocationQuestionIndex++;
+
+  if (
+    currentCollocationQuestionIndex >=
+    set.questions.length
+  ) {
+
+    currentCollocationQuestionIndex =
+      0;
+
+  }
+
+  renderCollocationQuestion();
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* =========================================================
+   COLLOCATION RUNTIME STYLES
+========================================================= */
+
+(function injectCollocationStyles() {
+
+  if (
+    document.getElementById(
+      "collocation-runtime-styles"
+    )
+  ) {
+
+    return;
+
+  }
+
+  const style =
+    document.createElement(
+      "style"
+    );
+
+  style.id =
+    "collocation-runtime-styles";
+
+  style.textContent =
+    `
+
+      .collocation-wrapper {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px 0 60px;
+      }
+
+
+      .collocation-header {
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+
+      .collocation-file-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        margin: 20px 0;
+      }
+
+
+      #collocation-file-name {
+        font-weight: 700;
+        text-align: center;
+      }
+
+
+      .collocation-card {
+        background: var(
+          --card-bg,
+          #fff
+        );
+
+        border-radius: 20px;
+
+        padding: 30px;
+
+        box-shadow:
+          0 10px 30px
+          rgba(0,0,0,.08);
+      }
+
+
+      .collocation-progress {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        font-size: .9rem;
+        opacity: .75;
+        margin-bottom: 25px;
+      }
+
+
+      .collocation-main-word {
+        text-align: center;
+
+        font-size:
+          clamp(
+            2.2rem,
+            7vw,
+            4rem
+          );
+
+        font-weight: 800;
+
+        margin-top: 10px;
+      }
+
+
+      .collocation-meaning {
+        text-align: center;
+        font-size: 1.05rem;
+        opacity: .75;
+        margin: 8px 0 30px;
+      }
+
+
+      .collocation-instruction {
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 18px;
+      }
+
+
+      .collocation-choices {
+        display: grid;
+
+        grid-template-columns:
+          repeat(
+            auto-fit,
+            minmax(140px, 1fr)
+          );
+
+        gap: 12px;
+      }
+
+
+      .collocation-choice {
+        border:
+          2px solid
+          rgba(128,128,128,.25);
+
+        background: transparent;
+
+        border-radius: 12px;
+
+        padding: 14px 12px;
+
+        font-size: 1.05rem;
+
+        cursor: pointer;
+
+        transition: .2s;
+      }
+
+
+      .collocation-choice:hover {
+        transform:
+          translateY(-2px);
+      }
+
+
+      .collocation-choice.selected {
+        border-color: #7c3aed;
+
+        background:
+          rgba(
+            124,
+            58,
+            237,
+            .12
+          );
+      }
+
+
+      .collocation-choice.correct {
+        border-color: #16a34a;
+
+        background:
+          rgba(
+            22,
+            163,
+            74,
+            .14
+          );
+
+        color: #15803d;
+      }
+
+
+      .collocation-choice.wrong {
+        border-color: #dc2626;
+
+        background:
+          rgba(
+            220,
+            38,
+            38,
+            .12
+          );
+
+        color: #b91c1c;
+      }
+
+
+      .collocation-choice:disabled {
+        cursor: default;
+        transform: none;
+      }
+
+
+      .collocation-result {
+        min-height: 55px;
+
+        margin:
+          22px 0 5px;
+
+        padding: 14px;
+
+        border-radius: 12px;
+
+        text-align: center;
+
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 5px;
+      }
+
+
+      .collocation-result:empty {
+        display: block;
+      }
+
+
+      .collocation-result.correct-result {
+        background:
+          rgba(
+            22,
+            163,
+            74,
+            .1
+          );
+      }
+
+
+      .collocation-result.wrong-result {
+        background:
+          rgba(
+            220,
+            38,
+            38,
+            .08
+          );
+      }
+
+
+      .collocation-actions {
+        display: flex;
+
+        justify-content: center;
+
+        gap: 12px;
+
+        flex-wrap: wrap;
+
+        margin-top: 20px;
+      }
+
+
+      @media (max-width: 600px) {
+
+        .collocation-file-bar {
+          flex-direction: column;
+        }
+
+        .collocation-card {
+          padding: 20px 15px;
+        }
+
+        .collocation-progress {
+          font-size: .8rem;
+        }
+
+        .collocation-choices {
+          grid-template-columns:
+            repeat(
+              2,
+              1fr
+            );
+        }
+
+        .collocation-choice {
+          padding:
+            12px 8px;
+        }
+
+      }
+
+    `;
+
+  document.head.appendChild(
+    style
+  );
+
+})();
 
 
 /* =========================================================
@@ -2737,15 +3220,6 @@ function updateStatistics() {
 ========================================================= */
 
 function updateCountdown() {
-
-  /*
-    Thailand time:
-    UTC +07:00
-
-    Exam:
-    11 October 2026
-    9:00 AM
-  */
 
   const examDate =
     new Date(
@@ -2872,6 +3346,7 @@ function updateCountdown() {
 
 }
 
+
 updateCountdown();
 
 setInterval(
@@ -2899,10 +3374,6 @@ if (startExam) {
 }
 
 
-/* =========================================================
-   START EXAM
-========================================================= */
-
 function startVocabularyExam() {
 
   if (
@@ -2928,18 +3399,16 @@ function startVocabularyExam() {
       )
     );
 
-  examIndex = 0;
+  examIndex =
+    0;
 
-  examScore = 0;
+  examScore =
+    0;
 
   showExamQuestion();
 
 }
 
-
-/* =========================================================
-   SHOW EXAM QUESTION
-========================================================= */
 
 function showExamQuestion() {
 
@@ -2960,7 +3429,6 @@ function showExamQuestion() {
   ) {
 
     showExamResult();
-
     return;
 
   }
@@ -3018,28 +3486,32 @@ function showExamQuestion() {
 
         <div class="exam-options">
 
-          ${options
-            .map(
-              option =>
-                `
-                  <button
-                    class="exam-option"
-                    data-answer="${escapeHTML(
-                      option.words
-                    )}"
-                  >
-                    ${escapeHTML(
-                      option.Meaning
-                    )}
-                  </button>
-                `
-            )
-            .join("")}
+          ${
+            options
+              .map(
+                option =>
+                  `
+                    <button
+                      class="exam-option"
+                      data-answer="${escapeHTML(
+                        option.words
+                      )}"
+                      type="button"
+                    >
+                      ${escapeHTML(
+                        option.Meaning
+                      )}
+                    </button>
+                  `
+              )
+              .join("")
+          }
 
         </div>
 
       </div>
     `;
+
 
   container
     .querySelectorAll(
@@ -3099,7 +3571,8 @@ function showExamQuestion() {
               )
               .forEach(
                 btn =>
-                  btn.disabled = true
+                  btn.disabled =
+                    true
               );
 
             setTimeout(
@@ -3121,10 +3594,6 @@ function showExamQuestion() {
 
 }
 
-
-/* =========================================================
-   EXAM RESULT
-========================================================= */
 
 function showExamResult() {
 
@@ -3152,7 +3621,8 @@ function showExamResult() {
         </h3>
 
         <div class="exam-score">
-          ${examScore} /
+          ${examScore}
+          /
           ${examQuestions.length}
         </div>
 
@@ -3165,12 +3635,14 @@ function showExamResult() {
         <button
           id="restart-exam"
           class="primary-btn"
+          type="button"
         >
           Try Again
         </button>
 
       </div>
     `;
+
 
   const restart =
     document.getElementById(
@@ -3190,151 +3662,21 @@ function showExamResult() {
 
 
 /* =========================================================
-   SHUFFLE
+   HSK 5 DRAG & DROP
 ========================================================= */
-
-function shuffle(
-  array
-) {
-
-  for (
-    let i =
-      array.length - 1;
-    i > 0;
-    i--
-  ) {
-
-    const j =
-      Math.floor(
-        Math.random() *
-        (i + 1)
-      );
-
-    [
-      array[i],
-      array[j]
-    ] = [
-      array[j],
-      array[i]
-    ];
-
-  }
-
-  return array;
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHTML(
-  value
-) {
-
-  if (
-    value === undefined ||
-    value === null
-  ) {
-
-    return "";
-
-  }
-
-  return String(value)
-    .replace(
-      /&/g,
-      "&amp;"
-    )
-    .replace(
-      /</g,
-      "&lt;"
-    )
-    .replace(
-      />/g,
-      "&gt;"
-    )
-    .replace(
-      /"/g,
-      "&quot;"
-    )
-    .replace(
-      /'/g,
-      "&#039;"
-    );
-
-}
-
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
-
-async function initializeApp() {
-
-  console.log(
-    "Starting Chinese Learning website..."
-  );
-
-  /*
-    Load saved highlights FIRST.
-  */
-
-  loadHighlights();
-
-  /*
-    Load vocabulary and paragraphs.
-  */
-
-  await Promise.all(
-    [
-      loadVocabulary(),
-      loadParagraphs(),
-      loadCollocations()
-    ]
-  );
-
-  /*
-    Render saved highlights.
-  */
-
-  renderAllHighlights();
-
-  console.log(
-    "Chinese Learning website ready."
-  );
-
-}
-
-
-/* =========================================================
-   START WEBSITE
-========================================================= */
-
-initializeApp();
-
-
-/* =========================================================
-   HSK 5 VOCABULARY DRAG & DROP READING PRACTICE
-   Added without changing existing website functions.
-   Requires:
-   ./HSK5_Vocabulary_DragDrop_25_Passages.json
-   ========================================================= */
 
 let dragDropPassages = [];
 let dragDropPassageIndex = 0;
 let dragDropAnswers = {};
 let dragDropScore = 0;
-let dragDropStarted = false;
 
 const DRAG_DROP_JSON_FILE =
   "./HSK5_Vocabulary_DragDrop_25_Passages.json";
 
 
-/* ---------------------------------------------------------
-   LOAD DRAG & DROP JSON
---------------------------------------------------------- */
+/* =========================================================
+   LOAD DRAG & DROP
+========================================================= */
 
 async function loadDragDropPractice() {
 
@@ -3361,7 +3703,9 @@ async function loadDragDropPractice() {
 
     if (
       !data ||
-      !Array.isArray(data.passages)
+      !Array.isArray(
+        data.passages
+      )
     ) {
 
       throw new Error(
@@ -3391,10 +3735,9 @@ async function loadDragDropPractice() {
 }
 
 
-/* ---------------------------------------------------------
-   CREATE INTERFACE DYNAMICALLY
-   This means no existing HTML needs to be changed.
---------------------------------------------------------- */
+/* =========================================================
+   CREATE DRAG & DROP INTERFACE
+========================================================= */
 
 function createDragDropInterface() {
 
@@ -3409,7 +3752,9 @@ function createDragDropInterface() {
   }
 
   const section =
-    document.createElement("section");
+    document.createElement(
+      "section"
+    );
 
   section.id =
     "hsk5-drag-drop-section";
@@ -3417,86 +3762,90 @@ function createDragDropInterface() {
   section.className =
     "page-section";
 
-  section.innerHTML = `
-    <div class="section-inner hsk5-drag-drop-wrapper">
 
-      <div class="hsk5-drag-drop-header">
-
-        <p class="section-label">
-          HSK 5 VOCABULARY PRACTICE
-        </p>
-
-        <h2>
-          Drag & Drop Reading
-        </h2>
-
-        <p id="hsk5-drag-drop-description">
-          Read the passage and drag the correct vocabulary
-          into each blank.
-        </p>
-
-      </div>
-
-      <div class="hsk5-drag-drop-controls">
-
-        <button
-          id="hsk5-drag-drop-prev"
-          class="secondary-btn"
-          type="button"
-        >
-          ← Previous
-        </button>
+  section.innerHTML =
+    `
+      <div
+        class="section-inner hsk5-drag-drop-wrapper"
+      >
 
         <div
-          id="hsk5-drag-drop-counter"
-          class="hsk5-drag-drop-counter"
+          class="hsk5-drag-drop-header"
         >
-          1 / ${dragDropPassages.length}
+
+          <p class="section-label">
+            HSK 5 VOCABULARY PRACTICE
+          </p>
+
+          <h2>
+            Drag & Drop Reading
+          </h2>
+
+          <p>
+            Read the passage and drag the correct
+            vocabulary into each blank.
+          </p>
+
         </div>
 
-        <button
-          id="hsk5-drag-drop-next"
-          class="primary-btn"
-          type="button"
+
+        <div
+          class="hsk5-drag-drop-controls"
         >
-          Next →
-        </button>
+
+          <button
+            id="hsk5-drag-drop-prev"
+            class="secondary-btn"
+            type="button"
+          >
+            ← Previous
+          </button>
+
+
+          <div
+            id="hsk5-drag-drop-counter"
+            class="hsk5-drag-drop-counter"
+          >
+            1 / ${dragDropPassages.length}
+          </div>
+
+
+          <button
+            id="hsk5-drag-drop-next"
+            class="primary-btn"
+            type="button"
+          >
+            Next →
+          </button>
+
+        </div>
+
+
+        <div
+          id="hsk5-drag-drop-content"
+          class="hsk5-drag-drop-content"
+        ></div>
 
       </div>
+    `;
 
-      <div
-        id="hsk5-drag-drop-content"
-        class="hsk5-drag-drop-content"
-      ></div>
-
-    </div>
-  `;
-
-  /*
-    Put the new section at the end of the page.
-    Existing sections are untouched.
-  */
 
   const main =
-    document.querySelector("main");
+    document.querySelector(
+      "main"
+    );
 
   if (main) {
 
-    main.appendChild(section);
-
-  } else {
-
-    document.body.appendChild(section);
+    main.appendChild(
+      section
+    );
 
   }
 
-  /*
-    Navigation button.
-    If the existing navigation has no button for this
-    practice, create one dynamically.
-  */
 
   createDragDropNavigationButton();
+
 
   const previous =
     document.getElementById(
@@ -3508,6 +3857,7 @@ function createDragDropInterface() {
       "hsk5-drag-drop-next"
     );
 
+
   if (previous) {
 
     previous.addEventListener(
@@ -3515,26 +3865,27 @@ function createDragDropInterface() {
       function () {
 
         if (
-          dragDropPassageIndex > 0
+          dragDropPassageIndex <= 0
         ) {
 
-          dragDropPassageIndex--;
-
-          dragDropAnswers = {};
-
-          renderDragDropPassage();
-
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-          });
+          return;
 
         }
+
+        dragDropPassageIndex--;
+
+        renderDragDropPassage();
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
 
       }
     );
 
   }
+
 
   if (next) {
 
@@ -3543,36 +3894,37 @@ function createDragDropInterface() {
       function () {
 
         if (
-          dragDropPassageIndex <
+          dragDropPassageIndex >=
           dragDropPassages.length - 1
         ) {
 
-          dragDropPassageIndex++;
-
-          dragDropAnswers = {};
-
-          renderDragDropPassage();
-
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-          });
+          return;
 
         }
+
+        dragDropPassageIndex++;
+
+        renderDragDropPassage();
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
 
       }
     );
 
   }
 
+
   renderDragDropPassage();
 
 }
 
 
-/* ---------------------------------------------------------
-   CREATE NAVIGATION BUTTON
---------------------------------------------------------- */
+/* =========================================================
+   DRAG & DROP NAVIGATION BUTTON
+========================================================= */
 
 function createDragDropNavigationButton() {
 
@@ -3598,7 +3950,9 @@ function createDragDropNavigationButton() {
   }
 
   const button =
-    document.createElement("button");
+    document.createElement(
+      "button"
+    );
 
   button.type =
     "button";
@@ -3612,14 +3966,16 @@ function createDragDropNavigationButton() {
   button.textContent =
     "Drag & Drop";
 
-  nav.appendChild(button);
+  nav.appendChild(
+    button
+  );
 
 }
 
 
-/* ---------------------------------------------------------
-   RENDER CURRENT PASSAGE
---------------------------------------------------------- */
+/* =========================================================
+   RENDER DRAG & DROP PASSAGE
+========================================================= */
 
 function renderDragDropPassage() {
 
@@ -3650,39 +4006,25 @@ function renderDragDropPassage() {
 
   dragDropAnswers = {};
 
+
   const words =
     passage.questions.map(
       question =>
         question.answer
     );
 
+
   const shuffledWords =
     shuffle(
       [...words]
     );
 
-  const blankMap = {};
-
-  passage.questions.forEach(
-    question => {
-
-      blankMap[
-        question.answer
-      ] =
-        `dragdrop-blank-${question.id}`;
-
-    }
-  );
 
   let passageHTML =
     escapeHTML(
       passage.passage
     );
 
-  /*
-    The JSON uses 【word】 to identify the target.
-    Replace each target with a real drop zone.
-  */
 
   passage.questions.forEach(
     question => {
@@ -3706,6 +4048,7 @@ function renderDragDropPassage() {
           </span>
         `;
 
+
       passageHTML =
         passageHTML.replace(
           `【${escapedWord}】`,
@@ -3715,50 +4058,6 @@ function renderDragDropPassage() {
     }
   );
 
-  /*
-    If a target was not replaced because of HTML escaping,
-    try the raw vocabulary text as a fallback.
-  */
-
-  passage.questions.forEach(
-    question => {
-
-      const rawWord =
-        question.answer;
-
-      const escapedWord =
-        escapeHTML(rawWord);
-
-      if (
-        passageHTML.includes(
-          `【${escapedWord}】`
-        )
-      ) {
-
-        const blank =
-          `
-            <span
-              class="hsk5-drag-drop-blank"
-              data-answer="${escapedWord}"
-              data-question-id="${question.id}"
-              id="dragdrop-blank-${question.id}"
-              ondragover="allowHSK5DragDrop(event)"
-              ondrop="dropHSK5Vocabulary(event)"
-            >
-              ______
-            </span>
-          `;
-
-        passageHTML =
-          passageHTML.replace(
-            `【${escapedWord}】`,
-            blank
-          );
-
-      }
-
-    }
-  );
 
   const optionHTML =
     shuffledWords
@@ -3766,7 +4065,9 @@ function renderDragDropPassage() {
         word => {
 
           const escaped =
-            escapeHTML(word);
+            escapeHTML(
+              word
+            );
 
           return `
             <div
@@ -3783,103 +4084,128 @@ function renderDragDropPassage() {
       )
       .join("");
 
-  container.innerHTML = `
 
-    <div class="hsk5-drag-drop-meta">
+  container.innerHTML =
+    `
+      <div
+        class="hsk5-drag-drop-meta"
+      >
 
-      <span>
-        Passage ${passage.id}
-        /
-        ${dragDropPassages.length}
-      </span>
+        <span>
+          Passage
+          ${passage.id}
+          /
+          ${dragDropPassages.length}
+        </span>
 
-      <span>
+
+        <span>
+          ${escapeHTML(
+            passage.level ||
+            "HSK 5"
+          )}
+        </span>
+
+
+        <span>
+          ${
+            passage.wordCountTarget ||
+            passage.questions.length
+          }
+          vocabulary targets
+        </span>
+
+
+        <span>
+          ${
+            passage.estimatedReadingMinutes ||
+            30
+          }
+          min
+        </span>
+
+      </div>
+
+
+      <h3
+        class="hsk5-drag-drop-title"
+      >
         ${escapeHTML(
-          passage.level || "HSK 5"
+          passage.title
         )}
-      </span>
+      </h3>
 
-      <span>
-        ${passage.wordCountTarget || passage.questions.length}
-        vocabulary targets
-      </span>
 
-      <span>
-        ${passage.estimatedReadingMinutes || 30}
-        min
-      </span>
+      <div
+        class="hsk5-drag-drop-word-bank"
+        id="hsk5-drag-drop-word-bank"
+      >
 
-    </div>
+        <div
+          class="hsk5-drag-drop-bank-title"
+        >
+          Vocabulary
+        </div>
 
-    <h3 class="hsk5-drag-drop-title">
-      ${escapeHTML(passage.title)}
-    </h3>
 
-    <div
-      class="hsk5-drag-drop-word-bank"
-      id="hsk5-drag-drop-word-bank"
-    >
+        <div
+          class="hsk5-drag-drop-options"
+        >
+          ${optionHTML}
+        </div>
 
-      <div class="hsk5-drag-drop-bank-title">
-        Vocabulary
       </div>
 
-      <div class="hsk5-drag-drop-options">
-        ${optionHTML}
+
+      <article
+        class="hsk5-drag-drop-passage"
+        data-highlight-target="hsk5-drag-drop-passage-${passage.id}"
+      >
+        ${passageHTML}
+      </article>
+
+
+      <div
+        class="hsk5-drag-drop-actions"
+      >
+
+        <button
+          id="hsk5-drag-drop-check"
+          class="primary-btn"
+          type="button"
+        >
+          Check Answers
+        </button>
+
+
+        <button
+          id="hsk5-drag-drop-reset"
+          class="secondary-btn"
+          type="button"
+        >
+          Reset
+        </button>
+
       </div>
 
-    </div>
 
-    <article
-      class="hsk5-drag-drop-passage"
-      data-highlight-target="hsk5-drag-drop-passage-${passage.id}"
-    >
-      ${passageHTML}
-    </article>
+      <div
+        id="hsk5-drag-drop-result"
+        class="hsk5-drag-drop-result"
+      ></div>
+    `;
 
-    <div class="hsk5-drag-drop-actions">
-
-      <button
-        id="hsk5-drag-drop-check"
-        class="primary-btn"
-        type="button"
-      >
-        Check Answers
-      </button>
-
-      <button
-        id="hsk5-drag-drop-reset"
-        class="secondary-btn"
-        type="button"
-      >
-        Reset
-      </button>
-
-    </div>
-
-    <div
-      id="hsk5-drag-drop-result"
-      class="hsk5-drag-drop-result"
-    ></div>
-
-  `;
 
   setupDragDropButtons();
 
   updateDragDropCounter();
 
-  /*
-    Do not run the normal highlight renderer
-    on this passage. The passage contains
-    interactive drag-and-drop blanks.
-  */
-
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    DRAG EVENTS
---------------------------------------------------------- */
+========================================================= */
 
 function dragHSK5Vocabulary(event) {
 
@@ -3962,9 +4288,9 @@ function dropHSK5Vocabulary(event) {
 }
 
 
-/* ---------------------------------------------------------
-   CHECK ANSWERS
---------------------------------------------------------- */
+/* =========================================================
+   CHECK DRAG & DROP
+========================================================= */
 
 function checkHSK5DragDropAnswers() {
 
@@ -3980,8 +4306,8 @@ function checkHSK5DragDropAnswers() {
   }
 
   let correct = 0;
-
   let answered = 0;
+
 
   passage.questions.forEach(
     question => {
@@ -4012,6 +4338,7 @@ function checkHSK5DragDropAnswers() {
         "wrong"
       );
 
+
       if (
         selected ===
         question.answer
@@ -4034,8 +4361,10 @@ function checkHSK5DragDropAnswers() {
     }
   );
 
+
   dragDropScore =
     correct;
+
 
   const result =
     document.getElementById(
@@ -4044,28 +4373,34 @@ function checkHSK5DragDropAnswers() {
 
   if (result) {
 
-    result.innerHTML = `
-      <strong>
-        ${correct} / ${passage.questions.length}
-      </strong>
+    result.innerHTML =
+      `
+        <strong>
+          ${correct}
+          /
+          ${passage.questions.length}
+        </strong>
 
-      <span>
-        ${answered}
-        answered
-        ·
-        ${passage.questions.length - answered}
-        unanswered
-      </span>
-    `;
+        <span>
+          ${answered}
+          answered
+          ·
+          ${
+            passage.questions.length -
+            answered
+          }
+          unanswered
+        </span>
+      `;
 
   }
 
 }
 
 
-/* ---------------------------------------------------------
-   RESET CURRENT PASSAGE
---------------------------------------------------------- */
+/* =========================================================
+   RESET DRAG & DROP
+========================================================= */
 
 function resetHSK5DragDrop() {
 
@@ -4110,6 +4445,7 @@ function resetHSK5DragDrop() {
     }
   );
 
+
   const result =
     document.getElementById(
       "hsk5-drag-drop-result"
@@ -4125,9 +4461,9 @@ function resetHSK5DragDrop() {
 }
 
 
-/* ---------------------------------------------------------
-   BUTTON SETUP
---------------------------------------------------------- */
+/* =========================================================
+   DRAG & DROP BUTTONS
+========================================================= */
 
 function setupDragDropButtons() {
 
@@ -4141,6 +4477,7 @@ function setupDragDropButtons() {
       "hsk5-drag-drop-reset"
     );
 
+
   if (check) {
 
     check.addEventListener(
@@ -4149,6 +4486,7 @@ function setupDragDropButtons() {
     );
 
   }
+
 
   if (reset) {
 
@@ -4162,9 +4500,9 @@ function setupDragDropButtons() {
 }
 
 
-/* ---------------------------------------------------------
-   PASSAGE COUNTER
---------------------------------------------------------- */
+/* =========================================================
+   DRAG & DROP COUNTER
+========================================================= */
 
 function updateDragDropCounter() {
 
@@ -4182,6 +4520,7 @@ function updateDragDropCounter() {
   counter.textContent =
     `${dragDropPassageIndex + 1} / ${dragDropPassages.length}`;
 
+
   const previous =
     document.getElementById(
       "hsk5-drag-drop-prev"
@@ -4192,12 +4531,14 @@ function updateDragDropCounter() {
       "hsk5-drag-drop-next"
     );
 
+
   if (previous) {
 
     previous.disabled =
       dragDropPassageIndex === 0;
 
   }
+
 
   if (next) {
 
@@ -4210,9 +4551,44 @@ function updateDragDropCounter() {
 }
 
 
-/* ---------------------------------------------------------
-   INITIALIZE NEW FUNCTION
---------------------------------------------------------- */
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+async function initializeApp() {
+
+  console.log(
+    "Starting Chinese Learning website..."
+  );
+
+
+  loadHighlights();
+
+
+  await Promise.all(
+    [
+      loadVocabulary(),
+      loadParagraphs()
+    ]
+  );
+
+
+  renderAllHighlights();
+
+
+  console.log(
+    "Chinese Learning website ready."
+  );
+
+}
+
+
+initializeApp();
+
+
+/* =========================================================
+   DOM READY - DRAG & DROP
+========================================================= */
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -4222,3 +4598,96 @@ document.addEventListener(
 
   }
 );
+
+
+/* =========================================================
+   DOM READY - COLLOCATION
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+    loadCollocations();
+
+  }
+);
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+  if (
+    value === undefined ||
+    value === null
+  ) {
+
+    return "";
+
+  }
+
+  return String(value)
+
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+
+    .replace(
+      /</g,
+      "&lt;"
+    )
+
+    .replace(
+      />/g,
+      "&gt;"
+    )
+
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+/* =========================================================
+   SHUFFLE
+========================================================= */
+
+function shuffle(array) {
+
+  for (
+    let i =
+      array.length - 1;
+    i > 0;
+    i--
+  ) {
+
+    const j =
+      Math.floor(
+        Math.random() *
+        (i + 1)
+      );
+
+    [
+      array[i],
+      array[j]
+    ] = [
+      array[j],
+      array[i]
+    ];
+
+  }
+
+  return array;
+
+}
