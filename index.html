@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -17,6 +18,7 @@
   <title>中文学习 · HSK 5</title>
 
   <link rel="stylesheet" href="./style.css">
+
 </head>
 
 
@@ -437,19 +439,243 @@
   </div>
 
 
+
+  <!-- =======================================================
+       ALPHABET FILTER
+  ======================================================== -->
+
   <div
     id="alphabet-wrapper"
     class="alphabet-wrapper"
   >
 
     <button
+      type="button"
       class="alphabet-btn active"
       data-letter="all"
     >
       All
     </button>
 
+
+    <div
+      id="alphabet-list"
+      class="alphabet-list"
+      aria-label="Vocabulary alphabet filter"
+    >
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="a"
+      >
+        A
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="b"
+      >
+        B
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="c"
+      >
+        C
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="d"
+      >
+        D
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="e"
+      >
+        E
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="f"
+      >
+        F
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="g"
+      >
+        G
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="h"
+      >
+        H
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="i"
+      >
+        I
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="j"
+      >
+        J
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="k"
+      >
+        K
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="l"
+      >
+        L
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="m"
+      >
+        M
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="n"
+      >
+        N
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="o"
+      >
+        O
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="p"
+      >
+        P
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="q"
+      >
+        Q
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="r"
+      >
+        R
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="s"
+      >
+        S
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="t"
+      >
+        T
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="u"
+      >
+        U
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="v"
+      >
+        V
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="w"
+      >
+        W
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="x"
+      >
+        X
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="y"
+      >
+        Y
+      </button>
+
+      <button
+        type="button"
+        class="alphabet-btn"
+        data-letter="z"
+      >
+        Z
+      </button>
+
+    </div>
+
   </div>
+
 
 
   <div
@@ -555,8 +781,7 @@
     <p
       id="paragraph-pinyin"
       class="paragraph-pinyin"
-    >
-    </p>
+    ></p>
 
 
     <div class="article-navigation">
@@ -703,22 +928,19 @@
       <div
         id="exam-word"
         class="exam-word"
-      >
-      </div>
+      ></div>
 
 
       <div
         id="exam-pinyin"
         class="exam-pinyin"
-      >
-      </div>
+      ></div>
 
 
       <div
         id="exam-options"
         class="exam-options"
-      >
-      </div>
+      ></div>
 
     </div>
 
@@ -741,8 +963,7 @@
       </div>
 
 
-      <p id="exam-result-message">
-      </p>
+      <p id="exam-result-message"></p>
 
 
       <button
@@ -758,6 +979,7 @@
   </div>
 
 </section>
+
 
 
 </main>
@@ -786,24 +1008,21 @@
 
 
     <h2
-      id="detail-word"
+      id="word-title"
       class="chinese-text"
-    >
-    </h2>
+    ></h2>
 
 
     <div
-      id="detail-pinyin"
+      id="word-pinyin"
       class="detail-pinyin"
-    >
-    </div>
+    ></div>
 
 
     <p
-      id="detail-meaning"
+      id="word-meaning"
       class="detail-meaning"
-    >
-    </p>
+    ></p>
 
 
     <div class="detail-divider"></div>
@@ -815,10 +1034,10 @@
 
 
     <div
-      id="detail-sentence"
-      class="detail-sentence chinese-text"
-    >
-    </div>
+      id="word-sentence"
+      class="detail-sentence chinese-text highlightable"
+      data-highlight-field="sentence"
+    ></div>
 
   </div>
 
@@ -871,5 +1090,4 @@
 <script src="./app.js"></script>
 
 </body>
-
 </html>
