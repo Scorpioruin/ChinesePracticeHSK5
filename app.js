@@ -15,6 +15,7 @@ const vocabularyLetters = [
   "v", "w", "x", "y", "z"
 ];
 
+
 const paragraphLetters = [
   "a", "b", "c", "d", "e", "f", "g",
   "h", "i", "j", "k", "l", "m", "n",
@@ -1049,63 +1050,324 @@ async function loadVocabulary() {
 
   vocabulary = [];
 
-  for (
-    const letter of vocabularyLetters
-  ) {
+  /*
+    Load all vocabulary files in parallel.
 
-    const file =
-      `./words/${letter}.json`;
+    This is intentionally done with Promise.all so that one
+    missing file does NOT block the other alphabet files.
+  */
 
-    try {
+  const results = await Promise.all(
+    vocabularyLetters.map(
+      async letter => {
 
-      const data =
-        await loadJSON(file);
+        const file =
+          `./words/${letter}.json`;
 
-      if (!Array.isArray(data)) {
+        try {
 
-        throw new Error(
-          `${file} → Vocabulary JSON must be an array`
-        );
+          const data =
+            await loadJSON(file);
+
+          let list = data;
+
+          /*
+            Support both:
+
+            [
+              {...},
+              {...}
+            ]
+
+            and:
+
+            {
+              words: [...]
+            }
+          */
+
+          if (
+            !Array.isArray(list) &&
+            list &&
+            typeof list === "object"
+          ) {
+
+            if (Array.isArray(list.words)) {
+              list = list.words;
+            } else if (Array.isArray(list.data)) {
+              list = list.data;
+            } else if (Array.isArray(list.vocabulary)) {
+              list = list.vocabulary;
+            }
+
+          }
+
+          if (!Array.isArray(list)) {
+
+            throw new Error(
+              `${file} → Vocabulary JSON must contain an array`
+            );
+
+          }
+
+          return {
+            letter,
+            words: list
+          };
+
+        } catch (error) {
+
+          console.warn(
+            `Could not load ${file}:`,
+            error.message
+          );
+
+          return {
+            letter,
+            words: []
+          };
+
+        }
 
       }
+    )
+  );
 
-      data.forEach(
-        word => {
+
+  /*
+    Convert every vocabulary item into one consistent
+    internal structure.
+
+    The filename is the authoritative alphabet because the
+    website stores vocabulary as words/a.json ... words/z.json.
+  */
+
+  results.forEach(
+    result => {
+
+      result.words.forEach(
+        (word, index) => {
+
+          if (
+            !word ||
+            typeof word !== "object"
+          ) {
+
+            return;
+
+          }
 
           vocabulary.push({
 
             ...word,
 
             letter:
-              letter.toUpperCase()
+              result.letter.toUpperCase(),
+
+            _index:
+              index
 
           });
 
         }
       );
 
-    } catch (error) {
+    }
+  );
 
-      console.warn(
-        `Could not load ${file}:`,
-        error.message
+
+  /*
+    Keep the vocabulary in alphabetical file order.
+  */
+
+  vocabulary.sort(
+    (a, b) => {
+
+      const letterA =
+        String(a.letter || "");
+
+      const letterB =
+        String(b.letter || "");
+
+      if (letterA !== letterB) {
+        return letterA.localeCompare(letterB);
+      }
+
+      return String(
+        getVocabularyWord(a)
+      ).localeCompare(
+        String(getVocabularyWord(b)),
+        "zh-Hans"
       );
 
     }
+  );
 
-  }
 
   console.log(
     `Vocabulary loaded: ${vocabulary.length} words`
   );
 
+
+  /*
+    Setup the alphabet even when there are zero words.
+    This guarantees that the A-Z controls are visible.
+  */
+
   setupAlphabet();
+
 
   displayWords(
     vocabulary
   );
 
+
   updateStatistics();
+
+}
+
+
+/* =========================================================
+   VOCABULARY FIELD HELPERS
+========================================================= */
+
+function getVocabularyWord(word) {
+
+  if (!word) {
+    return "";
+  }
+
+  return (
+    word.words ??
+    word.word ??
+    word.Word ??
+    word.Chinese ??
+    word.chinese ??
+    word.term ??
+    ""
+  );
+
+}
+
+
+function getVocabularyPinyin(word) {
+
+  if (!word) {
+    return "";
+  }
+
+  return (
+    word.Pinyin ??
+    word.pinyin ??
+    word.PINYIN ??
+    ""
+  );
+
+}
+
+
+function getVocabularyMeaning(word) {
+
+  if (!word) {
+    return "";
+  }
+
+  return (
+    word.Meaning ??
+    word.meaning ??
+    word.English ??
+    word.english ??
+    word.translation ??
+    ""
+  );
+
+}
+
+
+/*
+  Example sentence helper.
+
+  Different vocabulary files may use slightly different
+  field names. The website now supports all common variants
+  instead of depending only on "Sentences".
+*/
+
+function getExampleSentence(word) {
+
+  if (!word) {
+    return "";
+  }
+
+
+  const possibleFields = [
+
+    "Sentences",
+    "Sentence",
+    "sentence",
+    "sentences",
+
+    "ExampleSentence",
+    "exampleSentence",
+    "example_sentence",
+
+    "Example",
+    "example",
+
+    "Examples",
+    "examples"
+
+  ];
+
+
+  for (
+    const field of possibleFields
+  ) {
+
+    const value =
+      word[field];
+
+
+    if (
+      value === undefined ||
+      value === null
+    ) {
+
+      continue;
+
+    }
+
+
+    if (Array.isArray(value)) {
+
+      const text =
+        value
+          .map(item => String(item ?? "").trim())
+          .filter(Boolean)
+          .join(" ");
+
+
+      if (text) {
+        return text;
+      }
+
+
+      continue;
+
+    }
+
+
+    const text =
+      String(value).trim();
+
+
+    if (text) {
+      return text;
+    }
+
+  }
+
+
+  return "";
 
 }
 
@@ -1116,23 +1378,115 @@ async function loadVocabulary() {
 
 function setupAlphabet() {
 
-  const alphabetList =
+  let alphabetList =
     document.getElementById(
       "alphabet-list"
     );
 
+
+  /*
+    If the HTML is missing #alphabet-list for any reason,
+    create it automatically instead of silently failing.
+  */
+
   if (!alphabetList) {
+
+    const wrapper =
+      document.querySelector(
+        ".alphabet-wrapper"
+      );
+
+
+    if (wrapper) {
+
+      alphabetList =
+        document.createElement(
+          "div"
+        );
+
+      alphabetList.id =
+        "alphabet-list";
+
+      alphabetList.className =
+        "alphabet-list";
+
+
+      wrapper.appendChild(
+        alphabetList
+      );
+
+    }
+
+  }
+
+
+  if (!alphabetList) {
+
+    console.error(
+      "Alphabet filter container #alphabet-list was not found."
+    );
 
     return;
 
   }
 
-  alphabetList.innerHTML = "";
+
+  alphabetList.innerHTML =
+    "";
+
+
+  /*
+    Make sure the wrapper is visible even if an older CSS file
+    is still cached.
+  */
+
+  const wrapper =
+    document.querySelector(
+      ".alphabet-wrapper"
+    );
+
+
+  if (wrapper) {
+
+    wrapper.style.display =
+      "flex";
+
+    wrapper.style.flexWrap =
+      "wrap";
+
+    wrapper.style.visibility =
+      "visible";
+
+    wrapper.style.opacity =
+      "1";
+
+  }
+
+
+  alphabetList.style.display =
+    "flex";
+
+  alphabetList.style.flexWrap =
+    "wrap";
+
+  alphabetList.style.gap =
+    "6px";
+
+  alphabetList.style.width =
+    "100%";
+
+  alphabetList.style.visibility =
+    "visible";
+
+  alphabetList.style.opacity =
+    "1";
+
 
   const allButton =
     document.querySelector(
       '.alphabet-btn[data-letter="all"]'
     );
+
 
   if (allButton) {
 
@@ -1140,7 +1494,11 @@ function setupAlphabet() {
       "active"
     );
 
+    allButton.style.display =
+      "inline-flex";
+
   }
+
 
   "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     .split("")
@@ -1152,26 +1510,37 @@ function setupAlphabet() {
             "button"
           );
 
+
         button.type =
           "button";
+
 
         button.className =
           "alphabet-btn";
 
+
         button.textContent =
           letter;
 
+
         button.dataset.letter =
           letter.toLowerCase();
+
+
+        /*
+          A letter is enabled only if at least one loaded
+          vocabulary item belongs to that file.
+        */
 
         const exists =
           vocabulary.some(
             word =>
               String(
-                word.letter
+                word.letter || ""
               ).toLowerCase() ===
               letter.toLowerCase()
           );
+
 
         if (!exists) {
 
@@ -1184,6 +1553,7 @@ function setupAlphabet() {
 
         }
 
+
         alphabetList.appendChild(
           button
         );
@@ -1194,6 +1564,10 @@ function setupAlphabet() {
 }
 
 
+/* =========================================================
+   ALPHABET CLICK
+========================================================= */
+
 document.addEventListener(
   "click",
   function (event) {
@@ -1203,6 +1577,7 @@ document.addEventListener(
         ".alphabet-btn"
       );
 
+
     if (
       !button ||
       button.disabled
@@ -1211,6 +1586,7 @@ document.addEventListener(
       return;
 
     }
+
 
     document
       .querySelectorAll(
@@ -1223,37 +1599,139 @@ document.addEventListener(
           )
       );
 
+
     button.classList.add(
       "active"
     );
 
+
     currentLetter =
-      button.dataset.letter;
+      (
+        button.dataset.letter ||
+        "all"
+      ).toLowerCase();
 
-    if (
-      currentLetter === "all"
-    ) {
 
-      displayWords(
-        vocabulary
-      );
+    const query =
+      document.getElementById(
+        "search-input"
+      )?.value
+        ?.trim()
+        ?.toLowerCase() ||
+      "";
 
-    } else {
 
-      displayWords(
-        vocabulary.filter(
-          word =>
-            String(
-              word.letter
-            ).toLowerCase() ===
-            currentLetter
-        )
-      );
-
-    }
+    filterAndDisplayVocabulary(
+      query,
+      currentLetter
+    );
 
   }
 );
+
+
+/* =========================================================
+   FILTER VOCABULARY
+========================================================= */
+
+function filterAndDisplayVocabulary(
+  query = "",
+  letter = currentLetter
+) {
+
+  let wordsToSearch =
+    vocabulary;
+
+
+  if (
+    letter &&
+    letter !== "all"
+  ) {
+
+    wordsToSearch =
+      vocabulary.filter(
+        word =>
+          String(
+            word.letter || ""
+          ).toLowerCase() ===
+          letter.toLowerCase()
+      );
+
+  }
+
+
+  const normalizedQuery =
+    String(query)
+      .trim()
+      .toLowerCase();
+
+
+  if (!normalizedQuery) {
+
+    displayWords(
+      wordsToSearch
+    );
+
+    return;
+
+  }
+
+
+  const results =
+    wordsToSearch.filter(
+      word => {
+
+        const chinese =
+          String(
+            getVocabularyWord(word)
+          ).toLowerCase();
+
+
+        const pinyin =
+          String(
+            getVocabularyPinyin(word)
+          ).toLowerCase();
+
+
+        const meaning =
+          String(
+            getVocabularyMeaning(word)
+          ).toLowerCase();
+
+
+        const sentence =
+          String(
+            getExampleSentence(word)
+          ).toLowerCase();
+
+
+        return (
+          chinese.includes(
+            normalizedQuery
+          ) ||
+
+          pinyin.includes(
+            normalizedQuery
+          ) ||
+
+          meaning.includes(
+            normalizedQuery
+          ) ||
+
+          sentence.includes(
+            normalizedQuery
+          )
+        );
+
+      }
+    );
+
+
+  displayWords(
+    results
+  );
+
+}
 
 
 /* =========================================================
@@ -1267,18 +1745,25 @@ function displayWords(words) {
       "word-list"
     );
 
+
   if (!wordList) {
 
     return;
 
   }
 
-  wordList.innerHTML = "";
+
+  wordList.innerHTML =
+    "";
+
 
   currentWords =
-    words;
+    Array.isArray(words)
+      ? words
+      : [];
 
-  if (!words.length) {
+
+  if (!currentWords.length) {
 
     wordList.innerHTML =
       `
@@ -1287,11 +1772,13 @@ function displayWords(words) {
         </div>
       `;
 
+
     return;
 
   }
 
-  words.forEach(
+
+  currentWords.forEach(
     word => {
 
       const card =
@@ -1299,29 +1786,37 @@ function displayWords(words) {
           "div"
         );
 
+
       card.className =
         "word-card";
+
+
+      const chinese =
+        getVocabularyWord(word);
+
+
+      const pinyin =
+        getVocabularyPinyin(word);
+
+
+      const meaning =
+        getVocabularyMeaning(word);
+
 
       card.innerHTML =
         `
           <div class="word-card-main">
 
             <h3>
-              ${escapeHTML(
-                word.words
-              )}
+              ${escapeHTML(chinese)}
             </h3>
 
             <p class="word-pinyin">
-              ${escapeHTML(
-                word.Pinyin
-              )}
+              ${escapeHTML(pinyin)}
             </p>
 
             <p class="word-meaning">
-              ${escapeHTML(
-                word.Meaning
-              )}
+              ${escapeHTML(meaning)}
             </p>
 
           </div>
@@ -1331,14 +1826,18 @@ function displayWords(words) {
           </div>
         `;
 
+
       card.addEventListener(
         "click",
         function () {
 
-          showWord(word);
+          showWord(
+            word
+          );
 
         }
       );
+
 
       wordList.appendChild(
         card
@@ -1362,61 +1861,107 @@ function showWord(word) {
       "word-title"
     );
 
+
   const pinyin =
     document.getElementById(
       "word-pinyin"
     );
+
 
   const meaning =
     document.getElementById(
       "word-meaning"
     );
 
+
   const sentence =
     document.getElementById(
       "word-sentence"
     );
 
+
+  const chinese =
+    getVocabularyWord(
+      word
+    );
+
+
+  const pinyinText =
+    getVocabularyPinyin(
+      word
+    );
+
+
+  const meaningText =
+    getVocabularyMeaning(
+      word
+    );
+
+
+  const sentenceText =
+    getExampleSentence(
+      word
+    );
+
+
   if (title) {
 
     title.textContent =
-      word.words || "";
+      chinese || "—";
 
   }
+
 
   if (pinyin) {
 
     pinyin.textContent =
-      word.Pinyin || "";
+      pinyinText || "—";
 
   }
+
 
   if (meaning) {
 
     meaning.textContent =
-      word.Meaning || "";
+      meaningText || "—";
 
   }
 
-  /* =====================================================
-     IMPORTANT:
-     Example sentence is restored here.
-  ===================================================== */
 
   if (sentence) {
 
+    /*
+      Always clear previous sentence first.
+      This prevents the previous word's sentence from
+      remaining in the modal.
+    */
+
+    sentence.innerHTML =
+      "";
+
+
     sentence.textContent =
-      word.Sentences || "";
+      sentenceText ||
+      "No example sentence available.";
+
 
     sentence.dataset.highlightTarget =
-      `word-${word.letter}-${word.id}-sentence`;
+      `word-${String(
+        word.letter || "x"
+      ).toLowerCase()}-${String(
+        word.id ??
+        word._index ??
+        Date.now()
+      )}-sentence`;
 
   }
+
 
   const detail =
     document.getElementById(
       "word-detail"
     );
+
 
   if (detail) {
 
@@ -1424,16 +1969,42 @@ function showWord(word) {
       "hidden"
     );
 
+
+    detail.style.display =
+      "flex";
+
   }
+
 
   setTimeout(
     function () {
 
       if (sentence) {
 
-        renderHighlightsForElement(
-          sentence
-        );
+        /*
+          Do not destroy the sentence if there are no
+          saved highlights.
+        */
+
+        const target =
+          sentence.dataset.highlightTarget;
+
+
+        const hasHighlights =
+          highlights.some(
+            item =>
+              item.target ===
+              target
+          );
+
+
+        if (hasHighlights) {
+
+          rerenderHighlightableElement(
+            sentence
+          );
+
+        }
 
       }
 
@@ -1453,6 +2024,7 @@ const closeWordDetail =
     "close-word-detail"
   );
 
+
 if (closeWordDetail) {
 
   closeWordDetail.addEventListener(
@@ -1463,6 +2035,7 @@ if (closeWordDetail) {
         document.getElementById(
           "word-detail"
         );
+
 
       if (detail) {
 
@@ -1478,6 +2051,73 @@ if (closeWordDetail) {
 }
 
 
+/* Close modal when clicking the dark background */
+
+const wordDetailModal =
+  document.getElementById(
+    "word-detail"
+  );
+
+
+if (wordDetailModal) {
+
+  wordDetailModal.addEventListener(
+    "click",
+    function (event) {
+
+      if (
+        event.target ===
+        wordDetailModal
+      ) {
+
+        wordDetailModal.classList.add(
+          "hidden"
+        );
+
+      }
+
+    }
+  );
+
+}
+
+
+/* Close modal with Escape */
+
+document.addEventListener(
+  "keydown",
+  function (event) {
+
+    if (
+      event.key ===
+      "Escape"
+    ) {
+
+      const detail =
+        document.getElementById(
+          "word-detail"
+        );
+
+
+      if (
+        detail &&
+        !detail.classList.contains(
+          "hidden"
+        )
+      ) {
+
+        detail.classList.add(
+          "hidden"
+        );
+
+      }
+
+    }
+
+  }
+);
+
+
 /* =========================================================
    SEARCH
 ========================================================= */
@@ -1486,6 +2126,7 @@ const searchInput =
   document.getElementById(
     "search-input"
   );
+
 
 if (searchInput) {
 
@@ -1498,76 +2139,10 @@ if (searchInput) {
           .trim()
           .toLowerCase();
 
-      let wordsToSearch;
 
-      if (
-        currentLetter === "all"
-      ) {
-
-        wordsToSearch =
-          vocabulary;
-
-      } else {
-
-        wordsToSearch =
-          vocabulary.filter(
-            word =>
-              String(
-                word.letter
-              ).toLowerCase() ===
-              currentLetter
-          );
-
-      }
-
-      if (!query) {
-
-        displayWords(
-          wordsToSearch
-        );
-
-        return;
-
-      }
-
-      const results =
-        wordsToSearch.filter(
-          word =>
-
-            String(
-              word.words
-            )
-              .toLowerCase()
-              .includes(query)
-
-            ||
-
-            String(
-              word.Pinyin
-            )
-              .toLowerCase()
-              .includes(query)
-
-            ||
-
-            String(
-              word.Meaning
-            )
-              .toLowerCase()
-              .includes(query)
-
-            ||
-
-            String(
-              word.Sentences
-            )
-              .toLowerCase()
-              .includes(query)
-
-        );
-
-      displayWords(
-        results
+      filterAndDisplayVocabulary(
+        query,
+        currentLetter
       );
 
     }
@@ -1654,15 +2229,18 @@ async function loadParagraphs() {
 
   }
 
+
   console.log(
     `Paragraphs loaded: ${paragraphs.length}`
   );
+
 
   if (paragraphs.length) {
 
     showParagraph(0);
 
   }
+
 
   updateStatistics();
 
@@ -1677,13 +2255,16 @@ function showParagraph(index) {
 
   }
 
+
   currentParagraphIndex =
     index;
+
 
   const paragraph =
     paragraphs[
       currentParagraphIndex
     ];
+
 
   if (!paragraph) {
 
@@ -1691,20 +2272,24 @@ function showParagraph(index) {
 
   }
 
+
   const title =
     document.getElementById(
       "paragraph-title"
     );
+
 
   const text =
     document.getElementById(
       "paragraph-text"
     );
 
+
   const pinyin =
     document.getElementById(
       "paragraph-pinyin"
     );
+
 
   if (title) {
 
@@ -1715,9 +2300,11 @@ function showParagraph(index) {
 
   }
 
+
   if (text) {
 
-    text.innerHTML = "";
+    text.innerHTML =
+      "";
 
     text.textContent =
       paragraph.paragraph ||
@@ -1731,9 +2318,11 @@ function showParagraph(index) {
 
   }
 
+
   if (pinyin) {
 
-    pinyin.innerHTML = "";
+    pinyin.innerHTML =
+      "";
 
     pinyin.textContent =
       paragraph.Pinyin ||
@@ -1745,7 +2334,9 @@ function showParagraph(index) {
 
   }
 
+
   updateParagraphCounter();
+
 
   setTimeout(
     function () {
@@ -1757,6 +2348,7 @@ function showParagraph(index) {
         );
 
       }
+
 
       if (pinyin) {
 
@@ -1780,11 +2372,13 @@ function updateParagraphCounter() {
       "paragraph-counter"
     );
 
+
   if (!counter) {
 
     return;
 
   }
+
 
   counter.textContent =
     `${currentParagraphIndex + 1} / ${paragraphs.length}`;
@@ -1796,6 +2390,7 @@ const nextParagraph =
   document.getElementById(
     "next-paragraph"
   );
+
 
 if (nextParagraph) {
 
@@ -1811,6 +2406,7 @@ if (nextParagraph) {
 
       currentParagraphIndex++;
 
+
       if (
         currentParagraphIndex >=
         paragraphs.length
@@ -1819,6 +2415,7 @@ if (nextParagraph) {
         currentParagraphIndex = 0;
 
       }
+
 
       showParagraph(
         currentParagraphIndex
@@ -1835,6 +2432,7 @@ const previousParagraph =
     "previous-paragraph"
   );
 
+
 if (previousParagraph) {
 
   previousParagraph.addEventListener(
@@ -1849,6 +2447,7 @@ if (previousParagraph) {
 
       currentParagraphIndex--;
 
+
       if (
         currentParagraphIndex < 0
       ) {
@@ -1857,6 +2456,7 @@ if (previousParagraph) {
           paragraphs.length - 1;
 
       }
+
 
       showParagraph(
         currentParagraphIndex
@@ -1877,10 +2477,12 @@ const togglePinyin =
     "toggle-pinyin"
   );
 
+
 const paragraphPinyin =
   document.getElementById(
     "paragraph-pinyin"
   );
+
 
 if (
   togglePinyin &&
@@ -1894,6 +2496,7 @@ if (
       paragraphPinyin.classList.toggle(
         "hidden"
       );
+
 
       togglePinyin.textContent =
         paragraphPinyin.classList.contains(
@@ -1917,6 +2520,7 @@ const readingProgress =
     "reading-progress"
   );
 
+
 window.addEventListener(
   "scroll",
   function () {
@@ -1927,10 +2531,12 @@ window.addEventListener(
 
     }
 
+
     const documentHeight =
       document.documentElement
         .scrollHeight -
       window.innerHeight;
+
 
     if (
       documentHeight <= 0
@@ -1943,12 +2549,14 @@ window.addEventListener(
 
     }
 
+
     const progress =
       (
         window.scrollY /
         documentHeight
       ) *
       100;
+
 
     readingProgress.style.width =
       `${Math.min(
@@ -2009,7 +2617,6 @@ function getCollocationFileList() {
 /* =========================================================
    LOAD COLLOCATION FILES
 
-   IMPORTANT:
    Missing files are ignored.
    Only existing JSON files appear.
 ========================================================= */
@@ -2020,6 +2627,7 @@ async function loadCollocations() {
 
   const files =
     getCollocationFileList();
+
 
   for (
     let i = 0;
@@ -2034,6 +2642,7 @@ async function loadCollocations() {
           files[i]
         );
 
+
       if (
         !Array.isArray(data)
       ) {
@@ -2043,6 +2652,7 @@ async function loadCollocations() {
         );
 
       }
+
 
       collocationSets.push({
 
@@ -2056,6 +2666,7 @@ async function loadCollocations() {
           data
 
       });
+
 
     } catch (error) {
 
@@ -2072,9 +2683,11 @@ async function loadCollocations() {
 
   }
 
+
   console.log(
     `Collocation files loaded: ${collocationSets.length}`
   );
+
 
   createCollocationInterface();
 
@@ -2092,6 +2705,7 @@ function createCollocationInterface() {
       "collocation"
     );
 
+
   if (!section) {
 
     section =
@@ -2105,10 +2719,12 @@ function createCollocationInterface() {
     section.className =
       "page-section";
 
+
     const main =
       document.querySelector(
         "main"
       );
+
 
     if (main) {
 
@@ -2120,11 +2736,13 @@ function createCollocationInterface() {
 
   }
 
+
   if (!section) {
 
     return;
 
   }
+
 
   section.innerHTML =
     `
@@ -2190,6 +2808,7 @@ function createCollocationInterface() {
       "nav"
     );
 
+
   if (
     nav &&
     !nav.querySelector(
@@ -2226,6 +2845,7 @@ function createCollocationInterface() {
       "collocation-file-prev"
     );
 
+
   const next =
     document.getElementById(
       "collocation-file-next"
@@ -2246,6 +2866,7 @@ function createCollocationInterface() {
 
         }
 
+
         currentCollocationFileIndex =
           (
             currentCollocationFileIndex -
@@ -2253,6 +2874,7 @@ function createCollocationInterface() {
             collocationSets.length
           ) %
           collocationSets.length;
+
 
         currentCollocationQuestionIndex =
           0;
@@ -2285,12 +2907,14 @@ function createCollocationInterface() {
 
         }
 
+
         currentCollocationFileIndex =
           (
             currentCollocationFileIndex +
             1
           ) %
           collocationSets.length;
+
 
         currentCollocationQuestionIndex =
           0;
@@ -2308,6 +2932,7 @@ function createCollocationInterface() {
 
   }
 
+
   renderCollocationQuestion();
 
 }
@@ -2324,6 +2949,7 @@ function getCurrentCollocationQuestion() {
       currentCollocationFileIndex
     ];
 
+
   if (
     !set ||
     !Array.isArray(
@@ -2335,6 +2961,7 @@ function getCurrentCollocationQuestion() {
     return null;
 
   }
+
 
   return (
     set.questions[
@@ -2357,16 +2984,19 @@ function renderCollocationQuestion() {
       "collocation-content"
     );
 
+
   const fileName =
     document.getElementById(
       "collocation-file-name"
     );
+
 
   if (!content) {
 
     return;
 
   }
+
 
   collocationSelected =
     new Set();
@@ -2388,6 +3018,7 @@ function renderCollocationQuestion() {
 
     }
 
+
     content.innerHTML =
       `
         <div class="empty-state">
@@ -2408,8 +3039,10 @@ function renderCollocationQuestion() {
       currentCollocationFileIndex
     ];
 
+
   const question =
     getCurrentCollocationQuestion();
+
 
   if (!question) {
 
@@ -2582,10 +3215,12 @@ function renderCollocationQuestion() {
 
             }
 
+
             const index =
               Number(
                 button.dataset.choiceIndex
               );
+
 
             if (
               collocationSelected.has(
@@ -2625,6 +3260,7 @@ function renderCollocationQuestion() {
       "collocation-check"
     );
 
+
   if (check) {
 
     check.addEventListener(
@@ -2639,6 +3275,7 @@ function renderCollocationQuestion() {
     document.getElementById(
       "collocation-next"
     );
+
 
   if (next) {
 
@@ -2666,8 +3303,10 @@ function checkCollocationAnswer() {
 
   }
 
+
   const question =
     getCurrentCollocationQuestion();
+
 
   if (!question) {
 
@@ -2706,6 +3345,7 @@ function checkCollocationAnswer() {
             button.dataset.choiceIndex
           );
 
+
         if (
           collocationSelected.has(
             index
@@ -2736,6 +3376,7 @@ function checkCollocationAnswer() {
   collocationChecked =
     true;
 
+
   collocationAnswered++;
 
 
@@ -2758,8 +3399,10 @@ function checkCollocationAnswer() {
             button.dataset.choice
           );
 
+
         const isCorrect =
           correct.has(choice);
+
 
         const isSelected =
           collocationSelected.has(
@@ -2768,8 +3411,10 @@ function checkCollocationAnswer() {
             )
           );
 
+
         button.disabled =
           true;
+
 
         button.classList.remove(
           "selected"
@@ -2798,6 +3443,7 @@ function checkCollocationAnswer() {
     document.getElementById(
       "collocation-result"
     );
+
 
   if (result) {
 
@@ -2854,6 +3500,7 @@ function nextCollocationQuestion() {
       currentCollocationFileIndex
     ];
 
+
   if (
     !set ||
     !set.questions.length
@@ -2863,7 +3510,9 @@ function nextCollocationQuestion() {
 
   }
 
+
   currentCollocationQuestionIndex++;
+
 
   if (
     currentCollocationQuestionIndex >=
@@ -2875,7 +3524,9 @@ function nextCollocationQuestion() {
 
   }
 
+
   renderCollocationQuestion();
+
 
   window.scrollTo({
     top: 0,
@@ -2901,13 +3552,16 @@ function nextCollocationQuestion() {
 
   }
 
+
   const style =
     document.createElement(
       "style"
     );
 
+
   style.id =
     "collocation-runtime-styles";
+
 
   style.textContent =
     `
@@ -3175,6 +3829,7 @@ function nextCollocationQuestion() {
 
     `;
 
+
   document.head.appendChild(
     style
   );
@@ -3193,10 +3848,12 @@ function updateStatistics() {
       "total-words"
     );
 
+
   const totalParagraphs =
     document.getElementById(
       "total-paragraphs"
     );
+
 
   if (totalWords) {
 
@@ -3204,6 +3861,7 @@ function updateStatistics() {
       vocabulary.length;
 
   }
+
 
   if (totalParagraphs) {
 
@@ -3226,37 +3884,45 @@ function updateCountdown() {
       "2026-10-11T09:00:00+07:00"
     );
 
+
   const now =
     new Date();
+
 
   const difference =
     examDate.getTime() -
     now.getTime();
+
 
   const days =
     document.getElementById(
       "countdown-days"
     );
 
+
   const hours =
     document.getElementById(
       "countdown-hours"
     );
+
 
   const minutes =
     document.getElementById(
       "countdown-minutes"
     );
 
+
   const seconds =
     document.getElementById(
       "countdown-seconds"
     );
 
+
   const message =
     document.getElementById(
       "countdown-message"
     );
+
 
   if (
     !days ||
@@ -3268,6 +3934,7 @@ function updateCountdown() {
     return;
 
   }
+
 
   if (
     difference <= 0
@@ -3285,6 +3952,7 @@ function updateCountdown() {
     seconds.textContent =
       "00";
 
+
     if (message) {
 
       message.textContent =
@@ -3292,19 +3960,23 @@ function updateCountdown() {
 
     }
 
+
     return;
 
   }
+
 
   const totalSeconds =
     Math.floor(
       difference / 1000
     );
 
+
   const d =
     Math.floor(
       totalSeconds / 86400
     );
+
 
   const h =
     Math.floor(
@@ -3313,6 +3985,7 @@ function updateCountdown() {
       ) / 3600
     );
 
+
   const m =
     Math.floor(
       (
@@ -3320,11 +3993,14 @@ function updateCountdown() {
       ) / 60
     );
 
+
   const s =
     totalSeconds % 60;
 
+
   days.textContent =
     d;
+
 
   hours.textContent =
     String(h).padStart(
@@ -3332,11 +4008,13 @@ function updateCountdown() {
       "0"
     );
 
+
   minutes.textContent =
     String(m).padStart(
       2,
       "0"
     );
+
 
   seconds.textContent =
     String(s).padStart(
@@ -3348,6 +4026,7 @@ function updateCountdown() {
 
 
 updateCountdown();
+
 
 setInterval(
   updateCountdown,
@@ -3363,6 +4042,7 @@ const startExam =
   document.getElementById(
     "start-exam"
   );
+
 
 if (startExam) {
 
@@ -3388,6 +4068,7 @@ function startVocabularyExam() {
 
   }
 
+
   examQuestions =
     shuffle(
       [...vocabulary]
@@ -3399,11 +4080,14 @@ function startVocabularyExam() {
       )
     );
 
+
   examIndex =
     0;
 
+
   examScore =
     0;
+
 
   showExamQuestion();
 
@@ -3417,11 +4101,13 @@ function showExamQuestion() {
       "exam-container"
     );
 
+
   if (!container) {
 
     return;
 
   }
+
 
   if (
     examIndex >=
@@ -3433,17 +4119,20 @@ function showExamQuestion() {
 
   }
 
+
   const question =
     examQuestions[
       examIndex
     ];
 
+
   const otherWords =
     vocabulary.filter(
       word =>
-        word.words !==
-        question.words
+        getVocabularyWord(word) !==
+        getVocabularyWord(question)
     );
+
 
   const wrongAnswers =
     shuffle(
@@ -3453,6 +4142,7 @@ function showExamQuestion() {
       3
     );
 
+
   const options =
     shuffle(
       [
@@ -3460,6 +4150,7 @@ function showExamQuestion() {
         ...wrongAnswers
       ]
     );
+
 
   container.innerHTML =
     `
@@ -3474,13 +4165,13 @@ function showExamQuestion() {
 
         <div class="exam-word">
           ${escapeHTML(
-            question.words
+            getVocabularyWord(question)
           )}
         </div>
 
         <div class="exam-pinyin">
           ${escapeHTML(
-            question.Pinyin
+            getVocabularyPinyin(question)
           )}
         </div>
 
@@ -3494,12 +4185,12 @@ function showExamQuestion() {
                     <button
                       class="exam-option"
                       data-answer="${escapeHTML(
-                        option.words
+                        getVocabularyWord(option)
                       )}"
                       type="button"
                     >
                       ${escapeHTML(
-                        option.Meaning
+                        getVocabularyMeaning(option)
                       )}
                     </button>
                   `
@@ -3527,9 +4218,16 @@ function showExamQuestion() {
             const answer =
               button.dataset.answer;
 
+
+            const correctAnswer =
+              getVocabularyWord(
+                question
+              );
+
+
             if (
               answer ===
-              question.words
+              correctAnswer
             ) {
 
               button.classList.add(
@@ -3544,6 +4242,7 @@ function showExamQuestion() {
                 "wrong"
               );
 
+
               const correct =
                 Array.from(
                   container.querySelectorAll(
@@ -3552,8 +4251,9 @@ function showExamQuestion() {
                 ).find(
                   btn =>
                     btn.dataset.answer ===
-                    question.words
+                    correctAnswer
                 );
+
 
               if (correct) {
 
@@ -3565,6 +4265,7 @@ function showExamQuestion() {
 
             }
 
+
             container
               .querySelectorAll(
                 ".exam-option"
@@ -3574,6 +4275,7 @@ function showExamQuestion() {
                   btn.disabled =
                     true
               );
+
 
             setTimeout(
               function () {
@@ -3602,22 +4304,60 @@ function showExamResult() {
       "exam-container"
     );
 
+
   if (!container) {
 
     return;
 
   }
 
+
+  const percentage =
+    Math.round(
+      (
+        examScore /
+        examQuestions.length
+      ) *
+      100
+    );
+
+
+  let message =
+    "Keep practicing! 加油！";
+
+
+  if (percentage >= 90) {
+
+    message =
+      "Excellent work! 太棒了！";
+
+  } else if (
+    percentage >= 70
+  ) {
+
+    message =
+      "Good job! Keep improving!";
+
+  } else if (
+    percentage >= 50
+  ) {
+
+    message =
+      "You're making progress. Keep studying!";
+
+  }
+
+
   container.innerHTML =
     `
       <div class="exam-result">
 
         <p class="section-label">
-          COMPLETE
+          RESULT
         </p>
 
         <h3>
-          Practice Complete
+          Exam Complete
         </h3>
 
         <div class="exam-score">
@@ -3627,10 +4367,12 @@ function showExamResult() {
         </div>
 
         <p>
-          Keep practicing. 加油！
+          ${percentage}%
         </p>
 
-        <br>
+        <p>
+          ${message}
+        </p>
 
         <button
           id="restart-exam"
@@ -3649,6 +4391,7 @@ function showExamResult() {
       "restart-exam"
     );
 
+
   if (restart) {
 
     restart.addEventListener(
@@ -3662,72 +4405,70 @@ function showExamResult() {
 
 
 /* =========================================================
-   HSK 5 DRAG & DROP
+   HSK 5 DRAG & DROP READING PRACTICE
 ========================================================= */
 
 let dragDropPassages = [];
-let dragDropPassageIndex = 0;
-let dragDropAnswers = {};
-let dragDropScore = 0;
 
-const DRAG_DROP_JSON_FILE =
-  "./HSK5_Vocabulary_DragDrop_25_Passages.json";
+let dragDropPassageIndex =
+  0;
 
 
 /* =========================================================
-   LOAD DRAG & DROP
+   LOAD DRAG & DROP DATA
 ========================================================= */
 
 async function loadDragDropPractice() {
 
+  const file =
+    "./HSK5_Vocabulary_DragDrop_25_Passages.json";
+
+
   try {
 
-    const response =
-      await fetch(
-        DRAG_DROP_JSON_FILE,
-        {
-          cache: "no-store"
-        }
-      );
-
-    if (!response.ok) {
-
-      throw new Error(
-        `${DRAG_DROP_JSON_FILE} → HTTP ${response.status}`
-      );
-
-    }
-
     const data =
-      await response.json();
+      await loadJSON(file);
+
 
     if (
-      !data ||
-      !Array.isArray(
+      Array.isArray(data)
+    ) {
+
+      dragDropPassages =
+        data;
+
+    } else if (
+      data &&
+      Array.isArray(
         data.passages
       )
     ) {
 
+      dragDropPassages =
+        data.passages;
+
+    } else {
+
       throw new Error(
-        "Invalid HSK 5 drag-and-drop JSON format."
+        "Invalid drag & drop JSON format."
       );
 
     }
 
-    dragDropPassages =
-      data.passages;
 
     console.log(
-      `HSK 5 Drag & Drop loaded: ${dragDropPassages.length} passages`
+      `Drag & Drop passages loaded: ${dragDropPassages.length}`
     );
 
-    createDragDropInterface();
+
+    createDragDropSection();
+
 
   } catch (error) {
 
-    console.error(
-      "Could not load HSK 5 Drag & Drop practice:",
-      error
+    console.warn(
+      "Could not load HSK5 drag & drop practice:",
+      error.message
     );
 
   }
@@ -3736,62 +4477,87 @@ async function loadDragDropPractice() {
 
 
 /* =========================================================
-   CREATE DRAG & DROP INTERFACE
+   CREATE DRAG & DROP SECTION
 ========================================================= */
 
-function createDragDropInterface() {
+function createDragDropSection() {
 
   if (
-    document.getElementById(
-      "hsk5-drag-drop-section"
-    )
+    !dragDropPassages.length
   ) {
 
     return;
 
   }
 
-  const section =
-    document.createElement(
-      "section"
+
+  let section =
+    document.getElementById(
+      "hsk5-drag-drop-section"
     );
 
-  section.id =
-    "hsk5-drag-drop-section";
 
-  section.className =
-    "page-section";
+  if (!section) {
+
+    section =
+      document.createElement(
+        "section"
+      );
+
+    section.id =
+      "hsk5-drag-drop-section";
+
+    section.className =
+      "page-section";
+
+
+    const main =
+      document.querySelector(
+        "main"
+      );
+
+
+    if (main) {
+
+      main.appendChild(
+        section
+      );
+
+    }
+
+  }
+
+
+  if (!section) {
+
+    return;
+
+  }
 
 
   section.innerHTML =
     `
-      <div
-        class="section-inner hsk5-drag-drop-wrapper"
-      >
+      <div class="hsk5-drag-drop-wrapper">
 
-        <div
-          class="hsk5-drag-drop-header"
-        >
+        <div class="hsk5-drag-drop-header">
 
           <p class="section-label">
-            HSK 5 VOCABULARY PRACTICE
+            HSK 5 READING
           </p>
 
           <h2>
-            Drag & Drop Reading
+            Vocabulary Drag & Drop
           </h2>
 
           <p>
-            Read the passage and drag the correct
-            vocabulary into each blank.
+            Drag the correct vocabulary words
+            into the blanks.
           </p>
 
         </div>
 
 
-        <div
-          class="hsk5-drag-drop-controls"
-        >
+        <div class="hsk5-drag-drop-controls">
 
           <button
             id="hsk5-drag-drop-prev"
@@ -3812,7 +4578,7 @@ function createDragDropInterface() {
 
           <button
             id="hsk5-drag-drop-next"
-            class="primary-btn"
+            class="secondary-btn"
             type="button"
           >
             Next →
@@ -3830,27 +4596,48 @@ function createDragDropInterface() {
     `;
 
 
-  const main =
+  const nav =
     document.querySelector(
-      "main"
+      "nav"
     );
 
-  if (main) {
 
-    main.appendChild(
-      section
+  if (
+    nav &&
+    !nav.querySelector(
+      '[data-section="hsk5-drag-drop-section"]'
+    )
+  ) {
+
+    const button =
+      document.createElement(
+        "button"
+      );
+
+    button.type =
+      "button";
+
+    button.className =
+      "nav-btn";
+
+    button.dataset.section =
+      "hsk5-drag-drop-section";
+
+    button.textContent =
+      "Drag & Drop";
+
+    nav.appendChild(
+      button
     );
 
   }
-
-
-  createDragDropNavigationButton();
 
 
   const previous =
     document.getElementById(
       "hsk5-drag-drop-prev"
     );
+
 
   const next =
     document.getElementById(
@@ -3872,14 +4659,11 @@ function createDragDropInterface() {
 
         }
 
+
         dragDropPassageIndex--;
 
-        renderDragDropPassage();
 
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
+        renderDragDropPassage();
 
       }
     );
@@ -3902,14 +4686,11 @@ function createDragDropInterface() {
 
         }
 
+
         dragDropPassageIndex++;
 
-        renderDragDropPassage();
 
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
+        renderDragDropPassage();
 
       }
     );
@@ -3923,51 +4704,16 @@ function createDragDropInterface() {
 
 
 /* =========================================================
-   DRAG & DROP NAVIGATION BUTTON
+   GET DRAG & DROP PASSAGE
 ========================================================= */
 
-function createDragDropNavigationButton() {
+function getDragDropPassage() {
 
-  if (
-    document.querySelector(
-      '[data-section="hsk5-drag-drop-section"]'
-    )
-  ) {
-
-    return;
-
-  }
-
-  const nav =
-    document.querySelector(
-      "nav"
-    );
-
-  if (!nav) {
-
-    return;
-
-  }
-
-  const button =
-    document.createElement(
-      "button"
-    );
-
-  button.type =
-    "button";
-
-  button.className =
-    "nav-btn";
-
-  button.dataset.section =
-    "hsk5-drag-drop-section";
-
-  button.textContent =
-    "Drag & Drop";
-
-  nav.appendChild(
-    button
+  return (
+    dragDropPassages[
+      dragDropPassageIndex
+    ] ||
+    null
   );
 
 }
@@ -3979,195 +4725,163 @@ function createDragDropNavigationButton() {
 
 function renderDragDropPassage() {
 
-  const container =
+  const content =
     document.getElementById(
       "hsk5-drag-drop-content"
     );
 
-  if (
-    !container ||
-    !dragDropPassages.length
-  ) {
+
+  if (!content) {
 
     return;
 
   }
 
+
   const passage =
-    dragDropPassages[
-      dragDropPassageIndex
-    ];
+    getDragDropPassage();
+
 
   if (!passage) {
 
+    content.innerHTML =
+      `
+        <div class="empty-state">
+          No passage available.
+        </div>
+      `;
+
     return;
 
   }
 
-  dragDropAnswers = {};
+
+  updateDragDropCounter();
+
+
+  const title =
+    passage.title ||
+    passage.Title ||
+    passage.name ||
+    "";
 
 
   const words =
-    passage.questions.map(
-      question =>
-        question.answer
-    );
+    Array.isArray(
+      passage.words
+    )
+      ? passage.words
+      : Array.isArray(
+          passage.options
+        )
+        ? passage.options
+        : [];
 
 
-  const shuffledWords =
-    shuffle(
-      [...words]
-    );
+  const text =
+    passage.text ||
+    passage.Text ||
+    passage.passage ||
+    passage.Passage ||
+    "";
 
 
   let passageHTML =
-    escapeHTML(
-      passage.passage
-    );
+    escapeHTML(text);
 
 
-  passage.questions.forEach(
-    question => {
+  /*
+    Support [1], [2], [3] style blanks.
+  */
 
-      const escapedWord =
-        escapeHTML(
-          question.answer
-        );
+  passageHTML =
+    passageHTML.replace(
+      /\[(\d+)\]/g,
+      function (
+        match,
+        number
+      ) {
 
-      const blank =
-        `
+        return `
           <span
             class="hsk5-drag-drop-blank"
-            data-answer="${escapedWord}"
-            data-question-id="${question.id}"
-            id="dragdrop-blank-${question.id}"
-            ondragover="allowHSK5DragDrop(event)"
-            ondrop="dropHSK5Vocabulary(event)"
+            data-blank="${number}"
+            data-answer=""
           >
             ______
           </span>
         `;
 
-
-      passageHTML =
-        passageHTML.replace(
-          `【${escapedWord}】`,
-          blank
-        );
-
-    }
-  );
+      }
+    );
 
 
-  const optionHTML =
-    shuffledWords
-      .map(
-        word => {
-
-          const escaped =
-            escapeHTML(
-              word
-            );
-
-          return `
-            <div
-              class="hsk5-drag-word"
-              draggable="true"
-              data-word="${escaped}"
-              ondragstart="dragHSK5Vocabulary(event)"
-            >
-              ${escaped}
-            </div>
-          `;
-
-        }
-      )
-      .join("");
-
-
-  container.innerHTML =
+  content.innerHTML =
     `
-      <div
-        class="hsk5-drag-drop-meta"
-      >
+      <div class="hsk5-drag-drop-meta">
 
         <span>
           Passage
-          ${passage.id}
+          ${dragDropPassageIndex + 1}
           /
           ${dragDropPassages.length}
         </span>
 
-
-        <span>
-          ${escapeHTML(
-            passage.level ||
-            "HSK 5"
-          )}
-        </span>
-
-
-        <span>
-          ${
-            passage.wordCountTarget ||
-            passage.questions.length
-          }
-          vocabulary targets
-        </span>
-
-
-        <span>
-          ${
-            passage.estimatedReadingMinutes ||
-            30
-          }
-          min
-        </span>
-
       </div>
 
 
-      <h3
-        class="hsk5-drag-drop-title"
-      >
-        ${escapeHTML(
-          passage.title
-        )}
+      <h3 class="hsk5-drag-drop-title">
+        ${escapeHTML(title)}
       </h3>
 
 
-      <div
-        class="hsk5-drag-drop-word-bank"
-        id="hsk5-drag-drop-word-bank"
-      >
+      <div class="hsk5-drag-drop-word-bank">
 
-        <div
-          class="hsk5-drag-drop-bank-title"
-        >
-          Vocabulary
+        <div class="hsk5-drag-drop-bank-title">
+          Word Bank
         </div>
-
 
         <div
           class="hsk5-drag-drop-options"
+          id="hsk5-drag-drop-options"
         >
-          ${optionHTML}
+
+          ${
+            words
+              .map(
+                word =>
+                  `
+                    <button
+                      type="button"
+                      class="hsk5-drag-word"
+                      draggable="true"
+                      data-word="${escapeHTML(
+                        word
+                      )}"
+                    >
+                      ${escapeHTML(
+                        word
+                      )}
+                    </button>
+                  `
+              )
+              .join("")
+          }
+
         </div>
 
       </div>
 
 
-      <article
+      <div
         class="hsk5-drag-drop-passage"
-        data-highlight-target="hsk5-drag-drop-passage-${passage.id}"
+        id="hsk5-drag-drop-passage"
       >
         ${passageHTML}
-      </article>
+      </div>
 
 
-      <div
-        class="hsk5-drag-drop-actions"
-      >
+      <div class="hsk5-drag-drop-actions">
 
         <button
           id="hsk5-drag-drop-check"
@@ -4176,7 +4890,6 @@ function renderDragDropPassage() {
         >
           Check Answers
         </button>
-
 
         <button
           id="hsk5-drag-drop-reset"
@@ -4196,94 +4909,227 @@ function renderDragDropPassage() {
     `;
 
 
-  setupDragDropButtons();
-
-  updateDragDropCounter();
+  setupDragDropEvents(
+    passage
+  );
 
 }
 
 
 /* =========================================================
-   DRAG EVENTS
+   DRAG & DROP EVENTS
 ========================================================= */
 
-function dragHSK5Vocabulary(event) {
+function setupDragDropEvents(
+  passage
+) {
 
-  const word =
-    event.currentTarget.dataset.word;
-
-  if (
-    event.dataTransfer
-  ) {
-
-    event.dataTransfer.setData(
-      "text/plain",
-      word
+  const words =
+    document.querySelectorAll(
+      ".hsk5-drag-word"
     );
 
-    event.dataTransfer.effectAllowed =
-      "move";
 
-  }
-
-}
-
-
-function allowHSK5DragDrop(event) {
-
-  event.preventDefault();
-
-  if (
-    event.dataTransfer
-  ) {
-
-    event.dataTransfer.dropEffect =
-      "move";
-
-  }
-
-}
+  const blanks =
+    document.querySelectorAll(
+      ".hsk5-drag-drop-blank"
+    );
 
 
-function dropHSK5Vocabulary(event) {
+  let draggedWord =
+    "";
 
-  event.preventDefault();
 
-  const word =
-    event.dataTransfer
-      ? event.dataTransfer.getData(
-          "text/plain"
-        )
-      : "";
+  words.forEach(
+    word => {
 
-  if (!word) {
+      word.addEventListener(
+        "dragstart",
+        function () {
 
-    return;
+          draggedWord =
+            word.dataset.word || "";
 
-  }
+        }
+      );
 
-  const blank =
-    event.currentTarget;
 
-  blank.textContent =
-    word;
+      word.addEventListener(
+        "click",
+        function () {
 
-  blank.classList.add(
-    "filled"
+          const emptyBlank =
+            Array.from(
+              blanks
+            ).find(
+              blank =>
+                !blank.dataset.answer
+            );
+
+
+          if (
+            emptyBlank &&
+            draggedWord !==
+              word.dataset.word
+          ) {
+
+            emptyBlank.dataset.answer =
+              word.dataset.word;
+
+            emptyBlank.textContent =
+              word.dataset.word;
+
+            emptyBlank.classList.add(
+              "filled"
+            );
+
+          }
+
+        }
+      );
+
+    }
   );
 
-  blank.classList.remove(
-    "correct",
-    "wrong"
+
+  blanks.forEach(
+    blank => {
+
+      blank.addEventListener(
+        "dragover",
+        function (event) {
+
+          event.preventDefault();
+
+        }
+      );
+
+
+      blank.addEventListener(
+        "drop",
+        function (event) {
+
+          event.preventDefault();
+
+
+          if (!draggedWord) {
+
+            return;
+
+          }
+
+
+          blank.dataset.answer =
+            draggedWord;
+
+
+          blank.textContent =
+            draggedWord;
+
+
+          blank.classList.add(
+            "filled"
+          );
+
+        }
+      );
+
+
+      blank.addEventListener(
+        "click",
+        function () {
+
+          blank.dataset.answer =
+            "";
+
+
+          blank.textContent =
+            "______";
+
+
+          blank.classList.remove(
+            "filled",
+            "correct",
+            "wrong"
+          );
+
+        }
+      );
+
+    }
   );
 
-  blank.dataset.selectedWord =
-    word;
 
-  dragDropAnswers[
-    blank.dataset.questionId
-  ] =
-    word;
+  const check =
+    document.getElementById(
+      "hsk5-drag-drop-check"
+    );
+
+
+  if (check) {
+
+    check.addEventListener(
+      "click",
+      function () {
+
+        checkDragDropAnswers(
+          passage
+        );
+
+      }
+    );
+
+  }
+
+
+  const reset =
+    document.getElementById(
+      "hsk5-drag-drop-reset"
+    );
+
+
+  if (reset) {
+
+    reset.addEventListener(
+      "click",
+      function () {
+
+        blanks.forEach(
+          blank => {
+
+            blank.dataset.answer =
+              "";
+
+            blank.textContent =
+              "______";
+
+            blank.classList.remove(
+              "filled",
+              "correct",
+              "wrong"
+            );
+
+          }
+        );
+
+
+        const result =
+          document.getElementById(
+            "hsk5-drag-drop-result"
+          );
+
+
+        if (result) {
+
+          result.innerHTML =
+            "";
+
+        }
+
+      }
+    );
+
+  }
 
 }
 
@@ -4292,68 +5138,121 @@ function dropHSK5Vocabulary(event) {
    CHECK DRAG & DROP
 ========================================================= */
 
-function checkHSK5DragDropAnswers() {
+function checkDragDropAnswers(
+  passage
+) {
 
-  const passage =
-    dragDropPassages[
-      dragDropPassageIndex
-    ];
-
-  if (!passage) {
-
-    return;
-
-  }
-
-  let correct = 0;
-  let answered = 0;
+  const blanks =
+    document.querySelectorAll(
+      ".hsk5-drag-drop-blank"
+    );
 
 
-  passage.questions.forEach(
-    question => {
+  let correctCount =
+    0;
 
-      const blank =
-        document.getElementById(
-          `dragdrop-blank-${question.id}`
+
+  let total =
+    blanks.length;
+
+
+  const answers =
+    passage.answers ||
+    passage.Answers ||
+    passage.correctAnswers ||
+    passage.correct ||
+    [];
+
+
+  blanks.forEach(
+    blank => {
+
+      const number =
+        Number(
+          blank.dataset.blank
         );
 
-      if (!blank) {
 
-        return;
+      const userAnswer =
+        String(
+          blank.dataset.answer ||
+          ""
+        ).trim();
 
-      }
 
-      const selected =
-        blank.dataset.selectedWord ||
+      let correctAnswer =
         "";
-
-      if (selected) {
-
-        answered++;
-
-      }
-
-      blank.classList.remove(
-        "correct",
-        "wrong"
-      );
 
 
       if (
-        selected ===
-        question.answer
+        Array.isArray(
+          answers
+        )
       ) {
 
-        correct++;
+        const item =
+          answers[number - 1];
+
+
+        if (
+          typeof item ===
+          "string"
+        ) {
+
+          correctAnswer =
+            item;
+
+        } else if (
+          Array.isArray(item)
+        ) {
+
+          correctAnswer =
+            item[0] ||
+            "";
+
+        }
+
+      } else if (
+        answers &&
+        typeof answers ===
+          "object"
+      ) {
+
+        correctAnswer =
+          answers[number] ||
+          answers[
+            String(number)
+          ] ||
+          "";
+
+      }
+
+
+      if (
+        userAnswer &&
+        String(correctAnswer)
+          .trim() ===
+        userAnswer
+      ) {
 
         blank.classList.add(
           "correct"
         );
 
-      } else if (selected) {
+        blank.classList.remove(
+          "wrong"
+        );
+
+        correctCount++;
+
+      } else {
 
         blank.classList.add(
           "wrong"
+        );
+
+        blank.classList.remove(
+          "correct"
         );
 
       }
@@ -4362,138 +5261,28 @@ function checkHSK5DragDropAnswers() {
   );
 
 
-  dragDropScore =
-    correct;
-
-
   const result =
     document.getElementById(
       "hsk5-drag-drop-result"
     );
+
 
   if (result) {
 
     result.innerHTML =
       `
         <strong>
-          ${correct}
-          /
-          ${passage.questions.length}
+          ${correctCount} / ${total}
         </strong>
 
         <span>
-          ${answered}
-          answered
-          ·
           ${
-            passage.questions.length -
-            answered
+            correctCount === total
+              ? "Excellent! All answers are correct."
+              : "Review the red blanks and try again."
           }
-          unanswered
         </span>
       `;
-
-  }
-
-}
-
-
-/* =========================================================
-   RESET DRAG & DROP
-========================================================= */
-
-function resetHSK5DragDrop() {
-
-  dragDropAnswers = {};
-
-  const passage =
-    dragDropPassages[
-      dragDropPassageIndex
-    ];
-
-  if (!passage) {
-
-    return;
-
-  }
-
-  passage.questions.forEach(
-    question => {
-
-      const blank =
-        document.getElementById(
-          `dragdrop-blank-${question.id}`
-        );
-
-      if (!blank) {
-
-        return;
-
-      }
-
-      blank.textContent =
-        "______";
-
-      blank.classList.remove(
-        "filled",
-        "correct",
-        "wrong"
-      );
-
-      delete blank.dataset.selectedWord;
-
-    }
-  );
-
-
-  const result =
-    document.getElementById(
-      "hsk5-drag-drop-result"
-    );
-
-  if (result) {
-
-    result.innerHTML =
-      "";
-
-  }
-
-}
-
-
-/* =========================================================
-   DRAG & DROP BUTTONS
-========================================================= */
-
-function setupDragDropButtons() {
-
-  const check =
-    document.getElementById(
-      "hsk5-drag-drop-check"
-    );
-
-  const reset =
-    document.getElementById(
-      "hsk5-drag-drop-reset"
-    );
-
-
-  if (check) {
-
-    check.addEventListener(
-      "click",
-      checkHSK5DragDropAnswers
-    );
-
-  }
-
-
-  if (reset) {
-
-    reset.addEventListener(
-      "click",
-      resetHSK5DragDrop
-    );
 
   }
 
@@ -4511,11 +5300,13 @@ function updateDragDropCounter() {
       "hsk5-drag-drop-counter"
     );
 
+
   if (!counter) {
 
     return;
 
   }
+
 
   counter.textContent =
     `${dragDropPassageIndex + 1} / ${dragDropPassages.length}`;
@@ -4525,6 +5316,7 @@ function updateDragDropCounter() {
     document.getElementById(
       "hsk5-drag-drop-prev"
     );
+
 
   const next =
     document.getElementById(
@@ -4562,15 +5354,35 @@ async function initializeApp() {
   );
 
 
+  /*
+    Prepare the alphabet immediately.
+    This means A-Z controls are visible even while the
+    vocabulary JSON files are loading.
+  */
+
+  setupAlphabet();
+
+
   loadHighlights();
 
 
-  await Promise.all(
-    [
-      loadVocabulary(),
-      loadParagraphs()
-    ]
-  );
+  try {
+
+    await Promise.all(
+      [
+        loadVocabulary(),
+        loadParagraphs()
+      ]
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Website initialization error:",
+      error
+    );
+
+  }
 
 
   renderAllHighlights();
@@ -4678,6 +5490,7 @@ function shuffle(array) {
         (i + 1)
       );
 
+
     [
       array[i],
       array[j]
@@ -4687,6 +5500,7 @@ function shuffle(array) {
     ];
 
   }
+
 
   return array;
 
